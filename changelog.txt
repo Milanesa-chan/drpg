@@ -1,0 +1,1 @@
+--- version variable in DRPGBot
