@@ -35,4 +35,12 @@ public class Character implements Embeddable {
 
         return eb.build();
     }
+
+    public long getGuildID() {
+        return guildID;
+    }
+
+    public void setGuildID(long guildID) {
+        this.guildID = guildID;
+    }
 }

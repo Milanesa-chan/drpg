@@ -21,6 +21,7 @@ public class CharacterFactory {
                 int HP = result.getInt("HP");
                 int maxHP = result.getInt("MaxHP");
                 return new Character(uid, name, HP, maxHP);
+                
             }else{
                 con.close();
                 throw new CharacterNotFoundException();
