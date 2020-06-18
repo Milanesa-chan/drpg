@@ -16,12 +16,13 @@ public class CharacterFactory {
             Statement stmt = con.createStatement();
             ResultSet result = stmt.executeQuery("SELECT * FROM `characters` WHERE `UID`="+userID);
             if(result.next()){
-                String uid = String.valueOf(userID);
-                String name = result.getString("Name");
-                int HP = result.getInt("HP");
-                int maxHP = result.getInt("MaxHP");
-                return new Character(uid, name, HP, maxHP);
-                
+                Character ch = new Character();
+                ch.setUserID(userID);
+                ch.setName(result.getString("Name"));
+                ch.setHP(result.getInt("HP"));
+                ch.setMaxHP(result.getInt("MaxHP"));
+                ch.setGuildID(result.getLong("GuildID"));
+                return ch;
             }else{
                 con.close();
                 throw new CharacterNotFoundException();

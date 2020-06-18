@@ -57,4 +57,15 @@ public class DatabaseConnector {
             throw new SQLException();
         }
     }
+
+    public boolean isCharacterInDatabase(long userID) throws SQLException {
+        Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
+        if(con!=null){
+            Statement stmt = con.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM `characters` WHERE `UID`="+userID);
+            return result.next();
+        }else{
+            throw new SQLException();
+        }
+    }
 }

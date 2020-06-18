@@ -25,6 +25,12 @@ public class CommandHandler extends ListenerAdapter {
         return instance;
     }
 
+    /*TODO Change responsability of initializing handlers to the handlers themselves.
+    It would be possible by passing the "event" to the constructor and each constructor
+    does the initialization
+    This way we can just register all handlers in a hashmap with the command as key and this method
+    can just access them generically
+    */
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         super.onMessageReceived(event);
@@ -62,6 +68,9 @@ public class CommandHandler extends ListenerAdapter {
             }else if(matchCommand(args[0], "deleteguild")){
                 GuildDeletionHandler h = new GuildDeletionHandler(event.getChannel(), event.getGuild().getIdLong(), event.getGuild().getOwner().getUser());
                 onOwnerCommand(h, event);
+            }else if(matchCommand(args[0], "joinguild")){
+                long serverID = event.getGuild().getIdLong();
+                new GuildJoinHandler(event.getChannel(), serverID, userID).handle();
             }
         }
     }
