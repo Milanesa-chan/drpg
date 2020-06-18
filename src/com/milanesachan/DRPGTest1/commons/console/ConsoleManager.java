@@ -1,6 +1,7 @@
 package com.milanesachan.DRPGTest1.commons.console;
 
 
+import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ConsoleManager {
