@@ -12,8 +12,6 @@ import java.sql.Statement;
 
 public class GuildFactory {
 
-    public GuildFactory(){}
-
     public Guild guildFromServerID(long serverID) throws SQLException, ServerNotFoundException {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
         if(con != null){
