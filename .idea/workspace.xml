@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4185da8c-c652-40f3-b47d-dc1035928232" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/core/DRPGBot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/core/DRPGBot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/core/GuildFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/core/GuildFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/commons/console/ConsoleManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/commons/console/ConsoleManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/DRPGBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/DRPGBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/commons/console/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/commons/console/ConsoleManager.java" afterDir="false" />
-    </list>
+    <list default="true" id="4185da8c-c652-40f3-b47d-dc1035928232" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
