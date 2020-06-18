@@ -8,11 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4185da8c-c652-40f3-b47d-dc1035928232" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CharacterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CharacterFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CommandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Character.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/networking/DatabaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/networking/DatabaseConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/InfoCharacterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/InfoCharacterHandler.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

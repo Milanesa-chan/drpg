@@ -60,7 +60,7 @@ public class CommandHandler extends ListenerAdapter {
             }else if(matchCommand(args[0], "deletechar")){
                 new CharacterDeletionHandler(event.getChannel(), event.getMember().getId()).handle();
             }else if(matchCommand(args[0], "infochar")){
-                new InfoCharacterHandler(event.getChannel(), event.getMember().getId()).handle();
+                new InfoCharacterHandler(event.getChannel(), event.getMember().getId(), event.getGuild().getIdLong()).handle();
             }else if(matchCommand(args[0], "createguild")){
                 String guildName = argsAsString(args);
                 GuildCreatorHandler h = new GuildCreatorHandler(event.getChannel(), event.getGuild().getIdLong(), guildName);
