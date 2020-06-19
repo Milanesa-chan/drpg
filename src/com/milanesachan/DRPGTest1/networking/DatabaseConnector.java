@@ -1,9 +1,14 @@
 package com.milanesachan.DRPGTest1.networking;
 
+import com.milanesachan.DRPGTest1.bot.core.CharacterFactory;
+import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
+import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
+import com.milanesachan.DRPGTest1.game.model.Character;
 import net.dv8tion.jda.api.entities.User;
 
 import java.sql.*;
+import java.util.HashMap;
 
 public class DatabaseConnector {
     private static DatabaseConnector dcInstance;
@@ -64,6 +69,25 @@ public class DatabaseConnector {
             Statement stmt = con.createStatement();
             ResultSet result = stmt.executeQuery("SELECT * FROM `characters` WHERE `UID`="+userID);
             return result.next();
+        }else{
+            throw new SQLException();
+        }
+    }
+
+    public HashMap<User, Character> getGuildMembers(long guildID) throws SQLException, CharacterNotFoundException {
+        Connection con = null;
+        con = getDatabaseConnection();
+        if(con != null){
+            Statement stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM `characters` WHERE `GuildID`="+guildID+";");
+            HashMap<User, Character> retMap = new HashMap<>();
+            while(res.next()){
+                long currentUID = res.getLong("UID");
+                Character cha = new CharacterFactory().characterFromUserID(currentUID);
+                User user = DRPGBot.getInstance().getJda().getUserById(currentUID);
+                retMap.put(user, cha);
+            }
+            return retMap;
         }else{
             throw new SQLException();
         }

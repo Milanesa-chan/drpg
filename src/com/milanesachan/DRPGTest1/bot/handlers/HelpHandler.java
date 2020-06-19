@@ -19,6 +19,7 @@ public class HelpHandler implements Handler{
                 "**>createchar name** : creates a new character for your account.\n" +
                 "**>deletechar** : deletes your existing character.\n" +
                 "**>infochar** : shows info for your current character.\n" +
+                "**>infoguild** : shows info about the current server's guild\n" +
                 "**>createguild name** : (owner) creates a new guild for this server.\n" +
                 "**>deleteguild** : (owner) deletes the guild for this server.\n" +
                 "**>joinguild** : join this server's guild.", false);

@@ -25,7 +25,7 @@ public class CommandHandler extends ListenerAdapter {
         return instance;
     }
 
-    /*TODO Change responsability of initializing handlers to the handlers themselves.
+    /*TODO Change responsibility of initializing handlers to the handlers themselves.
     It would be possible by passing the "event" to the constructor and each constructor
     does the initialization
     This way we can just register all handlers in a hashmap with the command as key and this method
@@ -37,9 +37,9 @@ public class CommandHandler extends ListenerAdapter {
 
         if(!event.getMessage().getAuthor().isBot()) {
             con.PrintMessageEventInfo(event);
-            String[] args = event.getMessage().getContentRaw().split(" ");
+
             assert event.getMember() != null;
-            Long userID = event.getMember().getIdLong();
+            long userID = event.getMember().getIdLong();
             if(confirmationList.containsKey(userID)){
                 if(event.getMessage().getContentRaw().equalsIgnoreCase("y")){
                     Confirmable c = confirmationList.get(userID);
@@ -52,26 +52,35 @@ public class CommandHandler extends ListenerAdapter {
                 }
             }
 
-            if (matchCommand(args[0], "help")) {
-                new HelpHandler(event.getChannel()).handle();
-            }else if(matchCommand(args[0], "createchar")){
-                String charName = argsAsString(args);
-                new CharacterCreatorHandler(event.getChannel(), event.getMember().getId(), charName).handle();
-            }else if(matchCommand(args[0], "deletechar")){
-                new CharacterDeletionHandler(event.getChannel(), event.getMember().getId()).handle();
-            }else if(matchCommand(args[0], "infochar")){
-                new InfoCharacterHandler(event.getChannel(), event.getMember().getId(), event.getGuild().getIdLong()).handle();
-            }else if(matchCommand(args[0], "createguild")){
-                String guildName = argsAsString(args);
-                GuildCreatorHandler h = new GuildCreatorHandler(event.getChannel(), event.getGuild().getIdLong(), guildName);
-                onOwnerCommand(h, event);
-            }else if(matchCommand(args[0], "deleteguild")){
-                GuildDeletionHandler h = new GuildDeletionHandler(event.getChannel(), event.getGuild().getIdLong(), event.getGuild().getOwner().getUser());
-                onOwnerCommand(h, event);
-            }else if(matchCommand(args[0], "joinguild")){
-                long serverID = event.getGuild().getIdLong();
-                new GuildJoinHandler(event.getChannel(), serverID, userID).handle();
-            }
+            generalCommands(event);
+        }
+    }
+
+    private void generalCommands(MessageReceivedEvent event){
+        String[] args = event.getMessage().getContentRaw().split(" ");
+        long userID = event.getMember().getIdLong();
+
+        if (matchCommand(args[0], "help")) {
+            new HelpHandler(event.getChannel()).handle();
+        }else if(matchCommand(args[0], "createchar")){
+            String charName = argsAsString(args);
+            new CharacterCreatorHandler(event.getChannel(), event.getMember().getId(), charName).handle();
+        }else if(matchCommand(args[0], "deletechar")){
+            new CharacterDeletionHandler(event.getChannel(), event.getMember().getId()).handle();
+        }else if(matchCommand(args[0], "infochar")){
+            new InfoCharacterHandler(event.getChannel(), event.getMember().getId(), event.getGuild().getIdLong()).handle();
+        }else if(matchCommand(args[0], "infoguild")){
+            new InfoGuildHandler(event.getChannel(), event.getGuild().getIdLong()).handle();
+        }else if(matchCommand(args[0], "createguild")){
+            String guildName = argsAsString(args);
+            GuildCreatorHandler h = new GuildCreatorHandler(event.getChannel(), event.getGuild().getIdLong(), guildName);
+            onOwnerCommand(h, event);
+        }else if(matchCommand(args[0], "deleteguild")){
+            GuildDeletionHandler h = new GuildDeletionHandler(event.getChannel(), event.getGuild().getIdLong(), event.getGuild().getOwner().getUser());
+            onOwnerCommand(h, event);
+        }else if(matchCommand(args[0], "joinguild")){
+            long serverID = event.getGuild().getIdLong();
+            new GuildJoinHandler(event.getChannel(), serverID, userID).handle();
         }
     }
 

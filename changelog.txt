@@ -1,1 +1,3 @@
 --- version variable in DRPGBot
+- >joinguild command
+--- added getGuildMembers to DatabaseConnector
