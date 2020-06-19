@@ -8,13 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4185da8c-c652-40f3-b47d-dc1035928232" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/changelog.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/networking/DatabaseConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/networking/DatabaseConnector.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CommandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Guild.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Guild.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/networking/DatabaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/networking/DatabaseConnector.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,6 +33,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../mysql-connector-java-5.1.49.jar!/" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />

@@ -43,13 +43,14 @@ public class Guild implements Embeddable {
         JDA jda = DRPGBot.getInstance().getJda();
         String serverName = jda.getGuildById(guildID).getName();
         String serverIconUrl = jda.getGuildById(guildID).getIconUrl();
-
         EmbedBuilder emb = new EmbedBuilder();
+
         try {
             emb.setTitle("Guild: " + name);
             emb.setDescription("Server: " + serverName);
             emb.addField("Members", memberListAsString(DatabaseConnector.getInstance().getGuildMembers(guildID)), true);
             emb.setThumbnail(serverIconUrl);
+            emb.setColor(0x450000);
             return emb.build();
         } catch (SQLException | CharacterNotFoundException e) {
             e.printStackTrace();
@@ -64,7 +65,7 @@ public class Guild implements Embeddable {
             Map.Entry<User, Character> ent = it.next();
             String charName = ent.getValue().getName();
             String userName = ent.getKey().getAsTag();
-            memList = memList.concat(charName + " (@"+userName+")\n");
+            memList = memList.concat(charName + " ("+userName+")\n");
         }
         return memList;
     }
