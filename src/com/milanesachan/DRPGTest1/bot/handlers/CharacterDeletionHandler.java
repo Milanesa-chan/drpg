@@ -1,6 +1,6 @@
 package com.milanesachan.DRPGTest1.bot.handlers;
 
-import com.milanesachan.DRPGTest1.bot.core.CommandHandler;
+import com.milanesachan.DRPGTest1.bot.core.CommandManager;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
@@ -18,7 +18,7 @@ public class CharacterDeletionHandler implements Handler, Confirmable{
 
     public void handle(){
         channel.sendMessage("<@"+userID+"> Are you sure you want to delete your character? (y/n).").queue();
-        CommandHandler.getInstance().addToConfirmationList(userID, this);
+        CommandManager.getInstance().addToConfirmationList(userID, this);
     }
 
     public void confirm(){

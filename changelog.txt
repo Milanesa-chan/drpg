@@ -1,3 +1,4 @@
 --- version variable in DRPGBot
 - >joinguild command
 --- added getGuildMembers to DatabaseConnector
+--- renamed CommandHandler to CommandManager because "Handler" is already an interface and has nothing to do with this shit

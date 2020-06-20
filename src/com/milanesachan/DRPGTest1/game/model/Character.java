@@ -19,7 +19,7 @@ public class Character implements Embeddable {
 
     public Character(){}
 
-    public MessageEmbed getEmbed(){
+    public EmbedBuilder getEmbed(){
         User user = DRPGBot.getInstance().getJda().getUserById(userID);
         assert user != null;
         String avatarUrl = user.getAvatarUrl();
@@ -42,7 +42,7 @@ public class Character implements Embeddable {
         eb.setThumbnail(avatarUrl);
         eb.setColor(0x450000);
 
-        return eb.build();
+        return eb;
     }
 
     public long getGuildID() {

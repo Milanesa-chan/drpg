@@ -27,7 +27,7 @@ public class InfoCharacterHandler implements Handler {
                 name = name.concat(" (Forager)");
                 character.setName(name);
             }
-            MessageEmbed mes = character.getEmbed();
+            MessageEmbed mes = character.getEmbed().build();
             channel.sendMessage(mes).queue();
         } catch (SQLException e) {
             channel.sendMessage("**Error:** Failed to connect to database. Try again later.").queue();

@@ -39,7 +39,7 @@ public class Guild implements Embeddable {
     }
 
     @Override
-    public MessageEmbed getEmbed() {
+    public EmbedBuilder getEmbed() {
         JDA jda = DRPGBot.getInstance().getJda();
         String serverName = jda.getGuildById(guildID).getName();
         String serverIconUrl = jda.getGuildById(guildID).getIconUrl();
@@ -51,7 +51,7 @@ public class Guild implements Embeddable {
             emb.addField("Members", memberListAsString(DatabaseConnector.getInstance().getGuildMembers(guildID)), true);
             emb.setThumbnail(serverIconUrl);
             emb.setColor(0x450000);
-            return emb.build();
+            return emb;
         } catch (SQLException | CharacterNotFoundException e) {
             e.printStackTrace();
             return null;

@@ -1,17 +1,15 @@
 package com.milanesachan.DRPGTest1.bot.handlers;
 
 import com.milanesachan.DRPGTest1.bot.core.CharacterFactory;
-import com.milanesachan.DRPGTest1.bot.core.CommandHandler;
+import com.milanesachan.DRPGTest1.bot.core.CommandManager;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class GuildJoinHandler implements Handler, Confirmable {
     private MessageChannel channel;
@@ -37,7 +35,7 @@ public class GuildJoinHandler implements Handler, Confirmable {
                     channel.sendMessage("<@" + userID + "> You are already in this guild.").queue();
                 } else {
                     channel.sendMessage("<@" + userID + "> Are you sure you want to join this server's guild? (y/n)").queue();
-                    CommandHandler.getInstance().addToConfirmationList(userID, this);
+                    CommandManager.getInstance().addToConfirmationList(userID, this);
                 }
             }
         } catch (

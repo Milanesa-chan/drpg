@@ -22,7 +22,7 @@ public class InfoGuildHandler implements Handler {
     public void handle() {
         try {
             Guild guild = new GuildFactory().guildFromServerID(guildID);
-            MessageEmbed emb = guild.getEmbed();
+            MessageEmbed emb = guild.getEmbed().build();
             channel.sendMessage(emb).queue();
         } catch (SQLException e) {
             channel.sendMessage("**Error:** Failed to connect to database. Try again later.").queue();

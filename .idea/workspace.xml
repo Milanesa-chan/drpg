@@ -8,6 +8,21 @@
   <component name="ChangeListManager">
     <list default="true" id="4185da8c-c652-40f3-b47d-dc1035928232" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/changelog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/core/CommandHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/core/CommandHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/InfoCharacterHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/InfoCharacterHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/game/model/Character.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/game/model/Character.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/game/model/Embeddable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/game/model/Embeddable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/game/model/Guild.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/game/model/Guild.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CommandManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/DRPGBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/DRPGBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/CharacterDeletionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/CharacterDeletionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/GuildDeletionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/GuildDeletionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/GuildJoinHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/GuildJoinHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/InfoCharacterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/InfoCharacterHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/InfoGuildHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/InfoGuildHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Character.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Embeddable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Embeddable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Guild.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/game/model/Guild.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

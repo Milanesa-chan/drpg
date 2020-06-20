@@ -1,6 +1,5 @@
 package com.milanesachan.DRPGTest1.bot.core;
 
-import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -30,7 +29,7 @@ public class DRPGBot {
         try {
             jda = new JDABuilder("NzIyNzUwNTIwODU0MzE1MDU4.Xunolg.-0_ZIxG94Jp_ez7SJFV-mzFIQG4").build();
             jda.getPresence().setActivity(Activity.of(Activity.ActivityType.DEFAULT, " \">help\" "));
-            jda.addEventListener(CommandHandler.getInstance());
+            jda.addEventListener(CommandManager.getInstance());
         }catch(Exception ex){
             System.out.println("There was an error Logging In. Failed to run.");
         }

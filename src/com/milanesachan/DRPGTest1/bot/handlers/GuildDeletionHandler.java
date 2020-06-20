@@ -1,6 +1,6 @@
 package com.milanesachan.DRPGTest1.bot.handlers;
 
-import com.milanesachan.DRPGTest1.bot.core.CommandHandler;
+import com.milanesachan.DRPGTest1.bot.core.CommandManager;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -22,7 +22,7 @@ public class GuildDeletionHandler implements Handler, Confirmable {
 
     public void handle(){
         channel.sendMessage("**YOU ARE ABOUT TO DELETE THE WHOLE GUILD. ARE YOU SURE? (y/n)**").queue();
-        CommandHandler.getInstance().addToConfirmationList(serverOwner.getIdLong(), this);
+        CommandManager.getInstance().addToConfirmationList(serverOwner.getIdLong(), this);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class GuildDeletionHandler implements Handler, Confirmable {
         if(remainingConfirmations>0){
             channel.sendMessage("**ONE LAST TIME. ARE YOU SURE? (y/n)**").queue();
             remainingConfirmations--;
-            CommandHandler.getInstance().addToConfirmationList(serverOwner.getIdLong(), this);
+            CommandManager.getInstance().addToConfirmationList(serverOwner.getIdLong(), this);
         }else{
             try {
                 Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
