@@ -52,6 +52,7 @@ public class CommandManager extends ListenerAdapter {
 
     private void generalCommands(MessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split(" ");
+        assert event.getMember() != null;
         long userID = event.getMember().getIdLong();
 
         if (matchCommand(args[0], "help")) {
