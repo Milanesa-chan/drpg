@@ -68,7 +68,7 @@ public class CommandManager extends ListenerAdapter {
             new InfoGuildHandler(event.getChannel(), event.getGuild().getIdLong()).handle();
         } else if (matchCommand(args[0], "infoitem")) {
             if (args.length < 2) {
-                event.getChannel().sendMessage("**Error:** You have to specify an itemID. Example: **>infoitem weapon:blade**.").queue();
+                event.getChannel().sendMessage("**Error:** You have to specify an itemID. Example: **>infoitem weapon:btb**.").queue();
             } else {
                 new InfoItemHandler(event.getChannel(), args[1]).handle();
             }
@@ -99,6 +99,7 @@ public class CommandManager extends ListenerAdapter {
 
     /**
      * Gets all the arguments in a command as a single string separated by spaces
+     * (Example: ">command argument1 argument2" will return "argument1 argument2")
      *
      * @param fullCommand string-array containing the complete command sent by the user
      * @return string containing every argument of the command separated by a space (excludes the actual command)
