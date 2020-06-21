@@ -16,6 +16,8 @@ public class PageManager extends ListenerAdapter implements Runnable {
     public static final String reactNext = "\uD83D\uDC49";
     public static final String reactPrev = "\uD83D\uDC48";
     private static final int expirationTime = 5;
+    private static final int cleanupLoopSleep = 5000;
+    private boolean doCleanupLoop = true;
 
     @Override
     public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
@@ -75,15 +77,29 @@ public class PageManager extends ListenerAdapter implements Runnable {
 
     @Override
     public void run() {
-        //TODO PLEASE FIND A WAY TO REPLACE THAT "true"
-        while(true){
+        int embedsCleaned;
+        while(doCleanupLoop){
+            embedsCleaned = 0;
             OffsetDateTime currentTime = OffsetDateTime.now();
             OffsetDateTime threshold = currentTime.minusSeconds(expirationTime);
-            OffsetDateTime embedTime;
+
             for(PagedEmbed pe : validPagedEmbeds){
-                
+                if(pe.getMessageTime().isBefore(threshold)){
+                    validPagedEmbeds.remove(pe);
+                    embedsCleaned++;
+                }
+            }
+            System.out.println("Cleanup loop removed: "+embedsCleaned+" embeds from the list.");
+            try {
+                Thread.sleep(cleanupLoopSleep);
+            }catch(InterruptedException ex){
+                ex.printStackTrace();
             }
         }
+    }
+
+    public void stopCleanupLoop(){
+        doCleanupLoop = false;
     }
 
     public void addToValidList(PagedEmbed pagedEmbed){

@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
 public class PagedEmbed {
@@ -43,6 +44,10 @@ public class PagedEmbed {
         else
             currentPage--;
         editToCurrentPage();
+    }
+
+    public OffsetDateTime getMessageTime(){
+        return message.getTimeCreated();
     }
 
     public void setPages(ArrayList<MessageEmbed> pages){
