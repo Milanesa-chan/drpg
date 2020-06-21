@@ -28,7 +28,7 @@ public class ConsoleManager {
         String message = event.getMessage().getContentRaw();
         String user = event.getAuthor().getAsTag();
         String server = event.getGuild().getName();
-        
+
         Print(timeSent+" Message: \""+message+"\" from user: \""+user+"\" in server: \""+server+"\".");
     }
 }

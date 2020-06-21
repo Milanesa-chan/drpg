@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4185da8c-c652-40f3-b47d-dc1035928232" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/DRPGBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/DRPGBot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/commons/console/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/commons/console/ConsoleManager.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

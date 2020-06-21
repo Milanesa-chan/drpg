@@ -30,6 +30,7 @@ public class DRPGBot {
             jda = new JDABuilder("NzIyNzUwNTIwODU0MzE1MDU4.Xunolg.-0_ZIxG94Jp_ez7SJFV-mzFIQG4").build();
             jda.getPresence().setActivity(Activity.of(Activity.ActivityType.DEFAULT, " \">help\" "));
             jda.addEventListener(CommandManager.getInstance());
+            jda.addEventListener(PageManager.getInstance());
         }catch(Exception ex){
             System.out.println("There was an error Logging In. Failed to run.");
         }
