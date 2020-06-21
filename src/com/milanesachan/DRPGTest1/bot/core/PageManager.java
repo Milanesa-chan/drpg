@@ -1,28 +1,27 @@
 package com.milanesachan.DRPGTest1.bot.core;
 
 import com.milanesachan.DRPGTest1.bot.entities.PagedEmbed;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PageManager extends ListenerAdapter implements Runnable {
     private static PageManager instance;
     private ArrayList<PagedEmbed> validPagedEmbeds = new ArrayList<>();
     public static final String reactNext = "\uD83D\uDC49";
     public static final String reactPrev = "\uD83D\uDC48";
-    private static final int expirationTime = 5;
+
+    private static final int expirationTime = 20;
     private static final int cleanupLoopSleep = 5000;
     private boolean doCleanupLoop = true;
 
     @Override
     public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
         super.onMessageReactionAdd(event);
-        System.out.println("Current valid embeds: "+validPagedEmbeds.size());
 
         assert event.getMember() != null;
         if(!event.getMember().getUser().isBot()) {
@@ -83,15 +82,26 @@ public class PageManager extends ListenerAdapter implements Runnable {
             OffsetDateTime currentTime = OffsetDateTime.now();
             OffsetDateTime threshold = currentTime.minusSeconds(expirationTime);
 
-            for(PagedEmbed pe : validPagedEmbeds){
-                if(pe.getMessageTime().isBefore(threshold)){
-                    validPagedEmbeds.remove(pe);
-                    embedsCleaned++;
+            synchronized (this) {
+                Iterator<PagedEmbed> it = validPagedEmbeds.iterator();
+                while (it.hasNext()) {
+                    if (it.next().getMessageTime().isBefore(threshold)) {
+                        it.remove();
+                        embedsCleaned++;
+                    }
                 }
             }
-            System.out.println("Cleanup loop removed: "+embedsCleaned+" embeds from the list.");
+
+            System.out.println("PageManagerCleanup: "+embedsCleaned+" cleaned.");
+
             try {
                 Thread.sleep(cleanupLoopSleep);
+                synchronized (this){
+                    while(validPagedEmbeds.size()==0){
+                        System.out.println("PageManagerCleanup goes to sleep.");
+                        wait();
+                    }
+                }
             }catch(InterruptedException ex){
                 ex.printStackTrace();
             }
@@ -102,7 +112,8 @@ public class PageManager extends ListenerAdapter implements Runnable {
         doCleanupLoop = false;
     }
 
-    public void addToValidList(PagedEmbed pagedEmbed){
+    public synchronized void addToValidList(PagedEmbed pagedEmbed){
+        notifyAll();
         validPagedEmbeds.add(pagedEmbed);
     }
 }

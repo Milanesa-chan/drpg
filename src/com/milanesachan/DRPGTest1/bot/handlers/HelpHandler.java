@@ -19,7 +19,7 @@ public class HelpHandler implements Handler{
     //ADD COMMANDS TO >help HERE:
     private void initializeHelpData(){
         helpData = new ArrayList<>();
-        helpData.add("**>help** : displays this message xd.");
+        helpData.add("**>help** : displays this message lol.");
         helpData.add("**>createchar name** : creates a new character for your account.");
         helpData.add("**>deletechar** : deletes your existing character.");
         helpData.add("**>infochar** : shows info for your current character.");
