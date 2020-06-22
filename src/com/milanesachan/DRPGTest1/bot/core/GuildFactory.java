@@ -4,7 +4,6 @@ import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Guild;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

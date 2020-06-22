@@ -1,6 +1,7 @@
-package com.milanesachan.DRPGTest1.bot.handlers;
+package com.milanesachan.DRPGTest1.bot.handlers.character;
 
 import com.milanesachan.DRPGTest1.bot.core.CharacterFactory;
+import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Character;
 import net.dv8tion.jda.api.entities.MessageChannel;

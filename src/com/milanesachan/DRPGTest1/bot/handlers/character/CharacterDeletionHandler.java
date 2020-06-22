@@ -1,13 +1,15 @@
-package com.milanesachan.DRPGTest1.bot.handlers;
+package com.milanesachan.DRPGTest1.bot.handlers.character;
 
 import com.milanesachan.DRPGTest1.bot.core.CommandManager;
+import com.milanesachan.DRPGTest1.bot.handlers.Confirmable;
+import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.sql.Connection;
 import java.sql.Statement;
 
-public class CharacterDeletionHandler implements Handler, Confirmable{
+public class CharacterDeletionHandler implements Handler, Confirmable {
     private Long userID;
     private MessageChannel channel;
 

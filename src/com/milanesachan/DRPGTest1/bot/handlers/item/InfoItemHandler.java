@@ -1,13 +1,14 @@
-package com.milanesachan.DRPGTest1.bot.handlers;
+package com.milanesachan.DRPGTest1.bot.handlers.item;
 
 import com.milanesachan.DRPGTest1.bot.core.ItemFactory;
+import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.game.model.Item;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
-public class InfoItemHandler implements Handler{
+public class InfoItemHandler implements Handler {
     private MessageChannel channel;
     private String itemID;
 

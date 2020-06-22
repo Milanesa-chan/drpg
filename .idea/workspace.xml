@@ -8,8 +8,24 @@
   <component name="ChangeListManager">
     <list default="true" id="4185da8c-c652-40f3-b47d-dc1035928232" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/PageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/PageManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/core/GuildFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/core/GuildFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/CharacterCreatorHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/CharacterDeletionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/GuildCreatorHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/GuildDeletionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proto 1/com/milanesachan/DRPGTest1/bot/handlers/InfoCharacterHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/CommandManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/GuildFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/core/GuildFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/CharacterCreatorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/character/CharacterCreatorHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/CharacterDeletionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/character/CharacterDeletionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/GuildCreatorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/guild/GuildCreatorHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/GuildDeletionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/guild/GuildDeletionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/GuildJoinHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/character/GuildJoinHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/HelpHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/InfoCharacterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/character/InfoCharacterHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/InfoGuildHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/guild/InfoGuildHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/InfoItemHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/milanesachan/DRPGTest1/bot/handlers/item/InfoItemHandler.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

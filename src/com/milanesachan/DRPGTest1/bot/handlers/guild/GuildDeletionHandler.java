@@ -1,6 +1,8 @@
-package com.milanesachan.DRPGTest1.bot.handlers;
+package com.milanesachan.DRPGTest1.bot.handlers.guild;
 
 import com.milanesachan.DRPGTest1.bot.core.CommandManager;
+import com.milanesachan.DRPGTest1.bot.handlers.Confirmable;
+import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;

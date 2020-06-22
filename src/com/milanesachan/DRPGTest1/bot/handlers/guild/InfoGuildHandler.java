@@ -1,6 +1,7 @@
-package com.milanesachan.DRPGTest1.bot.handlers;
+package com.milanesachan.DRPGTest1.bot.handlers.guild;
 
 import com.milanesachan.DRPGTest1.bot.core.GuildFactory;
+import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Guild;
 import net.dv8tion.jda.api.entities.MessageChannel;

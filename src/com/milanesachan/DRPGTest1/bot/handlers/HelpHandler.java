@@ -18,6 +18,7 @@ public class HelpHandler implements Handler{
 
     //ADD COMMANDS TO >help HERE:
     private void initializeHelpData(){
+        EmbedBuilder b = new EmbedBuilder();
         helpData = new ArrayList<>();
         helpData.add("**>help** : displays this message lol.");
         helpData.add("**>createchar name** : creates a new character for your account.");
@@ -40,6 +41,5 @@ public class HelpHandler implements Handler{
         PagedEmbed eb = b.fromStringArray();
         eb.send();
     }
-
 
 }

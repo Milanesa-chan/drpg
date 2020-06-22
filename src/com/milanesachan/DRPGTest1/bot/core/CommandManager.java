@@ -1,8 +1,15 @@
 package com.milanesachan.DRPGTest1.bot.core;
 
 import com.milanesachan.DRPGTest1.bot.handlers.*;
+import com.milanesachan.DRPGTest1.bot.handlers.character.CharacterCreatorHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.character.CharacterDeletionHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.character.GuildJoinHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.character.InfoCharacterHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildCreatorHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.guild.InfoGuildHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.item.InfoItemHandler;
 import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -30,6 +37,7 @@ public class CommandManager extends ListenerAdapter {
         super.onMessageReceived(event);
 
         if (!event.getMessage().getAuthor().isBot()) {
+            System.out.println("Current thread name: "+Thread.currentThread().toString());
             con.PrintMessageEventInfo(event);
 
             assert event.getMember() != null;

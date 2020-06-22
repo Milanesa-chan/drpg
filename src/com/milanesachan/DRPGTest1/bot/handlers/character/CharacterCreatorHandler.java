@@ -1,12 +1,13 @@
-package com.milanesachan.DRPGTest1.bot.handlers;
+package com.milanesachan.DRPGTest1.bot.handlers.character;
 
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
+import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.sql.*;
 
-public class CharacterCreatorHandler implements Handler{
+public class CharacterCreatorHandler implements Handler {
     private Long userID;
     private String charName;
     private MessageChannel channel;
