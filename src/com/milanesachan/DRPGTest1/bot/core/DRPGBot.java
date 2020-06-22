@@ -9,7 +9,7 @@ public class DRPGBot {
     private JDA jda;
     private String prefix = ">";
     private final Long masterID = 232572720632692737L;
-    private final String version = "0.1-PRE";
+    private final String version = "0.2-PRE";
 
     public static void main(String[] args){
         getInstance();
