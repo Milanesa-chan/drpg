@@ -3,12 +3,13 @@ package com.milanesachan.DRPGTest1.bot.core;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.User;
 
 public class DRPGBot {
     private static DRPGBot botInstance;
     private JDA jda;
     private String prefix = ">";
-    private final Long masterID = 232572720632692737L;
+    private final Long[] masterIDs = {232572720632692737L};
     private final String version = "0.2-PRE";
 
     public static void main(String[] args){
@@ -44,11 +45,15 @@ public class DRPGBot {
         return prefix;
     }
 
-    public Long getMasterID(){
-        return masterID;
-    }
-
     public String getVersion() {
         return version;
+    }
+
+    public boolean isMasterUser(User user){
+        long userID = user.getIdLong();
+        for(long l : masterIDs){
+            if(userID == l) return true;
+        }
+        return false;
     }
 }
