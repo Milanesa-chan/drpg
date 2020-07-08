@@ -1,6 +1,9 @@
 package com.milanesachan.DRPGTest1.bot.core;
 
 import com.milanesachan.DRPGTest1.game.model.Item;
+import com.milanesachan.DRPGTest1.game.model.items.test.Test_ItemA;
+import com.milanesachan.DRPGTest1.game.model.items.test.Test_ItemB;
+import com.milanesachan.DRPGTest1.game.model.items.test.Test_ItemC;
 import com.milanesachan.DRPGTest1.game.model.items.weapons.Weapon_BetaTestersBlade;
 
 import java.util.HashMap;
@@ -22,7 +25,18 @@ public class ItemFactory {
     }
 
     private void registerItems(){
+        registerTestItems();
+        registerWeaponItems();
+    }
+
+    private void registerWeaponItems(){
         items.put("weapon:btb", new Weapon_BetaTestersBlade());
+    }
+
+    private void registerTestItems(){
+        items.put("test:itema", new Test_ItemA());
+        items.put("test:itemb", new Test_ItemB());
+        items.put("test:itemc", new Test_ItemC());
     }
 
     public Item getItemFromID(String itemID){
