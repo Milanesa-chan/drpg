@@ -20,28 +20,28 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 
-public class Inventory extends ArrayList<UserItem>{
+public class Inventory extends ArrayList<UserItem> {
     private long userID;
 
-    public Inventory(long uid){
+    public Inventory(long uid) {
         super();
         userID = uid;
     }
 
     public void saveToDatabase() throws SQLException {
-        if(!super.isEmpty()){
+        if (!super.isEmpty()) {
             Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
-            if(con != null) {
+            if (con != null) {
+                Statement stmt = con.createStatement();
+                stmt.execute("DELETE FROM `inventory` WHERE `UID`=" + userID);
                 for (UserItem ui : this) {
-                    PreparedStatement stmt = con.prepareStatement("INSERT INTO `inventory` (UID, ItemID, Quantity, DateObtained) VALUES (?, ?, ?, ?)" +
-                            "ON DUPLICATE KEY UPDATE Quantity = Quantity + 1;");
-                    stmt.setLong(1, userID);
-                    stmt.setString(2, ui.getItem().getItemID());
-                    stmt.setInt(3, 1);
+                    PreparedStatement pstmt = con.prepareStatement("INSERT INTO `inventory` (UID, ItemID, Quantity, DateObtained) VALUES (?, ?, ?, ?);");
+                    pstmt.setLong(1, userID);
+                    pstmt.setString(2, ui.getItem().getItemID());
+                    pstmt.setInt(3, 1);
                     Timestamp timestamp = Timestamp.from(Instant.from(ui.getDateObtained()));
-                    stmt.setTimestamp(4, timestamp);
-
-                    stmt.execute();
+                    pstmt.setTimestamp(4, timestamp);
+                    pstmt.execute();
                 }
             }
         }
@@ -49,17 +49,17 @@ public class Inventory extends ArrayList<UserItem>{
 
     public void loadFromDatabase() throws SQLException {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
-        if(con != null){
+        if (con != null) {
             Statement stmt = con.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM `inventory` WHERE `UID`="+userID+";");
+            ResultSet result = stmt.executeQuery("SELECT * FROM `inventory` WHERE `UID`=" + userID + ";");
             this.clear();
-            while(result.next()){
+            while (result.next()) {
                 UserItem ui = new UserItem();
                 ui.setUserID(userID);
                 try {
                     ui.setItem(ItemFactory.getInstance().getItemFromID(result.getString("ItemID")));
-                }catch(ItemNotFoundException ex){
-                    System.err.println("There was an error getting itemID: "+result.getString("ItemID")+" from database.");
+                } catch (ItemNotFoundException ex) {
+                    System.err.println("There was an error getting itemID: " + result.getString("ItemID") + " from database.");
                 }
                 ui.setQuantity(result.getInt("Quantity"));
                 OffsetDateTime dateTime = result.getTimestamp("DateObtained").toInstant().atOffset(ZoneOffset.ofHours(-3));
@@ -82,18 +82,26 @@ public class Inventory extends ArrayList<UserItem>{
         User user = DRPGBot.getInstance().getJda().getUserById(userID);
         Character cha = new CharacterFactory().characterFromUserID(userID);
 
-        builder.setTitle(cha.getName()+"'s Inventory");
-        builder.setDescription("User: "+user.getName());
+        builder.setTitle(cha.getName() + "'s Inventory");
+        builder.setDescription("User: " + user.getName());
         builder.setLinesPerPage(5);
         builder.setThumbnailUrl(user.getAvatarUrl());
 
         ArrayList<String> data = new ArrayList<>();
-        for(UserItem ui : this){
+        for (UserItem ui : this) {
             String itemName = ui.getItem().getItemName();
             int quantity = ui.getQuantity();
-            data.add(itemName+" (x"+quantity+")");
+            data.add(itemName + " (x" + quantity + ")");
         }
         builder.setData(data);
         return builder.fromStringArray();
+    }
+
+    @Override
+    public boolean add(UserItem userItem) {
+
+        
+
+        return super.add(userItem);
     }
 }
