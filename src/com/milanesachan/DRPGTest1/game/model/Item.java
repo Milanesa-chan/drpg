@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 public abstract class Item implements Embeddable{
     private String itemID;
     private String itemName;
-    private String iconUrl;
+    private String iconUrl = "https://cdn.discordapp.com/attachments/723244808147304519/730217799552729208/default_item.png";
     private String itemDesc;
 
     public Item(String itemID, String itemName) {
