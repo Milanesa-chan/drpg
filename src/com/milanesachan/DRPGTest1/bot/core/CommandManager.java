@@ -8,6 +8,7 @@ import com.milanesachan.DRPGTest1.bot.handlers.character.InfoCharacterHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildCreatorHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.InfoGuildHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.inventory.ShowInventoryHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.item.InfoItemHandler;
 import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
@@ -57,6 +58,24 @@ public class CommandManager extends ListenerAdapter {
             }
 
             generalCommands(event);
+            inventoryCommands(event);
+        }
+    }
+
+    private void inventoryCommands(MessageReceivedEvent event){
+        String[] args = event.getMessage().getContentRaw().split(" ");
+        assert event.getMember() != null;
+        long userID = event.getMember().getIdLong();
+
+        if(matchCommand(args[0], "inv")){
+            ShowInventoryHandler h = new ShowInventoryHandler(event.getChannel(), event.getMember().getIdLong());
+            onCharacterRequiredCommand(h, event);
+        }else if(matchCommand(args[0], "createitem")){
+            if(args.length<3){
+                event.getChannel().sendMessage("<@"+userID+"> **Error:** correct format is '>createinv <@User> <itemID>'").queue();
+            }else{
+
+            }
         }
     }
 
