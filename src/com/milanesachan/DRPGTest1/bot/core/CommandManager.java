@@ -10,10 +10,12 @@ import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.InfoGuildHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.item.InfoItemHandler;
 import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
+import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class CommandManager extends ListenerAdapter {
@@ -102,6 +104,19 @@ public class CommandManager extends ListenerAdapter {
             handler.handle();
         } else {
             event.getChannel().sendMessage("**Error:** This command is **OWNER ONLY**.").queue();
+        }
+    }
+
+    private void onCharacterRequiredCommand(Handler handler, MessageReceivedEvent event){
+        long userID = event.getMember().getIdLong();
+        try {
+            if(DatabaseConnector.getInstance().isCharacterInDatabase(userID)){
+                handler.handle();
+            }else{
+                event.getChannel().sendMessage("<@"+userID+"> **Error:** You need to create a character first.").queue();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
