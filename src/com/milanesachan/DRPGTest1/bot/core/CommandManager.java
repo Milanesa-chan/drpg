@@ -70,7 +70,14 @@ public class CommandManager extends ListenerAdapter {
         long userID = event.getMember().getIdLong();
 
         if(matchCommand(args[0], "inv")){
-            ShowInventoryHandler h = new ShowInventoryHandler(event.getChannel(), event.getMember().getIdLong());
+            long inventoryUID;
+            if(!event.getMessage().getMentionedMembers().isEmpty()){
+                User mentioned = event.getMessage().getMentionedMembers().get(0).getUser();
+                inventoryUID = mentioned.getIdLong();
+            }else{
+                inventoryUID = userID;
+            }
+            ShowInventoryHandler h = new ShowInventoryHandler(event.getChannel(), inventoryUID);
             onCharacterRequiredCommand(h, event);
         }else if(matchCommand(args[0], "createitem")){
             if(args.length!=3

@@ -40,7 +40,7 @@ public class Inventory extends ArrayList<UserItem>{
                     stmt.setInt(3, 1);
                     Timestamp timestamp = Timestamp.from(Instant.from(ui.getDateObtained()));
                     stmt.setTimestamp(4, timestamp);
-                    //stmt.setString(4, ui.getDateObtained().format(DateTimeFormatter.ofPattern("")));
+
                     stmt.execute();
                 }
             }
