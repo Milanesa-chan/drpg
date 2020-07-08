@@ -22,8 +22,12 @@ public class ShowInventoryHandler implements Handler {
         Inventory inv = new Inventory(userID);
         try {
             inv.loadFromDatabase();
-            PagedEmbed inventoryEmbed = inv.getPagedEmbed(channel);
-            inventoryEmbed.send();
+            if(inv.isEmpty()){
+                channel.sendMessage("<@"+userID+"> your inventory is empty!").queue();
+            }else{
+                PagedEmbed inventoryEmbed = inv.getPagedEmbed(channel);
+                inventoryEmbed.send();
+            }
         } catch (SQLException | CharacterNotFoundException e) {
             e.printStackTrace();
         }

@@ -8,10 +8,12 @@ import com.milanesachan.DRPGTest1.bot.handlers.character.InfoCharacterHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildCreatorHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.InfoGuildHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.inventory.CreateItemHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.inventory.ShowInventoryHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.item.InfoItemHandler;
 import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -71,10 +73,14 @@ public class CommandManager extends ListenerAdapter {
             ShowInventoryHandler h = new ShowInventoryHandler(event.getChannel(), event.getMember().getIdLong());
             onCharacterRequiredCommand(h, event);
         }else if(matchCommand(args[0], "createitem")){
-            if(args.length<3){
-                event.getChannel().sendMessage("<@"+userID+"> **Error:** correct format is '>createinv <@User> <itemID>'").queue();
+            if(args.length!=3
+            || event.getMessage().getMentionedMembers().isEmpty()) {
+                event.getChannel().sendMessage("<@" + userID + "> **Error:** correct format is '>createinv <@User> <itemID>'").queue();
             }else{
-
+                User user = event.getMessage().getMentionedMembers().get(0).getUser();
+                String itemID = args[2];
+                CreateItemHandler h = new CreateItemHandler(event.getChannel(), user, itemID);
+                onMasterCommand(h, event);
             }
         }
     }
@@ -136,6 +142,13 @@ public class CommandManager extends ListenerAdapter {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void onMasterCommand(Handler handler, MessageReceivedEvent event){
+        User user = event.getMember().getUser();
+        if(DRPGBot.getInstance().isMasterUser(user)){
+            handler.handle();
         }
     }
 

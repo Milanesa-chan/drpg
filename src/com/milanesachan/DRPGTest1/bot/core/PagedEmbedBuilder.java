@@ -4,15 +4,16 @@ import com.milanesachan.DRPGTest1.bot.entities.PagedEmbed;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class PagedEmbedBuilder {
     private ArrayList<String> data;
-    private int linesPerPage;
-    private String title, description;
+    private int linesPerPage = 5;
+    private String title = "Default title", description = "Default description";
     private MessageChannel channel;
-    private String thumbnailUrl;
-    private int color;
+    private String thumbnailUrl = "https://cdn.discordapp.com/attachments/723244808147304519/730217799552729208/default_item.png";
+    private int color = 0x450000;
 
     public PagedEmbedBuilder(MessageChannel mc){
         channel = mc;
@@ -33,6 +34,9 @@ public class PagedEmbedBuilder {
                 pe.addPage(getBlankEmbedBuilder().addField("", currentString, false).build());
                 linesThisPage = 0;
                 currentString = "";
+            }
+            if(tempData.isEmpty()){
+                pe.addPage(getBlankEmbedBuilder().addField("", currentString, false).build());
             }
         }
         return pe;

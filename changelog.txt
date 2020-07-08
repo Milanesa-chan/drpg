@@ -7,3 +7,7 @@
 - Improved >help to have multiple pages (still needs polishing)
 --- added test item category with 3 test items for... testing...
 --- added a default item image (with "no image" text) for showing if no imageurl was set.
+- added inventory and commands:
+	>inv: to see your inventory
+	>createitem (mastercommand): to give an item to an user. For testing.
+---- fixed an issue with PagedEmbedBuilder when total lines was less than lines per page.
