@@ -18,7 +18,6 @@ public class InfoGuildHandler implements Handler {
         this.guildID = guildID;
     }
 
-
     @Override
     public void handle() {
         try {
