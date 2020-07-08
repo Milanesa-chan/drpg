@@ -5,3 +5,5 @@
 --- renamed CommandHandler to CommandManager because "Handler" is already an interface and has nothing to do with this shit
 --- added "PagedEmbeds" to make embeds that have multiple pages that can be scrolled through with reactions as buttons.
 - Improved >help to have multiple pages (still needs polishing)
+--- added test item category with 3 test items for... testing...
+--- added a default item image (with "no image" text) for showing if no imageurl was set.
