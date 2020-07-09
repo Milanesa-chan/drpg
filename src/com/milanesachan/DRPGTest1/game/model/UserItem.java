@@ -1,6 +1,7 @@
 package com.milanesachan.DRPGTest1.game.model;
 
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 public class UserItem {
     private Item item;
@@ -34,6 +35,10 @@ public class UserItem {
         this.quantity = quantity;
     }
 
+    public void addOne(){
+        this.quantity++;
+    }
+
     public long getUserID() {
         return userID;
     }
@@ -48,5 +53,19 @@ public class UserItem {
 
     public void setDateObtained(OffsetDateTime dateObtained) {
         this.dateObtained = dateObtained;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserItem userItem = (UserItem) o;
+        return item.getItemID()==userItem.getItem().getItemID()
+                && userID==userItem.userID;
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

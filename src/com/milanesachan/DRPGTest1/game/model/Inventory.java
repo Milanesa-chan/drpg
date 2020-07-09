@@ -38,7 +38,7 @@ public class Inventory extends ArrayList<UserItem> {
                     PreparedStatement pstmt = con.prepareStatement("INSERT INTO `inventory` (UID, ItemID, Quantity, DateObtained) VALUES (?, ?, ?, ?);");
                     pstmt.setLong(1, userID);
                     pstmt.setString(2, ui.getItem().getItemID());
-                    pstmt.setInt(3, 1);
+                    pstmt.setInt(3, ui.getQuantity());
                     Timestamp timestamp = Timestamp.from(Instant.from(ui.getDateObtained()));
                     pstmt.setTimestamp(4, timestamp);
                     pstmt.execute();
@@ -99,9 +99,12 @@ public class Inventory extends ArrayList<UserItem> {
 
     @Override
     public boolean add(UserItem userItem) {
-
-        
-
-        return super.add(userItem);
+        if(this.contains(userItem)){
+            int indexOfItem = this.indexOf(userItem);
+            this.get(indexOfItem).addOne();
+            return true;
+        }else{
+            return super.add(userItem);
+        }
     }
 }
