@@ -3,6 +3,7 @@ package com.milanesachan.DRPGTest1.bot.handlers.character;
 import com.milanesachan.DRPGTest1.bot.core.CommandManager;
 import com.milanesachan.DRPGTest1.bot.handlers.Confirmable;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
+import com.milanesachan.DRPGTest1.game.model.Inventory;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
@@ -32,6 +33,7 @@ public class CharacterDeletionHandler implements Handler, Confirmable {
                 if(amountDeleted == 0){
                     channel.sendMessage("**Error:** No character found for your account!").queue();
                 }else{
+                    new Inventory(userID).deleteInDatabase();
                     channel.sendMessage("**Success:** Your character was deleted.").queue();
                 }
             }else{
