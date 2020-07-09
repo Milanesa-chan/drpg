@@ -67,6 +67,15 @@ public class Inventory extends ArrayList<UserItem> {
         }
     }
 
+
+    public boolean deleteInDatabase() throws SQLException {
+        Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
+        if(con != null){
+            Statement stmt = con.createStatement();
+            return stmt.execute("DELETE FROM `inventory` WHERE `UID`="+userID);
+        }else return false;
+    }
+
     public long getUserID() {
         return userID;
     }
@@ -95,6 +104,7 @@ public class Inventory extends ArrayList<UserItem> {
         return builder.fromStringArray();
     }
 
+
     @Override
     public boolean add(UserItem userItem) {
         if(this.contains(userItem)){
@@ -105,4 +115,5 @@ public class Inventory extends ArrayList<UserItem> {
             return super.add(userItem);
         }
     }
+
 }

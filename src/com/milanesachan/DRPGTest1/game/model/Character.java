@@ -3,12 +3,10 @@ package com.milanesachan.DRPGTest1.game.model;
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
+
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 
-import javax.xml.crypto.Data;
-import java.io.*;
 import java.sql.SQLException;
 
 public class Character implements Embeddable {
