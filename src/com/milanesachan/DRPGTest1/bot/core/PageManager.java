@@ -15,7 +15,7 @@ public class PageManager extends ListenerAdapter implements Runnable {
     public static final String reactNext = "\uD83D\uDC49";
     public static final String reactPrev = "\uD83D\uDC48";
 
-    private static final int expirationTime = 20;
+    private static final int expirationTime = 50;
     private static final int cleanupLoopSleep = 5000;
     private boolean doCleanupLoop = true;
 

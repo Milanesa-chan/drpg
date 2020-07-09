@@ -5,6 +5,7 @@ import com.milanesachan.DRPGTest1.bot.core.PagedEmbedBuilder;
 import com.milanesachan.DRPGTest1.bot.entities.PagedEmbed;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class HelpHandler implements Handler{
     }
 
     public void handle(){
+        /*
         PagedEmbedBuilder b = new PagedEmbedBuilder(channel);
         b.setTitle("DRPG Help");
         b.setDescription("Help about how to use this bot.");
@@ -40,6 +42,54 @@ public class HelpHandler implements Handler{
         b.setColor(0x450000);
         PagedEmbed eb = b.fromStringArray();
         eb.send();
+        */
+
+        PagedEmbed pe = new PagedEmbed(channel);
+        pe.addPage(getPageMiscelaneous());
+        pe.addPage(getPageCharacter());
+        pe.addPage(getPageInventory());
+        pe.addPage(getPageGuild());
+        pe.send();
+    }
+
+    private MessageEmbed getPageMiscelaneous(){
+        EmbedBuilder eb = getBlankPage();
+        eb.addField("Miscelaneous", "**>help** : displays this message", false);
+        return eb.build();
+    }
+
+    private MessageEmbed getPageCharacter(){
+        EmbedBuilder eb = getBlankPage();
+        eb.addField("Character", "**>infochar** : see your character's info \n" +
+                "**>createchar <name>** : create your character and set its name\n" +
+                "**>deletechar** : delete your character (irreversible)", false);
+        return eb.build();
+    }
+
+    private MessageEmbed getPageInventory(){
+        EmbedBuilder eb = getBlankPage();
+        eb.addField("Inventory", "**>infoitem <itemID>** : show info about an item \n" +
+                "**>inv** : show your inventory \n" +
+                "**>inv <@User>** : show another user's inventory", false);
+        return eb.build();
+    }
+
+    private MessageEmbed getPageGuild(){
+        EmbedBuilder eb = getBlankPage();
+        eb.addField("Guild", "**>infoguild** : show this server's guild info \n" +
+                "**>joinguild** : join this server's guild \n" +
+                "**>createguild <name>** (owner only) : create a guild for this server \n" +
+                "**>deleteguild** (owner only) : delete this server's guild", false);
+        return eb.build();
+    }
+
+    private EmbedBuilder getBlankPage(){
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setTitle("DRPG Bot Help");
+        eb.setDescription("Use the reactions to scroll through the pages!");
+        eb.setThumbnail(DRPGBot.getInstance().getJda().getSelfUser().getAvatarUrl());
+        eb.setColor(0x450000);
+        return eb;
     }
 
 }
