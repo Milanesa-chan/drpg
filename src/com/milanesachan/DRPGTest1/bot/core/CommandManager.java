@@ -78,7 +78,7 @@ public class CommandManager extends ListenerAdapter {
                 inventoryUID = userID;
             }
             ShowInventoryHandler h = new ShowInventoryHandler(event.getChannel(), inventoryUID);
-            onCharacterRequiredCommand(h, event);
+            onCharacterRequiredCommand(h, event, inventoryUID);
         }else if(matchCommand(args[0], "createitem")){
             if(args.length!=3
             || event.getMessage().getMentionedMembers().isEmpty()) {
@@ -139,16 +139,15 @@ public class CommandManager extends ListenerAdapter {
         }
     }
 
-    private void onCharacterRequiredCommand(Handler handler, MessageReceivedEvent event){
-        long userID = event.getMember().getIdLong();
+    private void onCharacterRequiredCommand(Handler handler, MessageReceivedEvent event, long userID){
         try {
             if(DatabaseConnector.getInstance().isCharacterInDatabase(userID)){
                 handler.handle();
             }else{
-                event.getChannel().sendMessage("<@"+userID+"> **Error:** You need to create a character first.").queue();
+                event.getChannel().sendMessage("**Error:** User has no character.").queue();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            event.getChannel().sendMessage("There was an error connecting to the database. Try again later.").queue();
         }
     }
 

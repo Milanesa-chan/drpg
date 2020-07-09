@@ -5,6 +5,7 @@ import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Character;
+import com.mysql.jdbc.CommunicationsException;
 import net.dv8tion.jda.api.entities.User;
 
 import java.sql.*;
