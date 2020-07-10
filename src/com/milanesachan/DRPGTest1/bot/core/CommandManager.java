@@ -132,7 +132,8 @@ public class CommandManager extends ListenerAdapter {
         String args[] = event.getMessage().getContentRaw().split(" ");
 
         if(matchCommand(args[0], "test")){
-
+            TesterHandler h = new TesterHandler(event.getChannel());
+            onMasterCommand(h, event);
         }
     }
 
