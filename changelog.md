@@ -13,9 +13,9 @@
 	- \>joinguild command
 	- Improved >help to have multiple pages (still needs polishing)
 	- added inventory and commands:
-	\>inv: to see your inventory
-	\>inv <@User>: to see another user's inventory
-	\>createitem (mastercommand): to give an item to an user. For testing.
+		- \>inv: to see your inventory
+		- \>inv <@User>: to see another user's inventory
+		- \>createitem (mastercommand): to give an item to an user. For testing.
 
 - **Fixed**
 	- fixed an issue with PagedEmbedBuilder when total lines was less than lines per page.
