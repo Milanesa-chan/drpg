@@ -14,3 +14,8 @@
 	>inv <@User>: to see another user's inventory
 	>createitem (mastercommand): to give an item to an user. For testing.
 ---- fixed an issue with PagedEmbedBuilder when total lines was less than lines per page.
+
+**v0.3-PRE**
+---- fixed characters keeping their 'GuildID' after deleting their guild
+--- set '>deletechar' to also delete the character's inventory
+

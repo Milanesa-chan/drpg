@@ -1,6 +1,7 @@
 package com.milanesachan.DRPGTest1.bot.handlers.character;
 
 import com.milanesachan.DRPGTest1.bot.core.CommandManager;
+import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.bot.handlers.Confirmable;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.game.model.Inventory;

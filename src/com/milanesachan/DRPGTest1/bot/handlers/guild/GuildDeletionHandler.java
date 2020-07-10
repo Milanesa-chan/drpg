@@ -42,6 +42,7 @@ public class GuildDeletionHandler implements Handler, Confirmable {
                     if(amountDeleted == 0){
                         channel.sendMessage("**Error:** This server doesn't have a guild registered!").queue();
                     }else{
+                        stmt.execute("UPDATE `characters` SET `GuildID`=NULL WHERE `GuildID`="+guildID);
                         channel.sendMessage("**Success:** The guild has been deleted.").queue();
                     }
                     con.close();
@@ -49,6 +50,7 @@ public class GuildDeletionHandler implements Handler, Confirmable {
                     throw new Exception();
                 }
             }catch (Exception ex) {
+                ex.printStackTrace();
                 channel.sendMessage("**Error:** Failed to connect to database. Try again later.").queue();
             }
         }
