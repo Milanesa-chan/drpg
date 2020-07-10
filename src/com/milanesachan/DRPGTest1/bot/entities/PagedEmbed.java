@@ -21,9 +21,11 @@ public class PagedEmbed {
     public void send(){
         currentPage = 0;
         message = channel.sendMessage(pages.get(currentPage)).complete();
-        message.addReaction(PageManager.reactPrev).queue();
-        message.addReaction(PageManager.reactNext).queue();
-        PageManager.getInstance().addToValidList(this);
+        if(pages.size()>1) {
+            message.addReaction(PageManager.reactPrev).queue();
+            message.addReaction(PageManager.reactNext).queue();
+            PageManager.getInstance().addToValidList(this);
+        }
     }
 
     private void editToCurrentPage(){
