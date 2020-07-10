@@ -9,9 +9,8 @@ public class TesterHandler implements Handler{
         channel = mc;
     }
 
-
     @Override
     public void handle() {
-        
+
     }
 }

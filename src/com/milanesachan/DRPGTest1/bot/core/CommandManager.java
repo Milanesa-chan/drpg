@@ -61,6 +61,7 @@ public class CommandManager extends ListenerAdapter {
 
             generalCommands(event);
             inventoryCommands(event);
+            testingCommands(event);
         }
     }
 
@@ -124,6 +125,14 @@ public class CommandManager extends ListenerAdapter {
         } else if (matchCommand(args[0], "joinguild")) {
             long serverID = event.getGuild().getIdLong();
             new GuildJoinHandler(event.getChannel(), serverID, userID).handle();
+        }
+    }
+
+    private void testingCommands(MessageReceivedEvent event){
+        String args[] = event.getMessage().getContentRaw().split(" ");
+
+        if(matchCommand(args[0], "test")){
+
         }
     }
 
