@@ -18,9 +18,22 @@ public class TesterHandler implements Handler{
     @Override
     public void handle() {
         String[] args = event.getMessage().getContentRaw().split(" ");
-        int x = Integer.parseInt(args[1]);
-        int y = Integer.parseInt(args[2]);
-        Point p = new Point(x, y);
-        TestImageGenerator.getInstance().postImage(channel, event.getMember().getUser().getIdLong(), p);
+        if(args.length>=3 && isInt(args[1]) && isInt(args[2])) {
+            int x = Integer.parseInt(args[1]);
+            int y = Integer.parseInt(args[2]);
+            Point p = new Point(x, y);
+            TestImageGenerator.getInstance().postImage(channel, event.getMember().getUser().getIdLong(), p);
+        }else{
+            channel.sendMessage("Incorrect format. Expected: '>test <x> <y>'").queue();
+        }
+    }
+
+    private boolean isInt(String s){
+        try{
+            Integer.parseInt(s);
+            return true;
+        }catch (NumberFormatException e){
+            return false;
+        }
     }
 }
