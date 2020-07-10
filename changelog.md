@@ -1,5 +1,5 @@
 ### v0.2
-**Development**
+- **Development**
 	- version variable in DRPGBot
 	- added getGuildMembers to DatabaseConnector
 	- renamed CommandHandler to CommandManager because "Handler" is already an interface and has nothing to do with this shit
@@ -9,7 +9,7 @@
 	- improved item registration
 	- added 'onMasterCommand' and 'onCharacterRequiredCommand' to filter out command conditions
 
-**Major**
+- **Major**
 	- \>joinguild command
 	- Improved >help to have multiple pages (still needs polishing)
 	- added inventory and commands:
@@ -17,17 +17,17 @@
 	\>inv <@User>: to see another user's inventory
 	\>createitem (mastercommand): to give an item to an user. For testing.
 
-**Fixed**
+- **Fixed**
 	- fixed an issue with PagedEmbedBuilder when total lines was less than lines per page.
 
 ### v0.3-PRE
 
-- Development
+- **Development**
 	- set '>deletechar' to also delete the character's inventory
 
-- Major
+- **Major**
 
-- Fixed
+- **Fixed**
 	- fixed characters keeping their 'GuildID' after deleting their guild
 
 
