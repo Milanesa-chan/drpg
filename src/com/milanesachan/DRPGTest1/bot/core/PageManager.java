@@ -92,7 +92,9 @@ public class PageManager extends ListenerAdapter implements Runnable {
                 }
             }
 
-            System.out.println("PageManagerCleanup: "+embedsCleaned+" cleaned.");
+            if(embedsCleaned>0) {
+                System.out.println("PageManagerCleanup: " + embedsCleaned + " cleaned.");
+            }
 
             try {
                 Thread.sleep(cleanupLoopSleep);
