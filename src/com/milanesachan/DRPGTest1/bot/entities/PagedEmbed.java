@@ -58,7 +58,6 @@ public class PagedEmbed {
 
     public void addPage(MessageEmbed mes){
         pages.add(mes);
-        System.out.println("Added page!");
     }
 
     public long getMessageID(){

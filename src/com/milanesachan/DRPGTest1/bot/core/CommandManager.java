@@ -42,8 +42,7 @@ public class CommandManager extends ListenerAdapter {
         super.onMessageReceived(event);
 
         if (!event.getMessage().getAuthor().isBot()) {
-            System.out.println("Current thread name: "+Thread.currentThread().toString());
-            con.PrintMessageEventInfo(event);
+            //con.PrintMessageEventInfo(event);
 
             assert event.getMember() != null;
             long userID = event.getMember().getIdLong();
