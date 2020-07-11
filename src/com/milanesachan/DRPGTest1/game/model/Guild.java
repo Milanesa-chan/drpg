@@ -17,10 +17,10 @@ import java.util.Map;
 
 public class Guild implements Embeddable {
     private long guildID;
+    private long battleChannelID;
     private String name;
 
-    public Guild() {
-    }
+    public Guild() {}
 
     public long getGuildID() {
         return guildID;
@@ -28,6 +28,14 @@ public class Guild implements Embeddable {
 
     public void setGuildID(long guildID) {
         this.guildID = guildID;
+    }
+
+    public long getBattleChannelID() {
+        return battleChannelID;
+    }
+
+    public void setBattleChannelID(long battleChannelID) {
+        this.battleChannelID = battleChannelID;
     }
 
     public String getName() {
