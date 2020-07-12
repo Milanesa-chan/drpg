@@ -20,6 +20,7 @@ public class GuildFactory {
                 Guild guild = new Guild();
                 guild.setName(result.getString("Name"));
                 guild.setGuildID(serverID);
+                guild.setBattleChannelID(result.getLong("BattleChannelID"));
                 return guild;
             }else{
                 throw new ServerNotFoundException();
