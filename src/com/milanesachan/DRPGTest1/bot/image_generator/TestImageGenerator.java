@@ -35,8 +35,6 @@ public class TestImageGenerator {
             BufferedImage userAvatar = ImageIO.read(con.getInputStream());
 
             Graphics g = image.getGraphics();
-            g.setColor(Color.WHITE);
-            g.fillRect(0, 0, 800, 600);
             g.setColor(Color.RED);
             g.fillRect(350, 250, 100, 100);
 
