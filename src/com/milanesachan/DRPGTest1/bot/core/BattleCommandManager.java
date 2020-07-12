@@ -1,5 +1,6 @@
 package com.milanesachan.DRPGTest1.bot.core;
 
+import com.milanesachan.DRPGTest1.bot.handlers.battle.SetBattleChannelHandler;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -24,7 +25,10 @@ public class BattleCommandManager extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split(" ");
         //Also check if command is set battle channel
         if(matchCommand(args[0], "setbattlechannel")){
-
+            SetBattleChannelHandler h = new SetBattleChannelHandler(event.getChannel(),
+                    event.getMember().getUser().getIdLong(),
+                    event.getGuild().getIdLong());
+            h.handle();
         }
         //First check if the received message is a battle command
         //If it is, and it's not coming from a battle channel, print it
