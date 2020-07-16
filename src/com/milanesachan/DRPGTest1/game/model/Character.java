@@ -14,6 +14,7 @@ public class Character implements Embeddable {
     private long guildID;
     private String name;
     private int HP, maxHP;
+    private Equipment equipment;
 
     public Character(){}
 
@@ -81,5 +82,13 @@ public class Character implements Embeddable {
 
     public void setMaxHP(int maxHP) {
         this.maxHP = maxHP;
+    }
+
+    public Equipment getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
     }
 }
