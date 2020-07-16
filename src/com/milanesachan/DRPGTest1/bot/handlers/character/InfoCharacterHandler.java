@@ -1,6 +1,5 @@
 package com.milanesachan.DRPGTest1.bot.handlers.character;
 
-import com.milanesachan.DRPGTest1.bot.core.CharacterFactory;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Character;
@@ -22,7 +21,8 @@ public class InfoCharacterHandler implements Handler {
 
     public void handle() {
         try {
-            Character character = new CharacterFactory().characterFromUserID(userID);
+            Character character = new Character(userID);
+            character.loadFromDatabase();
             if (character.getGuildID() == 0 || character.getGuildID() != currentServerID) {
                 String name = character.getName();
                 name = name.concat(" (Forager)");

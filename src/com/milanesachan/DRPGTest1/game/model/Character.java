@@ -99,14 +99,16 @@ public class Character implements Embeddable {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
         if(con != null){
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM `characters` WHERE `UID`="+userID);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `characters` WHERE `UID`="+userID+";");
             if(rs.next()){
                 this.name = rs.getString("Name");
                 this.HP = rs.getInt("HP");
                 this.maxHP = rs.getInt("MaxHP");
                 this.guildID = rs.getLong("GuildID");
                 this.equipment = new Equipment(userID);
-                equipment.loadFromDatabase();
+                try {
+                    equipment.loadFromDatabase();
+                }catch(CharacterNotFoundException ignored){}
             }else throw new CharacterNotFoundException();
             con.close();
         }
