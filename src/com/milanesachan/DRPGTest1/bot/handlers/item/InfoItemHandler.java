@@ -14,7 +14,7 @@ public class InfoItemHandler implements Handler {
     private String itemID;
 
     public InfoItemHandler(MessageChannel mc, String itemID){
-        channel = mc;
+        this.channel = mc;
         this.itemID = itemID;
     }
 
