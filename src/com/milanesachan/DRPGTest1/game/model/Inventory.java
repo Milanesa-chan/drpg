@@ -116,4 +116,17 @@ public class Inventory extends ArrayList<UserItem> {
         }
     }
 
+    public boolean removeUserItem(UserItem userItem) {
+        if(this.contains(userItem)){
+            int index = this.indexOf(userItem);
+            int finalQ = this.get(index).removeOne();
+            if(finalQ <= 0){
+                return this.remove(userItem);
+            }else{
+                return true;
+            }
+        }else return false;
+    }
+
+
 }
