@@ -1,18 +1,21 @@
 package com.milanesachan.DRPGTest1.game.model;
 
+import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.bot.core.ItemFactory;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ItemNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.items.Weapon;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Equipment {
+public class Equipment implements Embeddable{
     private long userID;
     private Weapon weapon;
 
@@ -60,5 +63,25 @@ public class Equipment {
             }
             con.close();
         }
+    }
+
+    @Override
+    public EmbedBuilder getEmbed() {
+        JDA jda = DRPGBot.getInstance().getJda();
+        String userName = jda.getUserById(userID).getName();
+        String userAvatar = jda.getUserById(userID).getAvatarUrl();
+        Character cha = new Character(userID);
+        try {
+            cha.loadFromDatabase();
+        } catch (SQLException | CharacterNotFoundException throwables) { throwables.printStackTrace(); }
+        String charName = cha.getName();
+
+        EmbedBuilder emb = new EmbedBuilder();
+        emb.setColor(0x450000);
+        emb.setTitle(charName+"'s Equipment");
+        emb.setDescription("User: "+userName);
+        emb.addField("Weapon", weapon != null ? weapon.getItemName() : "No weapon equipped", false);
+        emb.setImage(userAvatar);
+        return emb;
     }
 }
