@@ -121,8 +121,8 @@ public class Character implements Embeddable {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
         if(con != null){
             Statement stmt = con.createStatement();
-            stmt.execute("SELECT * FROM `characters` WHERE `UID`="+userID);
-            if(stmt.getFetchSize()==0){
+            stmt.executeQuery("SELECT * FROM `characters` WHERE `UID`="+userID);
+            if(!stmt.getResultSet().next()){
                 PreparedStatement pstmt = con.prepareStatement("INSERT INTO `characters` (UID, GuildID, Name, HP, MaxHP) VALUES (?, ?, ?, ?, ?);");
                 pstmt.setLong(1, this.userID);
                 pstmt.setLong(2, this.guildID);
