@@ -11,6 +11,7 @@ import com.milanesachan.DRPGTest1.bot.handlers.guild.InfoGuildHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.inventory.CreateItemHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.inventory.EquipHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.inventory.ShowInventoryHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.inventory.UnequipHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.item.InfoItemHandler;
 import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
@@ -97,6 +98,9 @@ public class CommandManager extends ListenerAdapter {
                 EquipHandler h = new EquipHandler(event.getChannel(), userID, args[1]);
                 onCharacterRequiredCommand(h, event, userID);
             }
+        }else if(matchCommand(args[0], "unequip")){
+            UnequipHandler h = new UnequipHandler(event.getChannel(), userID);
+            onCharacterRequiredCommand(h, event, userID);
         }
     }
 
