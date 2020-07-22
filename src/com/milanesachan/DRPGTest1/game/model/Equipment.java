@@ -51,7 +51,7 @@ public class Equipment {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
         if(con != null){
             Statement stmt = con.createStatement();
-            String weaponID = weapon.getItemID();
+            String weaponID = weapon != null ? weapon.getItemID() : "";
             stmt.executeQuery("SELECT * FROM `equipment` WHERE `UID`="+userID);
             if(!stmt.getResultSet().next()){
                 stmt.execute("INSERT INTO `equipment` (UID, WeaponID) VALUES ("+userID+", '"+weaponID+"');");
