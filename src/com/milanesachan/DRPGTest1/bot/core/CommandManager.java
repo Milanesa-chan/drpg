@@ -8,10 +8,7 @@ import com.milanesachan.DRPGTest1.bot.handlers.character.InfoCharacterHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildCreatorHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.InfoGuildHandler;
-import com.milanesachan.DRPGTest1.bot.handlers.inventory.CreateItemHandler;
-import com.milanesachan.DRPGTest1.bot.handlers.inventory.EquipHandler;
-import com.milanesachan.DRPGTest1.bot.handlers.inventory.ShowInventoryHandler;
-import com.milanesachan.DRPGTest1.bot.handlers.inventory.UnequipHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.inventory.*;
 import com.milanesachan.DRPGTest1.bot.handlers.item.InfoItemHandler;
 import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
@@ -93,7 +90,8 @@ public class CommandManager extends ListenerAdapter {
             }
         }else if(matchCommand(args[0], "equip")){
             if(args.length < 2) {
-                event.getChannel().sendMessage("<@" + userID + "> **Error:** correct format is '>equip <itemID>'").queue();
+                ShowEquipmentHandler h = new ShowEquipmentHandler(event.getChannel(), userID);
+                onCharacterRequiredCommand(h, event, userID);
             }else{
                 EquipHandler h = new EquipHandler(event.getChannel(), userID, args[1]);
                 onCharacterRequiredCommand(h, event, userID);

@@ -81,7 +81,7 @@ public class Equipment implements Embeddable{
         emb.setTitle(charName+"'s Equipment");
         emb.setDescription("User: "+userName);
         emb.addField("Weapon", weapon != null ? weapon.getItemName() : "No weapon equipped", false);
-        emb.setImage(userAvatar);
+        emb.setThumbnail(userAvatar);
         return emb;
     }
 }
