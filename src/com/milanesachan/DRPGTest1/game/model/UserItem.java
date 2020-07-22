@@ -39,6 +39,11 @@ public class UserItem {
         this.quantity++;
     }
 
+    public int removeOne(){
+        this.quantity--;
+        return quantity;
+    }
+
     public long getUserID() {
         return userID;
     }

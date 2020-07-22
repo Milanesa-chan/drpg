@@ -6,6 +6,7 @@ import com.milanesachan.DRPGTest1.game.model.items.test.Test_ItemA;
 import com.milanesachan.DRPGTest1.game.model.items.test.Test_ItemB;
 import com.milanesachan.DRPGTest1.game.model.items.test.Test_ItemC;
 import com.milanesachan.DRPGTest1.game.model.items.weapons.Weapon_BetaTestersBlade;
+import com.milanesachan.DRPGTest1.game.model.items.weapons.Weapon_TestWeapon;
 
 import java.util.HashMap;
 
@@ -32,6 +33,7 @@ public class ItemFactory {
 
     private void registerWeaponItems(){
         items.put("weapon:btb", new Weapon_BetaTestersBlade());
+        items.put("weapon:test", new Weapon_TestWeapon());
     }
 
     private void registerTestItems(){

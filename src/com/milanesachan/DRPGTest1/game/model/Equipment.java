@@ -52,9 +52,9 @@ public class Equipment {
         if(con != null){
             Statement stmt = con.createStatement();
             String weaponID = weapon.getItemID();
-            stmt.execute("SELECT * FROM `equipment` WHERE `UID`="+userID);
-            if(stmt.getFetchSize()==0){
-                stmt.execute("INSERT INTO `equipment` (UID, WeaponID) VALUES ("+userID+", '"+weaponID+"';");
+            stmt.executeQuery("SELECT * FROM `equipment` WHERE `UID`="+userID);
+            if(!stmt.getResultSet().next()){
+                stmt.execute("INSERT INTO `equipment` (UID, WeaponID) VALUES ("+userID+", '"+weaponID+"');");
             }else{
                 stmt.execute("UPDATE `equipment` SET `WeaponID`='"+weaponID+"' WHERE `UID`="+userID);
             }

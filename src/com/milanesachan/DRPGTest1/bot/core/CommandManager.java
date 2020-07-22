@@ -9,6 +9,7 @@ import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildCreatorHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.InfoGuildHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.inventory.CreateItemHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.inventory.EquipHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.inventory.ShowInventoryHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.item.InfoItemHandler;
 import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
@@ -88,6 +89,13 @@ public class CommandManager extends ListenerAdapter {
                 String itemID = args[2];
                 CreateItemHandler h = new CreateItemHandler(event.getChannel(), user, itemID);
                 onMasterCommand(h, event);
+            }
+        }else if(matchCommand(args[0], "equip")){
+            if(args.length < 2) {
+                event.getChannel().sendMessage("<@" + userID + "> **Error:** correct format is '>equip <itemID>'").queue();
+            }else{
+                EquipHandler h = new EquipHandler(event.getChannel(), userID, args[1]);
+                onCharacterRequiredCommand(h, event, userID);
             }
         }
     }

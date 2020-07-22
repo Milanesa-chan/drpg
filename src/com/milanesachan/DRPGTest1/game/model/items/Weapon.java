@@ -5,7 +5,7 @@ import com.milanesachan.DRPGTest1.game.model.Item;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public abstract class Weapon extends Item implements Equipable {
-    private double damage;
+    private double damage = 0.0;
 
     public Weapon(String itemID, String itemName) {
         super(itemID, itemName);
