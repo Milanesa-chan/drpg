@@ -34,7 +34,7 @@
 	- added '>setbattlechannel' command, to set the current channel as the battle channel.
 	- added equipment for each characters that contains the weapon to be used in battle
 		- added '>equip' command to show your current equipment
-		- added '>equip <itemID>' command to equip an item from your inventory
+		- added '>equip \<itemID>' command to equip an item from your inventory
 		- added '>unequip' command to unequip your current weapon
 
 - **Fixed**
