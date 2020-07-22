@@ -1,6 +1,7 @@
 package com.milanesachan.DRPGTest1.game.battle;
 
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
+import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Character;
 import com.milanesachan.DRPGTest1.game.model.Equipment;
 import com.milanesachan.DRPGTest1.game.model.items.Weapon;
@@ -14,7 +15,7 @@ public class BattleCharacter {
     private Weapon weapon;
     private int HP, maxHP;
 
-    public BattleCharacter(long userID) throws SQLException, CharacterNotFoundException {
+    public BattleCharacter(long userID) throws SQLException, CharacterNotFoundException, EquipmentNotFoundException {
         this.userID = userID;
 
         character = new Character(userID);

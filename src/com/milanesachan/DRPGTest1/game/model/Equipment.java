@@ -2,6 +2,7 @@ package com.milanesachan.DRPGTest1.game.model;
 
 import com.milanesachan.DRPGTest1.bot.core.ItemFactory;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
+import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ItemNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.items.Weapon;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
@@ -27,7 +28,7 @@ public class Equipment {
         this.weapon = weapon;
     }
 
-    public void loadFromDatabase() throws SQLException, CharacterNotFoundException {
+    public void loadFromDatabase() throws SQLException, EquipmentNotFoundException {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
         if(con != null){
             Statement stmt = con.createStatement();
@@ -40,7 +41,7 @@ public class Equipment {
                     e.printStackTrace();
                 }
             }else{
-                throw new CharacterNotFoundException();
+                throw new EquipmentNotFoundException();
             }
             con.close();
         }
