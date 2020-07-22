@@ -24,6 +24,9 @@
 
 - **Development**
 	- set '>deletechar' to also delete the character's inventory
+	- added class 'BattleCharacter' to keep the transient information needed for the battle
+	- added 'Equipment' class to keep a character's equipment. Behaves like Inventory.
+	- removed 'CharacterFactory' to move to new system. Now 'Character' can be initialized by it's 'userID', then you call 'loadFromDatabase()' so it loads itself. This behaviour should be the standard for this app.
 
 - **Major**
 
