@@ -9,6 +9,6 @@ public class BattleCharacter {
 
     public BattleCharacter(Character character) {
         this.character = character;
-        weapon = character.getEquipment().getWeapon();
+        //weapon = character.getEquipment().getWeapon();
     }
 }

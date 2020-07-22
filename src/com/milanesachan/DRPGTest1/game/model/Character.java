@@ -15,7 +15,7 @@ public class Character implements Embeddable {
     private long guildID;
     private String name;
     private int HP = 100, maxHP = 100;
-    private Equipment equipment;
+    //private Equipment equipment;
 
     public Character(long userID){
         this.userID = userID;
@@ -87,13 +87,14 @@ public class Character implements Embeddable {
         this.maxHP = maxHP;
     }
 
+    /*
     public Equipment getEquipment() {
         return equipment;
     }
-
     public void setEquipment(Equipment equipment) {
         this.equipment = equipment;
     }
+    */
 
     public void loadFromDatabase() throws SQLException, CharacterNotFoundException {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
@@ -105,10 +106,12 @@ public class Character implements Embeddable {
                 this.HP = rs.getInt("HP");
                 this.maxHP = rs.getInt("MaxHP");
                 this.guildID = rs.getLong("GuildID");
+                /*
                 this.equipment = new Equipment(userID);
                 try {
                     equipment.loadFromDatabase();
                 }catch(CharacterNotFoundException ignored){}
+                */
             }else throw new CharacterNotFoundException();
             con.close();
         }
@@ -127,9 +130,11 @@ public class Character implements Embeddable {
                 pstmt.setInt(4, this.HP);
                 pstmt.setInt(5, this.maxHP);
                 pstmt.execute();
+                /*
                 if(this.equipment != null){
                     equipment.saveToDatabase();
                 }
+                 */
             }else{
                 PreparedStatement pstmt = con.prepareStatement("UPDATE `characters` SET `Name`=?, `GuildID`=?, `HP`=?, `MaxHP`=? WHERE `UID`=?;");
                 pstmt.setString(1, this.name);
@@ -138,9 +143,11 @@ public class Character implements Embeddable {
                 pstmt.setInt(4, this.maxHP);
                 pstmt.setLong(5, this.userID);
                 pstmt.execute();
+                /*
                 if(this.equipment != null){
                     equipment.saveToDatabase();
                 }
+                */
             }
         }
     }
