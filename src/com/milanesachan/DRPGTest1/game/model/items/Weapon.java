@@ -1,9 +1,10 @@
 package com.milanesachan.DRPGTest1.game.model.items;
 
+import com.milanesachan.DRPGTest1.game.model.Equipable;
 import com.milanesachan.DRPGTest1.game.model.Item;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-public abstract class Weapon extends Item {
+public abstract class Weapon extends Item implements Equipable {
     private double damage;
 
     public Weapon(String itemID, String itemName) {
