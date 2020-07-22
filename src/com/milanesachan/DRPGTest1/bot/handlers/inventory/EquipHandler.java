@@ -42,7 +42,7 @@ public class EquipHandler implements Handler {
             try {
                 Weapon equippedItem = (Weapon) ItemFactory.getInstance().getItemFromID(itemID);
                 UserItem equipped = new UserItem(equippedItem, userID, OffsetDateTime.now());
-                if(inv.remove(equipped)) {
+                if(inv.removeUserItem(equipped)) {
                     equipment.setWeapon(equippedItem);
                     equipment.saveToDatabase();
                     inv.saveToDatabase();
@@ -63,7 +63,7 @@ public class EquipHandler implements Handler {
                 Inventory inv = new Inventory(userID);
                 inv.loadFromDatabase();
 
-                if(inv.remove(weaponInInventory)) {
+                if(inv.removeUserItem(weaponInInventory)) {
                     equipment.setWeapon(weapon);
                     equipment.saveToDatabase();
                     channel.sendMessage("Item equipped!").queue();

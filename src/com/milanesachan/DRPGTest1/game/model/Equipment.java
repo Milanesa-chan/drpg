@@ -38,7 +38,7 @@ public class Equipment {
                 try {
                     this.weapon = (Weapon) ItemFactory.getInstance().getItemFromID(weaponID);
                 } catch (ItemNotFoundException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }else{
                 throw new EquipmentNotFoundException();
