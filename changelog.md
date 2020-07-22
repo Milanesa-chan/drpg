@@ -29,6 +29,8 @@
 	- removed 'CharacterFactory' to move to new system. Now 'Character' can be initialized by it's 'userID', then you call 'loadFromDatabase()' so it loads itself. This behaviour should be the standard for this app.
 
 - **Major**
+	- added a "Battle channel" for a guild. This channel will be used to spam everything related to guild battles, as well as receiving battle commands from users.
+	- added '>setbattlechannel' command, to set the current channel as the battle channel.
 
 - **Fixed**
 	- fixed characters keeping their 'GuildID' after deleting their guild
