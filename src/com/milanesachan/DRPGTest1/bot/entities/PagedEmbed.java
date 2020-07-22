@@ -29,7 +29,7 @@ public class PagedEmbed {
     }
 
     private void editToCurrentPage(){
-        message.editMessage(pages.get(currentPage)).queue(); //Does this create a new message? TODO
+        message.editMessage(pages.get(currentPage)).queue(); //Does this create a new message? TODO //no! by milanesachan
     }
 
     public void nextPage(){
