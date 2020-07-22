@@ -3,6 +3,7 @@ package com.milanesachan.DRPGTest1.bot.entities;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
 import com.milanesachan.DRPGTest1.commons.exceptions.AlreadyInPartyException;
 import com.milanesachan.DRPGTest1.game.battle.BattleCharacter;
+import com.milanesachan.DRPGTest1.game.model.Guild;
 
 import java.util.ArrayList;
 
@@ -27,5 +28,12 @@ public class GuildParty {
         if(charList.contains(character))
             throw new AlreadyInPartyException(character, this);
         else charList.add(character);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof GuildParty)) return false;
+        if(obj == this) return true;
+        return ((GuildParty) obj).guildID == this.guildID;
     }
 }

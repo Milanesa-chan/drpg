@@ -1,5 +1,7 @@
 package com.milanesachan.DRPGTest1.bot.core;
 
+import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
+import com.milanesachan.DRPGTest1.bot.handlers.battle.CreatePartyHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.battle.SetBattleChannelHandler;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -9,8 +11,8 @@ import java.util.ArrayList;
 
 public class BattleCommandManager extends ListenerAdapter {
     private static BattleCommandManager instance;
+    private ArrayList<GuildParty> parties;
     private String[] battleCommands = {"battle"};
-
 
     public static BattleCommandManager getInstance(){
         if(instance == null)
@@ -18,6 +20,9 @@ public class BattleCommandManager extends ListenerAdapter {
         return instance;
     }
 
+    private BattleCommandManager(){
+        parties = new ArrayList<>();
+    }
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
@@ -29,6 +34,10 @@ public class BattleCommandManager extends ListenerAdapter {
                     event.getMember().getUser().getIdLong(),
                     event.getGuild().getIdLong());
             h.handle();
+        }else if(matchCommand(args[0], "battle")){
+            long guildID = event.getGuild().getIdLong();
+            long userID = event.getMember().getUser().getIdLong();
+            new CreatePartyHandler(event.getChannel(), guildID, userID).handle();
         }
         //First check if the received message is a battle command
         //If it is, and it's not coming from a battle channel, print it
@@ -37,5 +46,9 @@ public class BattleCommandManager extends ListenerAdapter {
 
     private boolean matchCommand(String comm, String test) {
         return comm.equalsIgnoreCase(DRPGBot.getInstance().getPrefix().concat(test));
+    }
+
+    public ArrayList<GuildParty> getParties(){
+        return parties;
     }
 }
