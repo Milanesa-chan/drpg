@@ -42,7 +42,7 @@ public class CharacterCreatorHandler implements Handler {
                 channel.sendMessage("**Error:** Failed to create the new character. Try again later.").queue();
             }
         }
-    };
+    }
 
     private void createNewCharacter() throws SQLException {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
@@ -77,7 +77,4 @@ public class CharacterCreatorHandler implements Handler {
         con.close();
         return ret;
     }
-
-
-
 }
