@@ -27,6 +27,7 @@
 	- added class 'BattleCharacter' to keep the transient information needed for the battle
 	- added 'Equipment' class to keep a character's equipment. Behaves like Inventory.
 	- removed 'CharacterFactory' to move to new system. Now 'Character' can be initialized by it's 'userID', then you call 'loadFromDatabase()' so it loads itself. This behaviour should be the standard for this app.
+	- added 'AlreadyInPartyException' to throw when you try to add an user to a party that it's already in.
 
 - **Major**
 	- added a "Battle channel" for a guild. This channel will be used to spam everything related to guild battles, as well as receiving battle commands from users.
