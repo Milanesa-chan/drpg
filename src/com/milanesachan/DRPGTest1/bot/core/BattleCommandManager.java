@@ -2,6 +2,7 @@ package com.milanesachan.DRPGTest1.bot.core;
 
 import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
+import com.milanesachan.DRPGTest1.bot.handlers.HandlerFilter;
 import com.milanesachan.DRPGTest1.bot.handlers.battle.CreatePartyHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.battle.SetBattleChannelHandler;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
@@ -43,7 +44,12 @@ public class BattleCommandManager extends ListenerAdapter {
             long guildID = event.getGuild().getIdLong();
             long userID = event.getMember().getUser().getIdLong();
             CreatePartyHandler h = new CreatePartyHandler(event.getChannel(), guildID, userID);
-            onBattleChannelRequiredCommand(event, h);
+
+            HandlerFilter filter = new HandlerFilter();
+            filter.setBattleChannelRequired(true);
+            filter.setCharacterRequired(true);
+            filter.setGuildMemberRequired(true);
+            filter.FilterHandle(event, h, userID);
         }
         //First check if the received message is a battle command
         //If it is, and it's not coming from a battle channel, print it
