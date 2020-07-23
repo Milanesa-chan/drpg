@@ -15,7 +15,7 @@ public class HandlerFilter {
     private boolean battleChannelRequired;
     private boolean characterRequired;
 
-    public void FilterHandle(MessageReceivedEvent event, Handler h, long userID){
+    public void filterHandler(MessageReceivedEvent event, Handler h, long userID){
         MessageChannel channel = event.getChannel();
         long guildID = event.getGuild().getIdLong();
         long channelID = event.getChannel().getIdLong();

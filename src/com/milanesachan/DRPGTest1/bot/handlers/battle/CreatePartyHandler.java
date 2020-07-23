@@ -33,6 +33,7 @@ public class CreatePartyHandler implements Handler {
                 BattleCharacter character = new BattleCharacter(userID);
                 party.add(character);
                 BattleCommandManager.getInstance().getParties().add(party);
+                channel.sendMessage("Party created!").queue();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 channel.sendMessage("Error connecting to database. Try again later.").queue();

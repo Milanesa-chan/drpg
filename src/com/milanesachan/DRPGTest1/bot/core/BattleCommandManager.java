@@ -1,17 +1,14 @@
 package com.milanesachan.DRPGTest1.bot.core;
 
 import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
-import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.bot.handlers.HandlerFilter;
 import com.milanesachan.DRPGTest1.bot.handlers.battle.CreatePartyHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.battle.PartyInviteHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.battle.SetBattleChannelHandler;
-import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
-import com.milanesachan.DRPGTest1.game.model.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BattleCommandManager extends ListenerAdapter {
@@ -49,7 +46,24 @@ public class BattleCommandManager extends ListenerAdapter {
             filter.setBattleChannelRequired(true);
             filter.setCharacterRequired(true);
             filter.setGuildMemberRequired(true);
-            filter.FilterHandle(event, h, userID);
+            filter.filterHandler(event, h, userID);
+        }else if(matchCommand(args[0], "invite")){
+            if(args.length < 2 ||
+            event.getMessage().getMentionedMembers().isEmpty()){
+                event.getChannel().sendMessage("Problem in command. Correct format is: '>invite <@User>'.").queue();
+            }else{
+                long invitedUserID = event.getMessage().getMentionedMembers().get(0).getIdLong();
+
+                PartyInviteHandler h = new PartyInviteHandler(event.getChannel(), event.getGuild().getIdLong(), invitedUserID);
+
+                HandlerFilter filter = new HandlerFilter();
+                filter.setBattleChannelRequired(true);
+                filter.setGuildMemberRequired(true);
+                filter.setCharacterRequired(true);
+                filter.filterHandler(event, h, invitedUserID);
+            }
+        }else if(matchCommand(args[0], "party")) {
+            
         }
     }
 

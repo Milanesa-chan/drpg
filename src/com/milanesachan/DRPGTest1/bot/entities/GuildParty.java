@@ -31,6 +31,13 @@ public class GuildParty {
         else charList.add(character);
     }
 
+    public boolean isCharInParty(long userID){
+        for(BattleCharacter bc : charList){
+            if(bc.getUserID()==userID) return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof GuildParty)) return false;
