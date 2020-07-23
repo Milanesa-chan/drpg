@@ -6,6 +6,7 @@ import com.milanesachan.DRPGTest1.game.battle.BattleCharacter;
 import com.milanesachan.DRPGTest1.game.model.Guild;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GuildParty {
     private long guildID;
@@ -35,5 +36,26 @@ public class GuildParty {
         if(!(obj instanceof GuildParty)) return false;
         if(obj == this) return true;
         return ((GuildParty) obj).guildID == this.guildID;
+    }
+
+    public void addChar(BattleCharacter character){
+        charList.add(character);
+    }
+
+    public void removeChar(BattleCharacter character){
+        charList.remove(character);
+    }
+
+    public BattleCharacter getRandomChar(){
+        int i = new Random().nextInt(charList.size());
+        return charList.get(i);
+    }
+
+    public ArrayList<BattleCharacter> getCharList() {
+        return charList;
+    }
+
+    public void setCharList(ArrayList<BattleCharacter> charList) {
+        this.charList = charList;
     }
 }
