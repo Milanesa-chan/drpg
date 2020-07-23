@@ -3,8 +3,10 @@ package com.milanesachan.DRPGTest1.bot.core;
 import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
 import com.milanesachan.DRPGTest1.bot.handlers.HandlerFilter;
 import com.milanesachan.DRPGTest1.bot.handlers.battle.CreatePartyHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.battle.PartyHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.battle.PartyInviteHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.battle.SetBattleChannelHandler;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -63,7 +65,13 @@ public class BattleCommandManager extends ListenerAdapter {
                 filter.filterHandler(event, h, invitedUserID);
             }
         }else if(matchCommand(args[0], "party")) {
-            
+            long guildID = event.getGuild().getIdLong();
+
+            PartyHandler h = new PartyHandler(event.getChannel(), guildID);
+
+            HandlerFilter filter = new HandlerFilter();
+            filter.setBattleChannelRequired(true);
+            filter.filterHandler(event, h, 0);
         }
     }
 

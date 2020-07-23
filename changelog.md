@@ -39,6 +39,7 @@
 		- added '>unequip' command to unequip your current weapon
 	- added '>battle' command to start a battle party with the command sender as first member.
 	- added '>invite \<@User>' to invite users to join the party.
+	- added '>party' command to see the current party.
 
 - **Fixed**
 	- fixed characters keeping their 'GuildID' after deleting their guild
