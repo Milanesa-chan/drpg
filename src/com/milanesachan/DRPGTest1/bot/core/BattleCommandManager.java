@@ -60,4 +60,18 @@ public class BattleCommandManager extends ListenerAdapter {
     public ArrayList<GuildParty> getParties(){
         return parties;
     }
+
+    public GuildParty getParty(long guildID){
+        for(GuildParty p : parties){
+            if(p.getGuildID() == guildID) return p;
+        }
+        return null;
+    }
+
+    public boolean doesPartyExist(long guildID){
+        for(GuildParty p : parties){
+            if(p.getGuildID() == guildID) return true;
+        }
+        return false;
+    }
 }
