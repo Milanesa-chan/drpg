@@ -10,6 +10,7 @@ import com.milanesachan.DRPGTest1.game.model.Embeddable;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 import java.sql.SQLException;
@@ -18,11 +19,14 @@ import java.util.Random;
 
 public class GuildParty implements Embeddable {
     private long guildID;
+    private MessageChannel battleChannel;
     private ArrayList<BattleCharacter> charList;
 
-    public GuildParty(long guildID) {
+    public GuildParty(long guildID) throws ServerNotFoundException, SQLException {
         this.guildID = guildID;
         charList = new ArrayList<>();
+        long bChannelID = new GuildFactory().guildFromServerID(guildID).getBattleChannelID();
+        battleChannel = DRPGBot.getInstance().getJda().getTextChannelById(bChannelID);
     }
 
     public long getGuildID() {
@@ -97,5 +101,13 @@ public class GuildParty implements Embeddable {
 
         emb.addField("Party Members", membersList, false);
         return emb;
+    }
+
+    public MessageChannel getBattleChannel() {
+        return battleChannel;
+    }
+
+    public void setBattleChannel(MessageChannel battleChannel) {
+        this.battleChannel = battleChannel;
     }
 }

@@ -15,8 +15,7 @@ import java.util.ArrayList;
 
 public class BattleCommandManager extends ListenerAdapter {
     private static BattleCommandManager instance;
-    private ArrayList<GuildParty> parties;
-    private String[] battleCommands = {"battle"};
+    private final ArrayList<GuildParty> parties;
 
     public static BattleCommandManager getInstance(){
         if(instance == null)

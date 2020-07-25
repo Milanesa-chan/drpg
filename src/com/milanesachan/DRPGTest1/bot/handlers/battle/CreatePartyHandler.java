@@ -7,6 +7,7 @@ import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.commons.exceptions.AlreadyInPartyException;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
+import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.battle.BattleCharacter;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
@@ -25,23 +26,30 @@ public class CreatePartyHandler implements Handler {
 
     @Override
     public void handle() {
-        GuildParty party = new GuildParty(guildID);
-        if(BattleCommandManager.getInstance().getParties().contains(party)){
-            channel.sendMessage("Party already created!").queue();
-        }else{
-            try {
-                BattleCharacter character = new BattleCharacter(userID);
-                party.add(character);
-                BattleCommandManager.getInstance().getParties().add(party);
-                channel.sendMessage("Party created!").queue();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                channel.sendMessage("Error connecting to database. Try again later.").queue();
-            } catch (CharacterNotFoundException | AlreadyInPartyException e) {
-                e.printStackTrace();
-            } catch (EquipmentNotFoundException e) {
-                channel.sendMessage("Your character has no equipment. Equip something first!").queue();
+        GuildParty party = null;
+        try {
+            party = new GuildParty(guildID);
+
+            if (BattleCommandManager.getInstance().getParties().contains(party)) {
+                channel.sendMessage("Party already created!").queue();
+            } else {
+                try {
+                    BattleCharacter character = new BattleCharacter(userID);
+                    party.add(character);
+                    BattleCommandManager.getInstance().getParties().add(party);
+                    channel.sendMessage("Party created!").queue();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    channel.sendMessage("Error connecting to database. Try again later.").queue();
+                } catch (CharacterNotFoundException | AlreadyInPartyException e) {
+                    e.printStackTrace();
+                } catch (EquipmentNotFoundException e) {
+                    channel.sendMessage("Your character has no equipment. Equip something first!").queue();
+                }
             }
+        } catch (ServerNotFoundException | SQLException e) {
+            channel.sendMessage("Unexpected error. Try again later.").queue();
+            e.printStackTrace();
         }
     }
 }
