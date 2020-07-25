@@ -4,6 +4,7 @@ import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.bot.core.GuildFactory;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
 import com.milanesachan.DRPGTest1.commons.exceptions.AlreadyInPartyException;
+import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.battle.BattleCharacter;
 import com.milanesachan.DRPGTest1.game.model.Embeddable;
@@ -46,6 +47,24 @@ public class GuildParty implements Embeddable {
     public boolean isCharInParty(long userID) {
         for (BattleCharacter bc : charList) {
             if (bc.getUserID() == userID) return true;
+        }
+        return false;
+    }
+
+    public boolean getReady(int[] teamSizes) throws EquipmentNotFoundException, SQLException {
+        if(!containsInt(teamSizes, charList.size())){
+            return false;
+        }else{
+            for(BattleCharacter bc : charList){
+                bc.getReady();
+            }
+            return true;
+        }
+    }
+
+    private boolean containsInt(int[] array, int num){
+        for(int i : array){
+            if(i==num) return true;
         }
         return false;
     }
