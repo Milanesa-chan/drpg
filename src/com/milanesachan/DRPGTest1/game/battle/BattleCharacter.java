@@ -23,6 +23,14 @@ public class BattleCharacter {
         maxHP = character.getHP();
         HP = maxHP;
 
+        /*
+        equipment = new Equipment(userID);
+        equipment.loadFromDatabase();
+        weapon = equipment.getWeapon();
+         */
+    }
+
+    public void getReady() throws EquipmentNotFoundException, SQLException {
         equipment = new Equipment(userID);
         equipment.loadFromDatabase();
         weapon = equipment.getWeapon();
