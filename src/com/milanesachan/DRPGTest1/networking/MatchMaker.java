@@ -70,6 +70,10 @@ public class MatchMaker extends Thread{
         }
     }
 
+    public void removeFromBattles(BattleController controller){
+        ongoingBattles.remove(controller);
+    }
+
     private void matchParties(GuildParty partyA, GuildParty partyB){
         partyA.setInQueue(false);
         partyA.setInBattle(true);

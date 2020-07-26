@@ -14,6 +14,7 @@ public class BattleCharacter {
     private Equipment equipment;
     private Weapon weapon;
     private int HP, maxHP;
+    private int energy, maxEnergy;
 
     public BattleCharacter(long userID) throws SQLException, CharacterNotFoundException, EquipmentNotFoundException {
         this.userID = userID;
@@ -35,10 +36,17 @@ public class BattleCharacter {
         equipment.loadFromDatabase();
         weapon = equipment.getWeapon();
         if(weapon == null) throw new EquipmentNotFoundException(character);
+        energy = 0;
+        maxEnergy = weapon.getMaxEnergy();
     }
 
     public boolean canFight(){
         return HP>0;
+    }
+
+    public void receiveDamage(int dmg){
+        HP -= dmg;
+        if(HP<0) HP = 0;
     }
 
     public long getUserID() {

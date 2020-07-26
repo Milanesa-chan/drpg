@@ -1,6 +1,8 @@
 package com.milanesachan.DRPGTest1.game.model.items;
 
 import com.milanesachan.DRPGTest1.commons.parameters.BattleParameters;
+import com.milanesachan.DRPGTest1.game.battle.BattleCharacter;
+import com.milanesachan.DRPGTest1.game.battle.BattleController;
 import com.milanesachan.DRPGTest1.game.model.Equipable;
 import com.milanesachan.DRPGTest1.game.model.Item;
 import net.dv8tion.jda.api.EmbedBuilder;

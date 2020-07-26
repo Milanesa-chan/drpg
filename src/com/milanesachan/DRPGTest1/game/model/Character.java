@@ -67,6 +67,10 @@ public class Character implements Embeddable {
         return name;
     }
 
+    public String getNameAndMention(){
+        return name + " (<@"+userID+">)";
+    }
+
     public void setName(String name) {
         this.name = name;
     }
