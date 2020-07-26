@@ -2,6 +2,7 @@ package com.milanesachan.DRPGTest1.bot.handlers.character;
 
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
+import com.milanesachan.DRPGTest1.commons.parameters.CharacterParameters;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
@@ -50,8 +51,8 @@ public class CharacterCreatorHandler implements Handler {
             PreparedStatement stmt = con.prepareStatement("INSERT INTO `characters` (`UID`, `Name`, `HP`, `MaxHP`) VALUES (?, ?, ?, ?) ");
             stmt.setLong(1, userID);
             stmt.setString(2, charName);
-            stmt.setInt(3, 100);
-            stmt.setInt(4, 100);
+            stmt.setInt(3, CharacterParameters.initialMaxHealth);
+            stmt.setInt(4, CharacterParameters.initialMaxHealth);
             stmt.execute();
             con.close();
         }else{
