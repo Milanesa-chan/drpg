@@ -44,7 +44,7 @@ public class Equipment implements Embeddable{
                     //e.printStackTrace();
                 }
             }else{
-                throw new EquipmentNotFoundException();
+                throw new EquipmentNotFoundException(userID);
             }
             con.close();
         }

@@ -112,4 +112,12 @@ public class HandlerFilter {
     public void setCharacterRequired(boolean characterRequired) {
         this.characterRequired = characterRequired;
     }
+
+    public void setPartyMemberRequired(boolean partyMemberRequired) {
+        this.partyMemberRequired = partyMemberRequired;
+    }
+
+    public void setPartyRequired(boolean partyRequired) {
+        this.partyRequired = partyRequired;
+    }
 }
