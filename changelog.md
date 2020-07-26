@@ -14,6 +14,7 @@
 	- added 'getReady' to GuildParty to check if every user and the party are ready for queueing
 	- added 'parameters' packet where classes with static variables will hold information such as 'character initial max health' like an .ini file
 	- added relevant stats to the Weapon class
+	- started the BattleImageGenerator class
 	
 - **Major**
 	- added a "Battle channel" for a guild. This channel will be used to spam everything related to guild battles, as well as receiving battle commands from users.
