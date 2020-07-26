@@ -65,10 +65,10 @@ public class MatchMaker extends Thread{
         MessageEmbed embA = partyA.getEmbed().build();
         MessageEmbed embB = partyB.getEmbed().build();
 
-        chanA.sendMessage("**Match found! Get ready! Your opponent is:**").queue();
+        chanA.sendMessage("**Match found! Your opponent is:**").queue();
         chanA.sendMessage(embB).queue();
 
-        chanB.sendMessage("**Match found! Get ready! Your opponent is:**").queue();
+        chanB.sendMessage("**Match found! Your opponent is:**").queue();
         chanB.sendMessage(embA).queue();
     }
 }
