@@ -17,6 +17,7 @@ public class HandlerFilter {
     private boolean battleChannelRequired;
     private boolean characterRequired;
     private boolean partyMemberRequired;
+    private boolean partyRequired;
 
     public void filterHandler(MessageReceivedEvent event, Handler h, long userID) {
         MessageChannel channel = event.getChannel();
@@ -41,7 +42,9 @@ public class HandlerFilter {
                 } catch (ServerNotFoundException e) {
                     channel.sendMessage("This server has no guild!").queue();
                 }
-            } else if (guildMemberRequired && !isGuildMember(guildID, userID)) {
+            }else if(partyRequired && !BattleCommandManager.getInstance().doesPartyExist(guildID)) {
+                channel.sendMessage("This guild has no party! Create one with '>battle' in the battle channel.").queue();
+            }else if (guildMemberRequired && !isGuildMember(guildID, userID)) {
                 channel.sendMessage("This user's character is not part of this server's guild!").queue();
             } else if (characterRequired && !hasCharacter(userID)) {
                 channel.sendMessage("No character registered to user's account!").queue();
