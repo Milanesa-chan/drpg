@@ -20,6 +20,7 @@ public class GuildParty implements Embeddable {
     private long guildID;
     private MessageChannel battleChannel;
     private ArrayList<BattleCharacter> charList;
+    private boolean inQueue, inBattle;
 
     public GuildParty(long guildID) throws ServerNotFoundException, SQLException {
         this.guildID = guildID;
@@ -133,5 +134,21 @@ public class GuildParty implements Embeddable {
 
     public void setBattleChannel(MessageChannel battleChannel) {
         this.battleChannel = battleChannel;
+    }
+
+    public boolean isInQueue() {
+        return inQueue;
+    }
+
+    public void setInQueue(boolean inQueue) {
+        this.inQueue = inQueue;
+    }
+
+    public boolean isInBattle() {
+        return inBattle;
+    }
+
+    public void setInBattle(boolean inBattle) {
+        this.inBattle = inBattle;
     }
 }
