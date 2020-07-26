@@ -25,12 +25,17 @@ public class BattleQueueHandler implements Handler {
         int[] teamSizes = MatchMaker.teamSizes;
 
         try {
-            if(!party.getReady(teamSizes)){
+            if(party.isInQueue()){
+                MatchMaker.getInstance().removeFromQueue(party);
+                party.setInQueue(false);
+                channel.sendMessage("**Stopped searching!**").queue();
+            }else if(!party.getReady(teamSizes)){
                 channel.sendMessage(Prompts.teamSizeError(teamSizes)).queue();
             }else{
                 int inQueue = MatchMaker.getInstance().addToQueuesList(party);
-                channel.sendMessage("**Searching for a match... (Currently in queue: "+inQueue+"" +
-                        " guild"+(inQueue>1 ? "s" : "")+")**").queue();
+                party.setInQueue(true);
+                channel.sendMessage("**Searching for a match...** (Currently in queue: "+inQueue+"" +
+                        " guild"+(inQueue>1 ? "s" : "")+") (type '>queue' again to cancel)").queue();
             }
         } catch (EquipmentNotFoundException e) {
             long charUserID = e.getCharacter().getUserID();

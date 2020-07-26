@@ -41,6 +41,14 @@ public class MatchMaker extends Thread{
         }
     }
 
+    public void removeFromQueue(GuildParty party){
+        int teamSize = party.getCharList().size();
+
+        synchronized (queuesList){
+            queuesList.get(teamSize).remove(party);
+        }
+    }
+
     @Override
     public void run() {
         while(matchMakerRunning){
@@ -52,7 +60,7 @@ public class MatchMaker extends Thread{
             synchronized (queuesList){
                 for(ArrayList<GuildParty> list : queuesList.values()){
                     if(list.size()>1){
-                        matchParties(list.remove(0), list.remove(1));
+                        matchParties(list.remove(0), list.remove(0));
                     }
                 }
             }
@@ -60,6 +68,11 @@ public class MatchMaker extends Thread{
     }
 
     private void matchParties(GuildParty partyA, GuildParty partyB){
+        partyA.setInQueue(false);
+        partyA.setInBattle(true);
+        partyB.setInQueue(false);
+        partyB.setInBattle(true);
+        
         MessageChannel chanA = partyA.getBattleChannel();
         MessageChannel chanB = partyB.getBattleChannel();
         MessageEmbed embA = partyA.getEmbed().build();
