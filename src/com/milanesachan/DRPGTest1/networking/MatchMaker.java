@@ -1,6 +1,7 @@
 package com.milanesachan.DRPGTest1.networking;
 
 import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
+import com.milanesachan.DRPGTest1.game.battle.BattleController;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import sun.plugin2.message.Message;
@@ -14,12 +15,14 @@ public class MatchMaker extends Thread{
     private static MatchMaker instance;
     public static final int[] teamSizes = {1, 6};
     private final HashMap<Integer, ArrayList<GuildParty>> queuesList;
+    private final ArrayList<BattleController> ongoingBattles;
     private boolean matchMakerRunning;
     private final int searchInterval = 5;
 
     private MatchMaker(){
         queuesList = new HashMap<>();
         matchMakerRunning = true;
+        ongoingBattles = new ArrayList<>();
         this.start();
     }
 
@@ -83,5 +86,9 @@ public class MatchMaker extends Thread{
 
         chanB.sendMessage("**Match found! Your opponent is:**").queue();
         chanB.sendMessage(embA).queue();
+
+        BattleController newBattle = new BattleController(partyA, partyB);
+        newBattle.start();
+        ongoingBattles.add(newBattle);
     }
 }

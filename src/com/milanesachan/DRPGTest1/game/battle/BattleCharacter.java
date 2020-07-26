@@ -37,6 +37,10 @@ public class BattleCharacter {
         if(weapon == null) throw new EquipmentNotFoundException(character);
     }
 
+    public boolean canFight(){
+        return HP>0;
+    }
+
     public long getUserID() {
         return userID;
     }
