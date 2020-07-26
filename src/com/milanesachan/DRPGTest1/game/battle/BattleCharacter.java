@@ -34,6 +34,7 @@ public class BattleCharacter {
         equipment = new Equipment(userID);
         equipment.loadFromDatabase();
         weapon = equipment.getWeapon();
+        if(weapon == null) throw new EquipmentNotFoundException(character);
     }
 
     public long getUserID() {
