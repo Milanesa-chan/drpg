@@ -2,6 +2,7 @@ package com.milanesachan.DRPGTest1.game.battle;
 
 import com.milanesachan.DRPGTest1.bot.core.BattleCommandManager;
 import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
+import com.milanesachan.DRPGTest1.bot.image_generator.BattleImageGenerator;
 import com.milanesachan.DRPGTest1.commons.parameters.BattleParameters;
 import com.milanesachan.DRPGTest1.networking.MatchMaker;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -48,6 +49,10 @@ public class BattleController extends Thread {
                 bChar.getCharacter().getNameAndMention()+"**");
         attack(aChar, bChar);
         attack(bChar, aChar);
+
+        BattleImageGenerator.getInstance().sendArenaImage(aChannel, aParty, bParty);
+        BattleImageGenerator.getInstance().sendArenaImage(bChannel, bParty, aParty);
+
         checkIfWon();
     }
 
