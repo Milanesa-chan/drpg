@@ -1,6 +1,8 @@
 package com.milanesachan.DRPGTest1.bot.handlers;
 
+import com.milanesachan.DRPGTest1.bot.core.BattleCommandManager;
 import com.milanesachan.DRPGTest1.bot.core.GuildFactory;
+import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Character;
@@ -14,39 +16,43 @@ public class HandlerFilter {
     private boolean guildMemberRequired;
     private boolean battleChannelRequired;
     private boolean characterRequired;
+    private boolean partyMemberRequired;
 
-    public void filterHandler(MessageReceivedEvent event, Handler h, long userID){
+    public void filterHandler(MessageReceivedEvent event, Handler h, long userID) {
         MessageChannel channel = event.getChannel();
         long guildID = event.getGuild().getIdLong();
         long channelID = event.getChannel().getIdLong();
+        boolean condition = true;
 
         try {
-            if(battleChannelRequired && !isBattleChannel(event)){
+            if (battleChannelRequired && !isBattleChannel(event)) {
                 try {
                     Guild g = new GuildFactory().guildFromServerID(event.getGuild().getIdLong());
                     event.getChannel().sendMessage("This command is only for battle channels.").queue();
-                    if(g.getBattleChannelID()==0) {
+                    if (g.getBattleChannelID() == 0) {
                         event.getChannel().sendMessage("This server has no battle channel! Ask the owner to type" +
                                 " '>setbattlechannel' on a channel of this server.").queue();
-                    }else{
+                    } else {
                         long battleChannelID = g.getBattleChannelID();
-                        event.getChannel().sendMessage("This server's battle channel is: <#"+battleChannelID+">").queue();
+                        event.getChannel().sendMessage("This server's battle channel is: <#" + battleChannelID + ">").queue();
                     }
                 } catch (SQLException throwables) {
                     event.getChannel().sendMessage("Error connecting to the database.").queue();
                 } catch (ServerNotFoundException e) {
                     channel.sendMessage("This server has no guild!").queue();
                 }
-            }else if (guildMemberRequired && !isGuildMember(guildID, userID)) {
+            } else if (guildMemberRequired && !isGuildMember(guildID, userID)) {
                 channel.sendMessage("This user's character is not part of this server's guild!").queue();
-            }else if (characterRequired && !hasCharacter(userID)){
+            } else if (characterRequired && !hasCharacter(userID)) {
                 channel.sendMessage("No character registered to user's account!").queue();
-            }else{
+            } else if (partyMemberRequired && !isUserInParty(channel, userID, guildID)) {
+                channel.sendMessage("User is not in party!").queue();
+            } else {
                 h.handle();
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             channel.sendMessage("Error connecting to database. Try again later.").queue();
-        }catch(CharacterNotFoundException ex){
+        } catch (CharacterNotFoundException ex) {
             channel.sendMessage("No character registered to user's account!").queue();
         }
 
@@ -57,7 +63,7 @@ public class HandlerFilter {
         try {
             c.loadFromDatabase();
             return true;
-        }catch (CharacterNotFoundException e) {
+        } catch (CharacterNotFoundException e) {
             return false;
         }
     }
@@ -68,18 +74,28 @@ public class HandlerFilter {
         return c.getGuildID() == guildID;
     }
 
-    private boolean isBattleChannel(MessageReceivedEvent event){
+    private boolean isBattleChannel(MessageReceivedEvent event) {
         try {
             long guildID = event.getGuild().getIdLong();
             long channelID = event.getChannel().getIdLong();
             Guild g = new GuildFactory().guildFromServerID(guildID);
-            return g.getBattleChannelID()==channelID;
+            return g.getBattleChannelID() == channelID;
         } catch (SQLException throwables) {
             event.getChannel().sendMessage("Error connecting to database. Try again later.").queue();
         } catch (ServerNotFoundException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private boolean isUserInParty(MessageChannel channel, long userID, long guildID){
+        GuildParty party = BattleCommandManager.getInstance().getParty(guildID);
+        if(party == null) {
+            channel.sendMessage("This guild has no party! Create one with '>battle' in the battle channel.").queue();
+            return false;
+        }else{
+            return party.isCharInParty(userID);
+        }
     }
 
     public void setGuildMemberRequired(boolean guildMemberRequired) {

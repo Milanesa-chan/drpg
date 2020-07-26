@@ -122,6 +122,13 @@ public class GuildParty implements Embeddable {
         return emb;
     }
 
+    public boolean isUserInParty(long userID){
+        for(BattleCharacter bc : charList){
+            if(bc.getUserID()==userID) return true;
+        }
+        return false;
+    }
+
     public MessageChannel getBattleChannel() {
         return battleChannel;
     }
