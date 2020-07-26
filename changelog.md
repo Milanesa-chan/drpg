@@ -12,6 +12,8 @@
 	- started a simple match making system. Every 5 seconds a loop looks if two teams of the same size are queueing and matches them
 	- created 'PartyRequired' and 'PartyMemberRequired' handler filters
 	- added 'getReady' to GuildParty to check if every user and the party are ready for queueing
+	- added 'parameters' packet where classes with static variables will hold information such as 'character initial max health' like an .ini file
+	- added relevant stats to the Weapon class
 	
 - **Major**
 	- added a "Battle channel" for a guild. This channel will be used to spam everything related to guild battles, as well as receiving battle commands from users.
@@ -24,6 +26,7 @@
 	- added '>invite \<@User>' to invite users to join the party.
 	- added '>party' command to see the current party.
 	- added '>queue' command to start/stop matchmaking.
+	- changed HP for new characters from 100 to 500.
 
 - **Fixed**
 	- fixed characters keeping their 'GuildID' after deleting their guild
