@@ -30,7 +30,11 @@
 	- added 'AlreadyInPartyException' to throw when you try to add an user to a party that it's already in.
 	- added 'HandlerFilter' object as a more complex way to execute Handlers when they need certain conditions. It is used by setting it's conditions to the desired ones and then using 'filterHandler' to execute the command.
 	- created 'res' folder for resources. It will include images that will be used for battles and such.
-
+	- created 'Prompt' class to get static and generic Strings for user output
+	- started a simple match making system. Every 5 seconds a loop looks if two teams of the same size are queueing and matches them
+	- created 'PartyRequired' and 'PartyMemberRequired' handler filters
+	- added 'getReady' to GuildParty to check if every user and the party are ready for queueing
+	
 - **Major**
 	- added a "Battle channel" for a guild. This channel will be used to spam everything related to guild battles, as well as receiving battle commands from users.
 	- added '>setbattlechannel' command, to set the current channel as the battle channel.
@@ -45,5 +49,7 @@
 - **Fixed**
 	- fixed characters keeping their 'GuildID' after deleting their guild
 	- fixed characters/guild error when saving to database
+	- solved equipment-related issue in BattleCharacter constructor
+
 
 
