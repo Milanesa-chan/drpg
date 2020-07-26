@@ -72,7 +72,7 @@ public class MatchMaker extends Thread{
         partyA.setInBattle(true);
         partyB.setInQueue(false);
         partyB.setInBattle(true);
-        
+
         MessageChannel chanA = partyA.getBattleChannel();
         MessageChannel chanB = partyB.getBattleChannel();
         MessageEmbed embA = partyA.getEmbed().build();
