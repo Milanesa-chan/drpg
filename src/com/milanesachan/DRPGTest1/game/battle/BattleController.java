@@ -78,7 +78,8 @@ public class BattleController extends Thread {
         double dmgRadius = BattleParameters.damageRadiusPercent;
         int minDamage = (int) (dealer.getWeapon().getDamage() * (1 - dmgRadius));
         int maxDamage = (int) (dealer.getWeapon().getDamage() * (1 + dmgRadius));
-        int damage = minDamage + rand.nextInt(maxDamage + 1);
+        int damageBound = maxDamage - minDamage;
+        int damage = minDamage + rand.nextInt(damageBound + 1);
         dealDamage(receiver, damage);
     }
 
