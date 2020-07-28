@@ -40,23 +40,23 @@ public class BattleImageGenerator {
 
             //Paint ally characters
             listSize = allies.getCharList().size();
-            paintWidth = listSize*100 + ((listSize-1)*10);
+            paintWidth = listSize*100 + ((listSize-1)*20);
             paintStart = 400 - paintWidth/2;
             for(int i=0; i<listSize; i++) {
                 bc = allies.getCharList().get(i);
                 offset = i*100;
-                offset += i*10;
+                offset += i*20;
                 paintCharacter(g, bc, new Point(paintStart+offset+50, 420), true);
             }
 
             //Paint enemy characters
             listSize = enemies.getCharList().size();
-            paintWidth = listSize*100 + ((listSize-1)*10);
+            paintWidth = listSize*100 + ((listSize-1)*20);
             paintStart = 400 - paintWidth/2;
             for(int i=0; i<listSize; i++) {
                 bc = enemies.getCharList().get(i);
                 offset = i*100;
-                offset += i*10;
+                offset += i*20;
                 paintCharacter(g, bc, new Point(paintStart+offset+50, 180), false);
             }
             g.dispose();
