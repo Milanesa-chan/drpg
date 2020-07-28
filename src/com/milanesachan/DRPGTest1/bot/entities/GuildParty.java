@@ -90,7 +90,7 @@ public class GuildParty implements Embeddable {
 
     public BattleCharacter getRandomAbleChar(){
         Random rand = new Random();
-        if(!isWholeGuildDead()) {
+        if(!isWholeGuildDead() && canGuildFight()) {
             int rnd;
             BattleCharacter bc = null;
             do {
@@ -109,6 +109,13 @@ public class GuildParty implements Embeddable {
             if(bc.getHP()>0) result = false;
         }
         return result;
+    }
+
+    private boolean canGuildFight(){
+        for(BattleCharacter bc : charList){
+            if(bc.canFight()) return true;
+        }
+        return false;
     }
 
     public ArrayList<BattleCharacter> getCharList() {
