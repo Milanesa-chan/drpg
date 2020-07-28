@@ -89,13 +89,18 @@ public class GuildParty implements Embeddable {
     }
 
     public BattleCharacter getRandomAbleChar(){
-        if(isWholeGuildDead()) return null;
-        else {
-            for(BattleCharacter bc : charList){
-                if(bc.canFight()) return bc;
-            }
-            return null;
+        Random rand = new Random();
+        if(!isWholeGuildDead()) {
+            int rnd;
+            BattleCharacter bc = null;
+            do {
+                rnd = rand.nextInt(charList.size());
+                bc = charList.get(rnd);
+            }while(!bc.canFight());
+
+            return bc;
         }
+        return null;
     }
 
     public boolean isWholeGuildDead(){
