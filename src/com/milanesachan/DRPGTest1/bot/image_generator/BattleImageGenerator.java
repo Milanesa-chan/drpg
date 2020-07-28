@@ -45,8 +45,8 @@ public class BattleImageGenerator {
             for(int i=0; i<listSize; i++) {
                 bc = allies.getCharList().get(i);
                 offset = i*100;
-                offset += i>0 ? (i-1)*10 : 0;
-                paintCharacter(g, bc, new Point(paintStart+offset, 420), true);
+                offset += i*10;
+                paintCharacter(g, bc, new Point(paintStart+offset+50, 420), true);
             }
 
             //Paint enemy characters
@@ -56,8 +56,8 @@ public class BattleImageGenerator {
             for(int i=0; i<listSize; i++) {
                 bc = enemies.getCharList().get(i);
                 offset = i*100;
-                offset += i>0 ? (i-1)*10 : 0;
-                paintCharacter(g, bc, new Point(paintStart+offset, 180), false);
+                offset += i*10;
+                paintCharacter(g, bc, new Point(paintStart+offset+50, 180), false);
             }
             g.dispose();
 

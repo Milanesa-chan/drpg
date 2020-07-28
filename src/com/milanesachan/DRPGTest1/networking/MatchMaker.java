@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class MatchMaker extends Thread{
     private static MatchMaker instance;
-    public static final int[] teamSizes = {1, 6};
+    public static final int[] teamSizes = {1, 2, 6};
     private final HashMap<Integer, ArrayList<GuildParty>> queuesList;
     private final ArrayList<BattleController> ongoingBattles;
     private boolean matchMakerRunning;
