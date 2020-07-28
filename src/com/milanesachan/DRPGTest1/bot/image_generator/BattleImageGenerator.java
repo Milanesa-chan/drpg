@@ -20,6 +20,8 @@ public class BattleImageGenerator {
         return instance;
     }
 
+    /*TODO Make all of this code more "parameterizable" and flexible. Things like the width and offset of HP bars
+    and the image size itself have to be adjustable in order to fiddle with it.*/
     public void sendArenaImage(MessageChannel channel, GuildParty allies, GuildParty enemies) {
         try {
             BufferedImage imageToSend = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
@@ -30,9 +32,33 @@ public class BattleImageGenerator {
             BufferedImage arena = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResource("images/battle/arena.png")));
             g.drawImage(arena, 0, 0, null);
 
-            //Paint characters
-            paintCharacter(g, allies.getRandomChar(), new Point(400, 420), true);
-            paintCharacter(g, enemies.getRandomChar(), new Point(400, 180), false);
+            BattleCharacter bc;
+            int listSize;
+            int paintStart;
+            int paintWidth;
+            int offset;
+
+            //Paint ally characters
+            listSize = allies.getCharList().size();
+            paintWidth = listSize*100 + ((listSize-1)*10);
+            paintStart = 400 - paintWidth/2;
+            for(int i=0; i<listSize; i++) {
+                bc = allies.getCharList().get(i);
+                offset = i*100;
+                offset += i>0 ? (i-1)*10 : 0;
+                paintCharacter(g, bc, new Point(paintStart+offset, 420), true);
+            }
+
+            //Paint enemy characters
+            listSize = enemies.getCharList().size();
+            paintWidth = listSize*100 + ((listSize-1)*10);
+            paintStart = 400 - paintWidth/2;
+            for(int i=0; i<listSize; i++) {
+                bc = enemies.getCharList().get(i);
+                offset = i*100;
+                offset += i>0 ? (i-1)*10 : 0;
+                paintCharacter(g, bc, new Point(paintStart+offset, 180), false);
+            }
             g.dispose();
 
             ByteOutputStream out = new ByteOutputStream();
@@ -53,7 +79,7 @@ public class BattleImageGenerator {
 
         //Paint circle
         g.setColor(isAlly ? Color.BLUE : Color.RED);
-        g.fillOval((int) center.getX()-50, (int) center.getY()-50, 100, 100);
+        g.fillOval((int) center.getX()-40, (int) center.getY()-40, 80, 80);
 
         //Paint HP bar
         int barXPos = (int) (center.getX()-50);
