@@ -38,7 +38,7 @@ public abstract class Weapon extends Item implements Equipable {
         stats = stats.concat("Energy Increment: " + minEngInc + " to " + maxEngInc);
         emb.addField("Stats", stats, false);
 
-        emb.addField("Power", powerDescription, false);
+        emb.addField("Active", powerDescription, false);
 
         return emb;
     }
