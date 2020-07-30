@@ -97,6 +97,15 @@ public class BattleCommandManager extends ListenerAdapter {
         return null;
     }
 
+    public boolean removeParty(long guildID){
+        GuildParty toRemove = null;
+        for(GuildParty p : parties){
+            if(p.getGuildID() == guildID) toRemove = p;
+        }
+        if(toRemove != null) return parties.remove(toRemove);
+        else return false;
+    }
+
     public boolean doesPartyExist(long guildID){
         for(GuildParty p : parties){
             if(p.getGuildID() == guildID) return true;

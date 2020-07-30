@@ -40,6 +40,8 @@ public class BattleController extends Thread {
             doBattleStep();
         }
         MatchMaker.getInstance().removeFromBattles(this);
+        BattleCommandManager.getInstance().removeParty(aParty.getGuildID());
+        BattleCommandManager.getInstance().removeParty(bParty.getGuildID());
     }
 
     private void doBattleStep() {
