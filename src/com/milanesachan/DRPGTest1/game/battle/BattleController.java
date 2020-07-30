@@ -79,10 +79,14 @@ public class BattleController extends Thread {
         if(aChar.isWeaponCharged() && !bParty.isWholeGuildDead()){
             messageBothParties("**"+aChar.getCharacter().getNameAndMention()+" is using its weapon active!**");
             aChar.getWeapon().useActive(aParty, bParty, this);
+            //TODO: A BETTER SYSTEM FOR THIS!!!!!!!!!!!!!!!!
+            aChar.setEnergy(0);
         }
         if(bChar.isWeaponCharged() && !aParty.isWholeGuildDead()){
             messageBothParties("**"+bChar.getCharacter().getNameAndMention()+" is using its weapon active!**");
             bChar.getWeapon().useActive(bParty, aParty, this);
+            //TODO: YES AND THIS
+            bChar.setEnergy(0);
         }
     }
 
