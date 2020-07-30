@@ -1,5 +1,6 @@
 package com.milanesachan.DRPGTest1.game.model.items;
 
+import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
 import com.milanesachan.DRPGTest1.commons.parameters.BattleParameters;
 import com.milanesachan.DRPGTest1.game.battle.BattleCharacter;
 import com.milanesachan.DRPGTest1.game.battle.BattleController;
@@ -42,6 +43,8 @@ public abstract class Weapon extends Item implements Equipable {
 
         return emb;
     }
+
+    public abstract void useActive(GuildParty allies, GuildParty enemies, BattleController controller);
 
     public int getDamage() {
         return damage;

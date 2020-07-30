@@ -50,6 +50,8 @@ public class BattleController extends Thread {
         attack(aChar, bChar);
         attack(bChar, aChar);
 
+        throwActives(aChar, bChar);
+
         BattleImageGenerator.getInstance().sendArenaImage(aChannel, aParty, bParty);
         BattleImageGenerator.getInstance().sendArenaImage(bChannel, bParty, aParty);
 
@@ -73,6 +75,17 @@ public class BattleController extends Thread {
         }
     }
 
+    private void throwActives(BattleCharacter aChar, BattleCharacter bChar){
+        if(aChar.isWeaponCharged()){
+            messageBothParties("**"+aChar.getCharacter().getNameAndMention()+" is using its weapon active!**");
+            aChar.getWeapon().useActive(aParty, bParty, this);
+        }
+        if(bChar.isWeaponCharged()){
+            messageBothParties("**"+bChar.getCharacter().getNameAndMention()+" is using its weapon active!**");
+            bChar.getWeapon().useActive(bParty, aParty, this);
+        }
+    }
+
     private void attack(BattleCharacter dealer, BattleCharacter receiver) {
         Random rand = new Random();
         double dmgRadius = BattleParameters.damageRadiusPercent;
@@ -81,6 +94,7 @@ public class BattleController extends Thread {
         int damageBound = maxDamage - minDamage;
         int damage = minDamage + rand.nextInt(damageBound + 1);
         dealDamage(receiver, damage);
+        dealer.chargeWeapon();
     }
 
     public void dealDamage(BattleCharacter bc, int dmg) {

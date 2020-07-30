@@ -2,11 +2,13 @@ package com.milanesachan.DRPGTest1.game.battle;
 
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
+import com.milanesachan.DRPGTest1.commons.parameters.BattleParameters;
 import com.milanesachan.DRPGTest1.game.model.Character;
 import com.milanesachan.DRPGTest1.game.model.Equipment;
 import com.milanesachan.DRPGTest1.game.model.items.Weapon;
 
 import java.sql.SQLException;
+import java.util.Random;
 
 public class BattleCharacter {
     private long userID;
@@ -47,6 +49,20 @@ public class BattleCharacter {
     public void receiveDamage(int dmg){
         HP -= dmg;
         if(HP<0) HP = 0;
+    }
+
+    public boolean isWeaponCharged(){
+        return energy>=maxEnergy;
+    }
+
+    public void chargeWeapon(){
+        int energyIncAvg = weapon.getEnergyInc();
+        int minEnergyInc = (int) (energyIncAvg - BattleParameters.energyRadiusPercent*energyIncAvg);
+        int maxEnergyInc = (int) (energyIncAvg + BattleParameters.energyRadiusPercent*energyIncAvg);
+        int energyIncBound = maxEnergyInc - minEnergyInc;
+        int energyInc = minEnergyInc + new Random().nextInt(energyIncBound+1);
+        energy += energyInc;
+        if(energy>maxEnergy) energy = maxEnergy;
     }
 
     public long getUserID() {
@@ -95,5 +111,21 @@ public class BattleCharacter {
 
     public void setMaxHP(int maxHP) {
         this.maxHP = maxHP;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
+
+    public void setMaxEnergy(int maxEnergy) {
+        this.maxEnergy = maxEnergy;
     }
 }
