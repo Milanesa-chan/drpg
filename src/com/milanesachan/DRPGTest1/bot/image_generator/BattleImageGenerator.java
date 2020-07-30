@@ -69,6 +69,8 @@ public class BattleImageGenerator {
         }
     }
 
+    //All of this code should mantain an "offset" variable that goes from top to down mantaining the bottom of the last
+    //thing drawn. This way you don't have to guess what is the offset in every fucking part of the character
     private void paintCharacter(Graphics g, BattleCharacter character, Point center, boolean isAlly){
         //Paint name
         g.setFont(new Font("Arial", Font.BOLD, 22));
@@ -92,7 +94,26 @@ public class BattleImageGenerator {
 
         //Paint HP Value
         String hpValue = HP+"/"+maxHP;
+        g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.PLAIN, 12));
+        int hpValueHeight = g.getFontMetrics().getHeight();
+        int hpValueWidth = g.getFontMetrics().stringWidth(hpValue);
+        g.drawString(hpValue, (int) center.getX()-hpValueWidth/2, (int) center.getY()+hpValueHeight+80);
+
+        //Paint Energy bar
+        int yOffset = hpValueHeight+85;
+        barYPos = (int) center.getY()+yOffset;
+        int energy = character.getEnergy();
+        int maxEnergy = character.getMaxEnergy();
+        bColor = new Color(0x50006F);
+        fColor = new Color(0xDD66FF);
+        paintBar(g, barXPos, barYPos, 100, 5, energy, maxEnergy, bColor, fColor);
+
+        //Paint energy value
+        String enValue = energy+"/"+maxEnergy;
+        g.setColor(Color.BLACK);
+        int enValueWidth = g.getFontMetrics().stringWidth(enValue);
+        g.drawString(enValue, (int) center.getX()-enValueWidth/2, (int) center.getY()+yOffset+hpValueHeight+5);
     }
 
     private void paintBar(Graphics g, int x, int y, int width, int height, int val, int maxVal, Color backColor, Color frontColor){
