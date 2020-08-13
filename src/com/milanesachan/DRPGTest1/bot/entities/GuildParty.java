@@ -172,7 +172,7 @@ public class GuildParty implements Embeddable {
                 }
             }
         }
-        
+
         return emb;
     }
 
