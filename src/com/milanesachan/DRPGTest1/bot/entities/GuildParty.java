@@ -153,17 +153,48 @@ public class GuildParty implements Embeddable {
         emb.setThumbnail(iconUrl);
         emb.setColor(0x450000);
 
-        String membersList = "";
+        ArrayList<BattleCharacter> nextList;
+
+        for(int lane=0; lane<3; lane++){
+            nextList = getCharactersInLane(lane);
+            if(!nextList.isEmpty()){
+                String members = getLaneMemberList(jda, nextList);
+                switch(lane){
+                    case 0:
+                        emb.addField("Unassigned", members, false);
+                        break;
+                    case 1:
+                        emb.addField("Back lane", members, false);
+                        break;
+                    case 2:
+                        emb.addField("Front lane", members, false);
+                }
+            }
+        }
+        
+        return emb;
+    }
+
+    private String getLaneMemberList(JDA jda, ArrayList<BattleCharacter> chars){
+        String list = "";
+
         User user;
-        for(BattleCharacter bc : charList){
+        for(BattleCharacter bc : chars){
             user = jda.getUserById(bc.getUserID());
-            membersList = membersList.concat(bc.getCharacter().getName()+" ("+user.getAsTag()+")");
-            if(!(charList.indexOf(bc)==charList.size()-1))
-                membersList = membersList.concat("\n");
+            list = list.concat(bc.getCharacter().getName()+" ("+user.getAsTag()+")");
+            if(!(chars.indexOf(bc)==chars.size()-1))
+                list = list.concat("\n");
         }
 
-        emb.addField("Party Members", membersList, false);
-        return emb;
+        return list;
+    }
+
+    private ArrayList<BattleCharacter> getCharactersInLane(int lane){
+        ArrayList<BattleCharacter> ret = new ArrayList<>();
+        for(BattleCharacter bc : charList){
+            if(bc.getBattleLane()==lane) ret.add(bc);
+        }
+        return ret;
     }
 
     public boolean isUserInParty(long userID){

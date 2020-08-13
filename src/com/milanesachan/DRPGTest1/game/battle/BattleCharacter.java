@@ -18,6 +18,9 @@ public class BattleCharacter {
     private int HP, maxHP;
     private int energy, maxEnergy;
 
+    private int battleLane = 0;
+    public static final int UNASSIGNED_LANE=0, BACK_LANE=1, FRONT_LANE=2;
+
     public BattleCharacter(long userID) throws SQLException, CharacterNotFoundException, EquipmentNotFoundException {
         this.userID = userID;
 
@@ -127,5 +130,13 @@ public class BattleCharacter {
 
     public void setMaxEnergy(int maxEnergy) {
         this.maxEnergy = maxEnergy;
+    }
+
+    public int getBattleLane() {
+        return battleLane;
+    }
+
+    public void setBattleLane(int battleLane) {
+        this.battleLane = battleLane;
     }
 }
