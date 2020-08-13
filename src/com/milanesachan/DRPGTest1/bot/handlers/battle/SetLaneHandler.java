@@ -1,5 +1,6 @@
 package com.milanesachan.DRPGTest1.bot.handlers.battle;
 
+import com.milanesachan.DRPGTest1.bot.core.BattleCommandManager;
 import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
@@ -35,7 +36,7 @@ public class SetLaneHandler implements Handler {
                     "' or '>setlane back'.").queue();
         }else{
             try {
-                GuildParty gp = new GuildParty(guildID);
+                GuildParty gp = BattleCommandManager.getInstance().getParty(guildID);
                 BattleCharacter cha = gp.getBattleCharacter(userID);
                 if(cha == null){
                     throw new CharacterNotFoundException();
@@ -43,7 +44,7 @@ public class SetLaneHandler implements Handler {
                     cha.setBattleLane(laneNum);
                     channel.sendMessage("<@"+userID+"> you were assigned to the "+lane+" lane of the party.").queue();
                 }
-            } catch (ServerNotFoundException | SQLException | CharacterNotFoundException e) {
+            } catch (CharacterNotFoundException e) {
                 e.printStackTrace();
                 channel.sendMessage("Unexpected error. Try again later.").queue();
             }
