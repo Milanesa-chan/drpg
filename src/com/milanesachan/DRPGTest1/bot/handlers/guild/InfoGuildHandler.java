@@ -1,6 +1,5 @@
 package com.milanesachan.DRPGTest1.bot.handlers.guild;
 
-import com.milanesachan.DRPGTest1.bot.core.GuildFactory;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Guild;
@@ -21,7 +20,8 @@ public class InfoGuildHandler implements Handler {
     @Override
     public void handle() {
         try {
-            Guild guild = new GuildFactory().guildFromServerID(guildID);
+            //Guild guild = new GuildFactory().guildFromServerID(guildID);
+            Guild guild = new Guild(guildID).loadFromDatabase();
             MessageEmbed emb = guild.getEmbed().build();
             channel.sendMessage(emb).queue();
         } catch (SQLException e) {

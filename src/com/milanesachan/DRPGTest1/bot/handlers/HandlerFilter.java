@@ -1,7 +1,6 @@
 package com.milanesachan.DRPGTest1.bot.handlers;
 
 import com.milanesachan.DRPGTest1.bot.core.BattleCommandManager;
-import com.milanesachan.DRPGTest1.bot.core.GuildFactory;
 import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
@@ -28,7 +27,8 @@ public class HandlerFilter {
         try {
             if (battleChannelRequired && !isBattleChannel(event)) {
                 try {
-                    Guild g = new GuildFactory().guildFromServerID(event.getGuild().getIdLong());
+                    //Guild g = new GuildFactory().guildFromServerID(event.getGuild().getIdLong());
+                    Guild g = new Guild(event.getGuild().getIdLong()).loadFromDatabase();
                     event.getChannel().sendMessage("This command is only for battle channels.").queue();
                     if (g.getBattleChannelID() == 0) {
                         event.getChannel().sendMessage("This server has no battle channel! Ask the owner to type" +
@@ -81,7 +81,8 @@ public class HandlerFilter {
         try {
             long guildID = event.getGuild().getIdLong();
             long channelID = event.getChannel().getIdLong();
-            Guild g = new GuildFactory().guildFromServerID(guildID);
+            //Guild g = new GuildFactory().guildFromServerID(guildID);
+            Guild g = new Guild(guildID).loadFromDatabase();
             return g.getBattleChannelID() == channelID;
         } catch (SQLException throwables) {
             event.getChannel().sendMessage("Error connecting to database. Try again later.").queue();

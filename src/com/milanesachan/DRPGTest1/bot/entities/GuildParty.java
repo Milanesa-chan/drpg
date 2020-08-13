@@ -1,12 +1,12 @@
 package com.milanesachan.DRPGTest1.bot.entities;
 
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
-import com.milanesachan.DRPGTest1.bot.core.GuildFactory;
 import com.milanesachan.DRPGTest1.commons.exceptions.AlreadyInPartyException;
 import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.battle.BattleCharacter;
 import com.milanesachan.DRPGTest1.game.model.Embeddable;
+import com.milanesachan.DRPGTest1.game.model.Guild;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -25,7 +25,8 @@ public class GuildParty implements Embeddable {
     public GuildParty(long guildID) throws ServerNotFoundException, SQLException {
         this.guildID = guildID;
         charList = new ArrayList<>();
-        long bChannelID = new GuildFactory().guildFromServerID(guildID).getBattleChannelID();
+        //long bChannelID = new GuildFactory().guildFromServerID(guildID).getBattleChannelID();
+        long bChannelID = new Guild(guildID).loadFromDatabase().getBattleChannelID();
         battleChannel = DRPGBot.getInstance().getJda().getTextChannelById(bChannelID);
     }
 
