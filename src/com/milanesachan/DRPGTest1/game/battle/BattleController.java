@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class BattleController extends Thread {
-    private static final int battleInterval = 5;
+    private static final int battleInterval = 10;
     private final MessageChannel aChannel;
     private final MessageChannel bChannel;
     private final GuildParty aParty;
@@ -19,7 +19,7 @@ public class BattleController extends Thread {
 
     private boolean battleRunning;
     private final ArrayList<BattleCharacter> alreadyFought;
-
+    
     public BattleController(GuildParty aParty, GuildParty bParty) {
         this.aParty = aParty;
         this.bParty = bParty;
