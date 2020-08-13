@@ -1,11 +1,9 @@
 package com.milanesachan.DRPGTest1.networking;
 
-import com.milanesachan.DRPGTest1.bot.core.CharacterFactory;
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Character;
-import com.mysql.jdbc.CommunicationsException;
 import net.dv8tion.jda.api.entities.User;
 
 import java.sql.*;
@@ -84,7 +82,8 @@ public class DatabaseConnector {
             HashMap<User, Character> retMap = new HashMap<>();
             while(res.next()){
                 long currentUID = res.getLong("UID");
-                Character cha = new CharacterFactory().characterFromUserID(currentUID);
+                Character cha = new Character(currentUID);
+                cha.loadFromDatabase();
                 User user = DRPGBot.getInstance().getJda().getUserById(currentUID);
                 retMap.put(user, cha);
             }

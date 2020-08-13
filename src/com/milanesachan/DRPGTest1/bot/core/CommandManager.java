@@ -8,8 +8,7 @@ import com.milanesachan.DRPGTest1.bot.handlers.character.InfoCharacterHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildCreatorHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.InfoGuildHandler;
-import com.milanesachan.DRPGTest1.bot.handlers.inventory.CreateItemHandler;
-import com.milanesachan.DRPGTest1.bot.handlers.inventory.ShowInventoryHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.inventory.*;
 import com.milanesachan.DRPGTest1.bot.handlers.item.InfoItemHandler;
 import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
@@ -89,6 +88,17 @@ public class CommandManager extends ListenerAdapter {
                 CreateItemHandler h = new CreateItemHandler(event.getChannel(), user, itemID);
                 onMasterCommand(h, event);
             }
+        }else if(matchCommand(args[0], "equip")){
+            if(args.length < 2) {
+                ShowEquipmentHandler h = new ShowEquipmentHandler(event.getChannel(), userID);
+                onCharacterRequiredCommand(h, event, userID);
+            }else{
+                EquipHandler h = new EquipHandler(event.getChannel(), userID, args[1]);
+                onCharacterRequiredCommand(h, event, userID);
+            }
+        }else if(matchCommand(args[0], "unequip")){
+            UnequipHandler h = new UnequipHandler(event.getChannel(), userID);
+            onCharacterRequiredCommand(h, event, userID);
         }
     }
 

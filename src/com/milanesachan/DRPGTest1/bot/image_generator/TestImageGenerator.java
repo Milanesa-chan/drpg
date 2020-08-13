@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Objects;
 
 public class TestImageGenerator {
     private static TestImageGenerator instance;
@@ -33,19 +34,19 @@ public class TestImageGenerator {
             con.connect();
 
             BufferedImage userAvatar = ImageIO.read(con.getInputStream());
-
+            BufferedImage defaultItem = ImageIO.read(Objects.requireNonNull(this.getClass().getClassLoader().getResource("images/test/default_item.png")));
             Graphics g = image.getGraphics();
             g.setColor(Color.RED);
             g.fillRect(350, 250, 100, 100);
 
             g.drawImage(userAvatar, (int)pos.getX(), (int)pos.getY(), new Color(0, 0, 0, 0), null);
-
+            g.drawImage(defaultItem, 800-(int)pos.getX(), 600-(int)pos.getY(), null);
             g.dispose();
 
             ByteOutputStream out = new ByteOutputStream();
             ImageIO.write(image, "png", out);
             channel.sendFile(out.getBytes(), "image.png").queue();
-        } catch (IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
             e.printStackTrace();
             channel.sendMessage("Error creating image.").queue();
         }

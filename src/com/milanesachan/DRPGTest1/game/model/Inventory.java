@@ -1,6 +1,5 @@
 package com.milanesachan.DRPGTest1.game.model;
 
-import com.milanesachan.DRPGTest1.bot.core.CharacterFactory;
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.bot.core.ItemFactory;
 import com.milanesachan.DRPGTest1.bot.core.PagedEmbedBuilder;
@@ -8,7 +7,6 @@ import com.milanesachan.DRPGTest1.bot.entities.PagedEmbed;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ItemNotFoundException;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
@@ -87,7 +85,8 @@ public class Inventory extends ArrayList<UserItem> {
     public PagedEmbed getPagedEmbed(MessageChannel channel) throws SQLException, CharacterNotFoundException {
         PagedEmbedBuilder builder = new PagedEmbedBuilder(channel);
         User user = DRPGBot.getInstance().getJda().getUserById(userID);
-        Character cha = new CharacterFactory().characterFromUserID(userID);
+        Character cha = new Character(userID);
+        cha.loadFromDatabase();
 
         builder.setTitle(cha.getName() + "'s Inventory");
         builder.setDescription("User: " + user.getName());
@@ -116,5 +115,18 @@ public class Inventory extends ArrayList<UserItem> {
             return super.add(userItem);
         }
     }
+
+    public boolean removeUserItem(UserItem userItem) {
+        if(this.contains(userItem)){
+            int index = this.indexOf(userItem);
+            int finalQ = this.get(index).removeOne();
+            if(finalQ <= 0){
+                return this.remove(userItem);
+            }else{
+                return true;
+            }
+        }else return false;
+    }
+
 
 }

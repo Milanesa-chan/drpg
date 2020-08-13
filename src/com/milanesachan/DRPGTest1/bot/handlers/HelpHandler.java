@@ -70,7 +70,10 @@ public class HelpHandler implements Handler{
         EmbedBuilder eb = getBlankPage();
         eb.addField("Inventory", "**>infoitem <itemID>** : show info about an item \n" +
                 "**>inv** : show your inventory \n" +
-                "**>inv <@User>** : show another user's inventory", false);
+                "**>inv <@User>** : show another user's inventory \n" +
+                "**>equip** : show your equipment \n" +
+                "**>equip <itemID>** : equip an item from your inventory \n" +
+                "**>unequip** : unequip your current weapon", false);
         return eb.build();
     }
 

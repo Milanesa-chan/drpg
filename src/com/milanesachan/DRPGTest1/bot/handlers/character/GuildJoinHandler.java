@@ -1,12 +1,12 @@
 package com.milanesachan.DRPGTest1.bot.handlers.character;
 
-import com.milanesachan.DRPGTest1.bot.core.CharacterFactory;
 import com.milanesachan.DRPGTest1.bot.core.CommandManager;
 import com.milanesachan.DRPGTest1.bot.handlers.Confirmable;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
+import com.milanesachan.DRPGTest1.game.model.Character;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.sql.Connection;
@@ -31,8 +31,9 @@ public class GuildJoinHandler implements Handler, Confirmable {
             } else if (!DatabaseConnector.getInstance().isCharacterInDatabase(userID)) {
                 channel.sendMessage("**Error:** You don't have a character. Create one using '>createchar'.").queue();
             } else {
-                CharacterFactory cf = new CharacterFactory();
-                long userGuildID = cf.characterFromUserID(userID).getGuildID();
+                Character ch = new Character(userID);
+                ch.loadFromDatabase();
+                long userGuildID = ch.getGuildID();
                 if (userGuildID == serverID) {
                     channel.sendMessage("<@" + userID + "> You are already in this guild.").queue();
                 } else {
@@ -40,8 +41,7 @@ public class GuildJoinHandler implements Handler, Confirmable {
                     CommandManager.getInstance().addToConfirmationList(userID, this);
                 }
             }
-        } catch (
-                SQLException ex) {
+        } catch (SQLException ex) {
             channel.sendMessage("**Error:** Failed to connect to database. Try again later.").queue();
         } catch (
                 CharacterNotFoundException e) {
