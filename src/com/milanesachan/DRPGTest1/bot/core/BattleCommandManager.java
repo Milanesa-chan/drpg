@@ -79,6 +79,22 @@ public class BattleCommandManager extends ListenerAdapter {
             f.setPartyRequired(true);
             f.setPartyMemberRequired(true);
             f.filterHandler(event, h, event.getMember().getUser().getIdLong());
+        }else if(matchCommand(args[0], "setlane")){
+            if(args.length<2) event.getChannel().sendMessage("Problem in command. Correct format is: '>setlane " +
+                    "front' or '>setlane back'.").queue();
+            else{
+                long guildID = event.getGuild().getIdLong();
+                long userID = event.getMember().getUser().getIdLong();
+
+                SetLaneHandler h = new SetLaneHandler(event.getChannel(), userID, guildID, args[1]);
+
+                HandlerFilter f = new HandlerFilter();
+                f.setBattleChannelRequired(true);
+                f.setGuildMemberRequired(true);
+                f.setPartyRequired(true);
+                f.setPartyMemberRequired(true);
+                f.filterHandler(event, h, userID);
+            }
         }
     }
 
