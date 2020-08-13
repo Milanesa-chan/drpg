@@ -2,12 +2,13 @@ package com.milanesachan.DRPGTest1.game.model;
 
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
+import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class Guild implements Embeddable {
     private long battleChannelID;
     private String name;
 
-    public Guild() {}
+    public Guild(long guildID) {this.guildID = guildID;}
 
     public long getGuildID() {
         return guildID;
@@ -61,6 +62,41 @@ public class Guild implements Embeddable {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public Guild loadFromDatabase() throws SQLException, ServerNotFoundException {
+        Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
+        if(con != null){
+            Statement stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM `guilds` WHERE `UID`="+guildID);
+            if(res.next()){
+                this.name = res.getString("Name");
+                this.battleChannelID = res.getLong("BattleChannelID");
+                return this;
+            }else throw new ServerNotFoundException();
+        }else throw new SQLException("Unknown");
+    }
+
+    public void saveToDatabase() throws SQLException {
+        Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
+        if(con != null){
+            Statement stmt = con.createStatement();
+            stmt.executeQuery("SELECT * FROM `guilds` WHERE `UID`="+guildID);
+            if(!stmt.getResultSet().next()){
+                PreparedStatement pstmt = con.prepareStatement("INSERT INTO `guilds` (UID, Name, BattleChannelID) VALUES (?, ?, ?);");
+                pstmt.setLong(1, guildID);
+                pstmt.setString(2, name);
+                pstmt.setLong(3, battleChannelID);
+                pstmt.execute();
+            }else{
+                PreparedStatement pstmt = con.prepareStatement("UPDATE `guilds` SET `Name`=?, `BattleChannelID`=? WHERE `UID`=?;");
+                pstmt.setString(1, name);
+                pstmt.setLong(2, battleChannelID);
+                pstmt.setLong(3, guildID);
+                pstmt.execute();
+            }
+            con.close();
+        }else throw new SQLException("Unknown");
     }
 
     private String memberListAsString(HashMap<User, Character> memberMap) {
