@@ -153,6 +153,7 @@ public class Character implements Embeddable {
                 }
                 */
             }
+            con.close();
         }
     }
 }
