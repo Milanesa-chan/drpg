@@ -2,6 +2,7 @@ package com.milanesachan.DRPGTest1.bot.entities;
 
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.commons.exceptions.AlreadyInPartyException;
+import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
 import com.milanesachan.DRPGTest1.game.battle.BattleCharacter;
@@ -202,6 +203,13 @@ public class GuildParty implements Embeddable {
             if(bc.getUserID()==userID) return true;
         }
         return false;
+    }
+
+    public BattleCharacter getBattleCharacter(long userID){
+        for(BattleCharacter bc : charList){
+            if(bc.getUserID()==userID) return bc;
+        }
+        return null;
     }
 
     public MessageChannel getBattleChannel() {
