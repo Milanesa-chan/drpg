@@ -1,10 +1,7 @@
 package com.milanesachan.DRPGTest1.bot.entities;
 
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
-import com.milanesachan.DRPGTest1.commons.exceptions.AlreadyInPartyException;
-import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
-import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
-import com.milanesachan.DRPGTest1.commons.exceptions.ServerNotFoundException;
+import com.milanesachan.DRPGTest1.commons.exceptions.*;
 import com.milanesachan.DRPGTest1.game.battle.BattleCharacter;
 import com.milanesachan.DRPGTest1.game.model.Embeddable;
 import com.milanesachan.DRPGTest1.game.model.Guild;
@@ -52,7 +49,7 @@ public class GuildParty implements Embeddable {
         return false;
     }
 
-    public boolean getReady(int[] teamSizes) throws EquipmentNotFoundException, SQLException {
+    public boolean getReady(int[] teamSizes) throws EquipmentNotFoundException, SQLException, UnassignedLaneException {
         if(!containsInt(teamSizes, charList.size())){
             return false;
         }else{

@@ -5,6 +5,7 @@ import com.milanesachan.DRPGTest1.bot.entities.GuildParty;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.commons.Prompts;
 import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
+import com.milanesachan.DRPGTest1.commons.exceptions.UnassignedLaneException;
 import com.milanesachan.DRPGTest1.networking.MatchMaker;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
@@ -42,6 +43,10 @@ public class BattleQueueHandler implements Handler {
             channel.sendMessage("User <@"+charUserID+"> has no equipment!").queue();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } catch (UnassignedLaneException e) {
+            long charUserID = e.getCharacter().getUserID();
+            channel.sendMessage("User <@"+charUserID+"> has no lane assigned! Choose a lane with '>setlane front'" +
+                    " or '>setlane back'.").queue();
         }
     }
 }

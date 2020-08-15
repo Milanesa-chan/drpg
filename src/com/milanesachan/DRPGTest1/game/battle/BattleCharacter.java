@@ -2,6 +2,7 @@ package com.milanesachan.DRPGTest1.game.battle;
 
 import com.milanesachan.DRPGTest1.commons.exceptions.CharacterNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
+import com.milanesachan.DRPGTest1.commons.exceptions.UnassignedLaneException;
 import com.milanesachan.DRPGTest1.commons.parameters.BattleParameters;
 import com.milanesachan.DRPGTest1.game.model.Character;
 import com.milanesachan.DRPGTest1.game.model.Equipment;
@@ -36,7 +37,8 @@ public class BattleCharacter {
          */
     }
 
-    public void getReady() throws EquipmentNotFoundException, SQLException {
+    public void getReady() throws EquipmentNotFoundException, SQLException, UnassignedLaneException {
+        if(battleLane==0) throw new UnassignedLaneException(this);
         equipment = new Equipment(userID);
         equipment.loadFromDatabase();
         weapon = equipment.getWeapon();
