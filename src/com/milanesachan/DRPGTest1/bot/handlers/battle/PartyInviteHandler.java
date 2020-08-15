@@ -46,7 +46,8 @@ public class PartyInviteHandler implements Handler, Confirmable {
         try {
             BattleCharacter bc = new BattleCharacter(userID);
             p.add(bc);
-            channel.sendMessage("<@"+userID+"> joined the party!").queue();
+            channel.sendMessage("<@"+userID+"> joined the party!\n" +
+                    "Now choose your desired lane with '>setlane front' or '>setlane back'.").queue();
         } catch (SQLException throwables) {
             channel.sendMessage("Error connecting to the database. Try again later.").queue();
         } catch (CharacterNotFoundException | AlreadyInPartyException e) {
