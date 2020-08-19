@@ -15,7 +15,10 @@
 	- added 'parameters' packet where classes with static variables will hold information such as 'character initial max health' like an .ini file
 	- added relevant stats to the Weapon class
 	- started the BattleImageGenerator class
-	
+	- made Guild load itself from database. This is the last object that used the old 'Factory' system. Items will keep using the 'ItemFactory' since it makes sense for this specific case
+	- added 'lane' as a field in BattleCharacter
+	- added exception for unassigned lane when queueing
+
 - **Major**
 	- added a "Battle channel" for a guild. This channel will be used to spam everything related to guild battles, as well as receiving battle commands from users.
 	- added '>setbattlechannel' command, to set the current channel as the battle channel.
@@ -28,6 +31,8 @@
 	- added '>party' command to see the current party.
 	- added '>queue' command to start/stop matchmaking.
 	- changed HP for new characters from 100 to 500.
+	- added lanes to characters in parties, you can see the lanes of all characters in party with the '>party' command
+	- added '>setlane back/front' command to set your lane
 
 - **Fixed**
 	- fixed characters keeping their 'GuildID' after deleting their guild
