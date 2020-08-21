@@ -44,6 +44,7 @@ public class ItemFactory {
     }
 
     public Item getItemFromID(String itemID) throws ItemNotFoundException {
+        if(itemID == null) throw new ItemNotFoundException("");
         if(itemID.startsWith("statcard:")){
             return new StatCard(itemID);
         }else {

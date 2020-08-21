@@ -2,6 +2,7 @@ package com.milanesachan.DRPGTest1.game.model.items;
 
 import com.milanesachan.DRPGTest1.commons.exceptions.ItemNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Item;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 public class StatCard extends Item {
     private char type;
@@ -22,24 +23,27 @@ public class StatCard extends Item {
 
         try {
             char type = idParts[1].charAt(0);
-            if(type == 'r' || type == 'g' || type == 'b'){
+            if (type == 'r' || type == 'g' || type == 'b') {
                 this.type = type;
-                switch(type){
+                switch (type) {
                     case 'r':
                         setItemName("Red Stat Card");
+                        setIconUrl("https://cdn.discordapp.com/attachments/723244808147304519/746242578982109269/statcard_red.png");
                         break;
                     case 'g':
                         setItemName("Green Stat Card");
+                        setIconUrl("https://cdn.discordapp.com/attachments/723244808147304519/746242586142048296/statcard_green.png");
                         break;
                     case 'b':
                         setItemName("Blue Stat Card");
+                        setIconUrl("https://cdn.discordapp.com/attachments/723244808147304519/746242582547529849/statcard_blue.png");
                         break;
                 }
-            }else throw new ItemNotFoundException(itemID);
+            } else throw new ItemNotFoundException(itemID);
 
-            for(int stat=0; stat<4; stat++){
-                int statValue = Integer.parseInt(idParts[2+stat]);
-                switch(stat){
+            for (int stat = 0; stat < 4; stat++) {
+                int statValue = Integer.parseInt(idParts[2 + stat]);
+                switch (stat) {
                     case 0:
                         this.strength = statValue;
                         break;
@@ -54,9 +58,29 @@ public class StatCard extends Item {
                         break;
                 }
             }
-        }catch (IndexOutOfBoundsException | NumberFormatException ex){
+        } catch (IndexOutOfBoundsException | NumberFormatException ex) {
             throw new ItemNotFoundException(itemID);
         }
+    }
+
+    @Override
+    public EmbedBuilder getEmbed() {
+        EmbedBuilder emb = new EmbedBuilder();
+        emb.setTitle(toString());
+        emb.setFooter("itemID: " + getItemID());
+        emb.setThumbnail(getIconUrl());
+        emb.setColor(0x450000);
+
+        emb.addField("Strength: ", String.valueOf(strength), false);
+        emb.addField("Accuracy: ", String.valueOf(accuracy), false);
+        emb.addField("Vitality: ", String.valueOf(vitality), false);
+        emb.addField("Magic: ", String.valueOf(magic), false);
+        return emb;
+    }
+
+    @Override
+    public String toString() {
+        return getItemName() + " (" + strength + "/" + accuracy + "/" + vitality + "/" + magic + ")";
     }
 
     public char getType() {
