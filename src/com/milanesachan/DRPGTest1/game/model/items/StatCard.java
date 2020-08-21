@@ -11,7 +11,7 @@ public class StatCard extends Item {
     private int vitality;
     private int magic;
 
-    public StatCard(String itemID, String itemName) throws ItemNotFoundException {
+    public StatCard(String itemID) throws ItemNotFoundException {
         super(itemID, "Stat Card");
         decodeItemID(itemID);
     }
@@ -22,15 +22,20 @@ public class StatCard extends Item {
 
         try {
             char type = idParts[1].charAt(0);
-            switch (type) {
-                case 'r':
-                case 'g':
-                case 'b':
-                    this.type = type;
-                    break;
-                default:
-                    throw new ItemNotFoundException(itemID);
-            }
+            if(type == 'r' || type == 'g' || type == 'b'){
+                this.type = type;
+                switch(type){
+                    case 'r':
+                        setItemName("Red Stat Card");
+                        break;
+                    case 'g':
+                        setItemName("Green Stat Card");
+                        break;
+                    case 'b':
+                        setItemName("Blue Stat Card");
+                        break;
+                }
+            }else throw new ItemNotFoundException(itemID);
 
             for(int stat=0; stat<4; stat++){
                 int statValue = Integer.parseInt(idParts[2+stat]);

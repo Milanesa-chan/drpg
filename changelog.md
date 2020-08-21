@@ -1,4 +1,15 @@
-### v0.3-PRE
+### v0.4-PRE
+
+- **Development**
+	- created the StatCard class that creates itself from its ItemID
+	- added code to ItemFactory.getItemFromID() in case a statcard ItemID is required
+
+- **Major**
+	- added 'stat cards' for the character to equip and have its statistics
+
+- **Fixed**
+
+### v0.3
 
 - **Development**
 	- set '>deletechar' to also delete the character's inventory

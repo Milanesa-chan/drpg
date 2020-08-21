@@ -2,6 +2,7 @@ package com.milanesachan.DRPGTest1.bot.core;
 
 import com.milanesachan.DRPGTest1.commons.exceptions.ItemNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.Item;
+import com.milanesachan.DRPGTest1.game.model.items.StatCard;
 import com.milanesachan.DRPGTest1.game.model.items.test.Test_ItemA;
 import com.milanesachan.DRPGTest1.game.model.items.test.Test_ItemB;
 import com.milanesachan.DRPGTest1.game.model.items.test.Test_ItemC;
@@ -43,9 +44,13 @@ public class ItemFactory {
     }
 
     public Item getItemFromID(String itemID) throws ItemNotFoundException {
-        if(!items.containsKey(itemID)){
-            throw new ItemNotFoundException(itemID);
+        if(itemID.startsWith("statcard:")){
+            return new StatCard(itemID);
+        }else {
+            if (!items.containsKey(itemID)) {
+                throw new ItemNotFoundException(itemID);
+            }
+            return items.get(itemID);
         }
-        return items.get(itemID);
     }
 }
