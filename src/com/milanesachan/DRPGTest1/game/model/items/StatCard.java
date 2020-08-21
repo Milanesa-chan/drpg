@@ -1,10 +1,11 @@
 package com.milanesachan.DRPGTest1.game.model.items;
 
 import com.milanesachan.DRPGTest1.commons.exceptions.ItemNotFoundException;
+import com.milanesachan.DRPGTest1.game.model.Equipable;
 import com.milanesachan.DRPGTest1.game.model.Item;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-public class StatCard extends Item {
+public class StatCard extends Item implements Equipable {
     private char type;
     public static final char TYPE_RED = 'r', TYPE_GREEN = 'g', TYPE_BLUE = 'b';
     private int strength;

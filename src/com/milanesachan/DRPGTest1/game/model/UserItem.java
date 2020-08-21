@@ -65,8 +65,8 @@ public class UserItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserItem userItem = (UserItem) o;
-        return item.getItemID()==userItem.getItem().getItemID()
-                && userID==userItem.userID;
+        return this.item.getItemID().equals(userItem.getItem().getItemID())
+                && this.userID==userItem.userID;
     }
 
     @Override
