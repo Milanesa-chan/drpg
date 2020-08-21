@@ -3,6 +3,7 @@
 - **Development**
 	- created the StatCard class that creates itself from its ItemID
 	- added code to ItemFactory.getItemFromID() in case a statcard ItemID is required
+	- added statcards to the equipment
 
 - **Major**
 	- added 'stat cards' for the character to equip and have its statistics
