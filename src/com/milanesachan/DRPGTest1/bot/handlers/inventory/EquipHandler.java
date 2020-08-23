@@ -66,7 +66,7 @@ public class EquipHandler implements Handler {
                 channel.sendMessage("ItemID: '"+itemID+"' is not equipable!").queue();
             }
         } catch (SQLException | ItemNotFoundException throwables) {
-            throwables.printStackTrace();
+            //throwables.printStackTrace();
         } catch (EquipmentNotFoundException e) {
             try{
                 Weapon weapon = (Weapon) ItemFactory.getInstance().getItemFromID(itemID);
