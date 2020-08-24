@@ -33,6 +33,7 @@ public class DRPGBot {
             jda.addEventListener(CommandManager.getInstance());
             jda.addEventListener(PageManager.getInstance());
             jda.addEventListener(BattleCommandManager.getInstance());
+            jda.addEventListener(AnswerManager.getInstance());
         }catch(Exception ex){
             System.out.println("There was an error Logging In. Failed to run.");
         }
