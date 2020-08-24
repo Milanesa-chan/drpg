@@ -11,13 +11,13 @@ public class AnswerManager extends ListenerAdapter {
     private HashMap<Long, Answerable> waitingList;
     private static AnswerManager instance;
 
-    public static AnswerManager getInstance(){
-        if(instance == null)
+    public static AnswerManager getInstance() {
+        if (instance == null)
             instance = new AnswerManager();
         return instance;
     }
 
-    private AnswerManager(){
+    private AnswerManager() {
         waitingList = new HashMap<>();
     }
 
@@ -28,20 +28,24 @@ public class AnswerManager extends ListenerAdapter {
         long userID = event.getMember().getIdLong();
         String messageRaw = event.getMessage().getContentRaw();
 
-        if(!event.getMember().getUser().isBot()){
-            if(waitingList.containsKey(userID)){
-                Answerable answerable = waitingList.remove(userID);
-                if(messageRaw.equals(">cancel"))
+        if (!event.getMember().getUser().isBot()) {
+            if (waitingList.containsKey(userID)) {
+                Answerable answerable = waitingList.get(userID);
+                if (messageRaw.equals(">cancel")) {
                     answerable.cancel();
-                else
-                    answerable.answer(messageRaw);
+                    waitingList.remove(userID);
+                } else {
+                    if(answerable.tryAnswer(messageRaw)){
+                        waitingList.remove(userID);
+                    }
+                }
             }
         }
     }
 
-    public synchronized void addToWaitingList(long userID, Answerable answerable){
+    public synchronized void addToWaitingList(long userID, Answerable answerable) {
         Answerable oldAnswerable = waitingList.remove(userID);
-        if(oldAnswerable != null)
+        if (oldAnswerable != null)
             oldAnswerable.cancel();
 
         waitingList.put(userID, answerable);
