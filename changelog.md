@@ -4,9 +4,12 @@
 	- created the StatCard class that creates itself from its ItemID
 	- added code to ItemFactory.getItemFromID() in case a statcard ItemID is required
 	- added statcards to the equipment
-
+	- unequip now removes your entire equipment
+	- created the 'Answerable' interface and the 'AnswerManager' for two-part commands
+	
 - **Major**
 	- added 'stat cards' for the character to equip and have its statistics
+	- added "two-part commands" that will be used for complex interactions through commands
 
 - **Fixed**
 
