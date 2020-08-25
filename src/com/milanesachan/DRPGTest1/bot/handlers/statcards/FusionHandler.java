@@ -9,9 +9,11 @@ import com.milanesachan.DRPGTest1.bot.handlers.Confirmable;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.bot.handlers.HandlerFilter;
 import com.milanesachan.DRPGTest1.commons.exceptions.FusionFailedException;
+import com.milanesachan.DRPGTest1.game.model.Embeddable;
 import com.milanesachan.DRPGTest1.game.model.Inventory;
 import com.milanesachan.DRPGTest1.game.model.UserItem;
 import com.milanesachan.DRPGTest1.game.model.items.StatCard;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.sql.SQLException;
@@ -23,7 +25,7 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
     private ArrayList<StatCard> fullCardList;
     private ArrayList<StatCard> fuseCardList;
 
-    class FusionData {
+    class FusionData implements Embeddable {
         public float redChance;
         public float greenChance;
         public float blueChance;
@@ -32,6 +34,19 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         public int minAcc, maxAcc;
         public int minVit, maxVit;
         public int minMag, maxMag;
+
+        @Override
+        public EmbedBuilder getEmbed() {
+            EmbedBuilder builder = new EmbedBuilder();
+
+            builder.setTitle("Fusion Result");
+            builder.setColor(0x450000);
+
+            builder.addField("Color Chances:", "Red: "+redChance+"%\n" +
+                    "Green: "+greenChance+"%\nBlue: "+blueChance+"%", false);
+
+            return builder;
+        }
     }
 
     public FusionHandler(MessageChannel channel, long userID) {
@@ -89,10 +104,6 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         }
     }
 
-    @Override
-    public void answer(String answer) {
-
-    }
 
     @Override
     public boolean tryAnswer(String answer) {
@@ -121,6 +132,46 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
             }
         }
         return true;
+    }
+
+    @Override
+    public void answer(String answer) {
+        fuseCardList.clear();
+        for(String cardStr : answer.split(" ")){
+            StatCard nextCard = fullCardList.get(Integer.parseInt(cardStr));
+            fuseCardList.add(nextCard);
+        }
+
+        channel.sendMessage(preComputeFusion().getEmbed().build()).queue();
+    }
+
+    private FusionData preComputeFusion(){
+        FusionData fusionData = new FusionData();
+
+        int totalCards = fuseCardList.size();
+        int countRedCards = 0;
+        int countGreenCards = 0;
+        int countBlueCards = 0;
+
+        for(StatCard card : fuseCardList){
+            switch(card.getType()){
+                case 'r':
+                    countRedCards++;
+                    break;
+                case 'g':
+                    countGreenCards++;
+                    break;
+                case 'b':
+                    countBlueCards++;
+                    break;
+            }
+        }
+
+        fusionData.redChance = ((float)countRedCards/(float)totalCards)*100;
+        fusionData.greenChance = ((float)countGreenCards/(float)totalCards)*100;
+        fusionData.blueChance = ((float)countBlueCards/(float)totalCards)*100;
+
+        return fusionData;
     }
 
     @Override
