@@ -82,7 +82,7 @@ public class CommandManager extends ListenerAdapter {
         }else if(matchCommand(args[0], "createitem")){
             if(args.length!=3
             || event.getMessage().getMentionedMembers().isEmpty()) {
-                event.getChannel().sendMessage("<@" + userID + "> **Error:** correct format is '>createinv <@User> <itemID>'").queue();
+                event.getChannel().sendMessage("<@" + userID + "> **Error:** correct format is '>createitem <@User> <itemID>'").queue();
             }else{
                 User user = event.getMessage().getMentionedMembers().get(0).getUser();
                 String itemID = args[2];

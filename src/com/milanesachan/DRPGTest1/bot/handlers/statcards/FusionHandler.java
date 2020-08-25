@@ -22,7 +22,7 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
     private long userID;
     private ArrayList<StatCard> fullCardList;
     private ArrayList<StatCard> fuseCardList;
-    
+
     class FusionData {
         public float redChance;
         public float greenChance;
@@ -130,6 +130,6 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
 
     @Override
     public void cancel() {
-        channel.sendMessage("Fusion cancelled.").queue();
+        channel.sendMessage("<@"+userID+"> Fusion cancelled.").queue();
     }
 }
