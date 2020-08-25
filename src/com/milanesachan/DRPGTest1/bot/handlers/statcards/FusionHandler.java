@@ -90,7 +90,7 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         ArrayList<StatCard> pulledCards = new ArrayList<>();
 
         if(usersInv.isEmpty()) throw new FusionFailedException("Inventory is empty!");
-
+  
         for(UserItem it : usersInv){
             if(it.getItem().getClass() == StatCard.class){
                 pulledCards.add((StatCard) it.getItem());
