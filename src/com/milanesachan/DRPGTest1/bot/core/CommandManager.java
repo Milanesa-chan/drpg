@@ -10,6 +10,7 @@ import com.milanesachan.DRPGTest1.bot.handlers.guild.GuildDeletionHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.guild.InfoGuildHandler;
 import com.milanesachan.DRPGTest1.bot.handlers.inventory.*;
 import com.milanesachan.DRPGTest1.bot.handlers.item.InfoItemHandler;
+import com.milanesachan.DRPGTest1.bot.handlers.statcards.FusionHandler;
 import com.milanesachan.DRPGTest1.commons.console.ConsoleManager;
 import com.milanesachan.DRPGTest1.networking.DatabaseConnector;
 import net.dv8tion.jda.api.entities.User;
@@ -99,6 +100,12 @@ public class CommandManager extends ListenerAdapter {
         }else if(matchCommand(args[0], "unequip")){
             UnequipHandler h = new UnequipHandler(event.getChannel(), userID);
             onCharacterRequiredCommand(h, event, userID);
+        }else if(matchCommand(args[0], "fuse")){
+            FusionHandler h = new FusionHandler(event.getChannel(), userID);
+
+            HandlerFilter filter = new HandlerFilter();
+            filter.setCharacterRequired(true);
+            filter.filterHandler(event, h, userID);
         }
     }
 

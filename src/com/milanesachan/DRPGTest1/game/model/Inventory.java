@@ -43,7 +43,7 @@ public class Inventory extends ArrayList<UserItem> {
         }
     }
 
-    public void loadFromDatabase() throws SQLException {
+    public Inventory loadFromDatabase() throws SQLException {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
         if (con != null) {
             Statement stmt = con.createStatement();
@@ -63,6 +63,7 @@ public class Inventory extends ArrayList<UserItem> {
                 this.add(ui);
             }
         }
+        return this;
     }
 
 
