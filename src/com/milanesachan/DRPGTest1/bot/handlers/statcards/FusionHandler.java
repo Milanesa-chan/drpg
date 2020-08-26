@@ -42,8 +42,8 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
             builder.setTitle("Fusion Result");
             builder.setColor(0x450000);
 
-            builder.addField("Color Chances:", "Red: "+redChance+"%\n" +
-                    "Green: "+greenChance+"%\nBlue: "+blueChance+"%", false);
+            builder.addField("Color Chances:", "Red: " + redChance + "%\n" +
+                    "Green: " + greenChance + "%\nBlue: " + blueChance + "%", false);
 
             return builder;
         }
@@ -64,8 +64,8 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
             PagedEmbedBuilder builder = new PagedEmbedBuilder(channel);
 
             ArrayList<String> cardsStrList = new ArrayList<>();
-            for(StatCard sc : fullCardList){
-                cardsStrList.add(fullCardList.indexOf(sc) +" : "+sc.toString());
+            for (StatCard sc : fullCardList) {
+                cardsStrList.add(fullCardList.indexOf(sc) + " : " + sc.toString());
             }
 
             builder.setData(cardsStrList);
@@ -81,7 +81,7 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
             channel.sendMessage("Error connecting to the database. Try again later.").queue();
         } catch (FusionFailedException e) {
             System.out.println(e.getMessage());
-            channel.sendMessage("<@"+userID+"> Fusion failed: "+e.getMessage()).queue();
+            channel.sendMessage("<@" + userID + "> Fusion failed: " + e.getMessage()).queue();
         }
     }
 
@@ -89,16 +89,16 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         Inventory usersInv = new Inventory(userID).loadFromDatabase();
         ArrayList<StatCard> pulledCards = new ArrayList<>();
 
-        if(usersInv.isEmpty()) throw new FusionFailedException("Inventory is empty!");
-  
-        for(UserItem it : usersInv){
-            if(it.getItem().getClass() == StatCard.class){
+        if (usersInv.isEmpty()) throw new FusionFailedException("Inventory is empty!");
+
+        for (UserItem it : usersInv) {
+            if (it.getItem().getClass() == StatCard.class) {
                 pulledCards.add((StatCard) it.getItem());
             }
         }
 
-        if(pulledCards.size()<2) throw new FusionFailedException("You need at least two stat cards to fuse!");
-        else{
+        if (pulledCards.size() < 2) throw new FusionFailedException("You need at least two stat cards to fuse!");
+        else {
             fullCardList.clear();
             fullCardList.addAll(pulledCards);
         }
@@ -107,27 +107,46 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
 
     @Override
     public boolean tryAnswer(String answer) {
-        if(answer.startsWith(DRPGBot.getInstance().getPrefix())) return false;
+        if (answer.startsWith(DRPGBot.getInstance().getPrefix())) return false;
 
         String[] ansParts = answer.split(" ");
-        if(ansParts.length<2){
+        if (ansParts.length < 2) {
             channel.sendMessage("You must choose at least two cards.").queue();
             return false;
-        }else if(!isIntStringArray(ansParts)){
+        } else if (!isIntStringArray(ansParts)) {
             channel.sendMessage("Unrecognized format. You must **only** send whole numbers " +
                     "separated by spaces.").queue();
             return false;
-        }else{
-            answer(answer);
-            return true;
+        } else {
+            try {
+                if(areCardNumbersPossible(ansParts)) {
+                    answer(answer);
+                    return true;
+                }else{
+                    channel.sendMessage("Unexpected error. Try again later.").queue();
+                    return false;
+                }
+            } catch (FusionFailedException e) {
+                channel.sendMessage(e.getMessage()).queue();
+                return false;
+            }
         }
     }
 
-    private boolean isIntStringArray(String[] array){
-        for(String s : array){
-            try{
+    private boolean areCardNumbersPossible(String[] numbers) throws FusionFailedException {
+        for (String s : numbers) {
+            int i = Integer.parseInt(s);
+            if (i >= fullCardList.size() || i < 0) throw new FusionFailedException("'" + i + "' is not a " +
+                    "possible card number!");
+        }
+        return true;
+    }
+
+    private boolean isIntStringArray(String[] array) {
+        for (String s : array) {
+            try {
                 Integer.parseInt(s);
-            }catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 return false;
             }
         }
@@ -137,7 +156,7 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
     @Override
     public void answer(String answer) {
         fuseCardList.clear();
-        for(String cardStr : answer.split(" ")){
+        for (String cardStr : answer.split(" ")) {
             StatCard nextCard = fullCardList.get(Integer.parseInt(cardStr));
             fuseCardList.add(nextCard);
         }
@@ -145,7 +164,7 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         channel.sendMessage(preComputeFusion().getEmbed().build()).queue();
     }
 
-    private FusionData preComputeFusion(){
+    private FusionData preComputeFusion() {
         FusionData fusionData = new FusionData();
 
         int totalCards = fuseCardList.size();
@@ -153,8 +172,8 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         int countGreenCards = 0;
         int countBlueCards = 0;
 
-        for(StatCard card : fuseCardList){
-            switch(card.getType()){
+        for (StatCard card : fuseCardList) {
+            switch (card.getType()) {
                 case 'r':
                     countRedCards++;
                     break;
@@ -167,9 +186,9 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
             }
         }
 
-        fusionData.redChance = ((float)countRedCards/(float)totalCards)*100;
-        fusionData.greenChance = ((float)countGreenCards/(float)totalCards)*100;
-        fusionData.blueChance = ((float)countBlueCards/(float)totalCards)*100;
+        fusionData.redChance = ((float) countRedCards / (float) totalCards) * 100;
+        fusionData.greenChance = ((float) countGreenCards / (float) totalCards) * 100;
+        fusionData.blueChance = ((float) countBlueCards / (float) totalCards) * 100;
 
         return fusionData;
     }
@@ -181,6 +200,6 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
 
     @Override
     public void cancel() {
-        channel.sendMessage("<@"+userID+"> Fusion cancelled.").queue();
+        channel.sendMessage("<@" + userID + "> Fusion cancelled.").queue();
     }
 }
