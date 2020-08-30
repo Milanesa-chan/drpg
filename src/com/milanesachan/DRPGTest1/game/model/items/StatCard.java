@@ -103,4 +103,19 @@ public class StatCard extends Item implements Equipable {
     public int getMagic() {
         return magic;
     }
+
+    public int getStat(int statNumber){
+        switch(statNumber){
+            case 0:
+                return strength;
+            case 1:
+                return accuracy;
+            case 2:
+                return vitality;
+            case 3:
+                return magic;
+            default:
+                return 0;
+        }
+    }
 }
