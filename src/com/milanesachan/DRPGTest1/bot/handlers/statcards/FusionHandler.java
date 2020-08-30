@@ -9,6 +9,7 @@ import com.milanesachan.DRPGTest1.bot.handlers.Confirmable;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.bot.handlers.HandlerFilter;
 import com.milanesachan.DRPGTest1.commons.exceptions.FusionFailedException;
+import com.milanesachan.DRPGTest1.commons.parameters.StatCardsParameters;
 import com.milanesachan.DRPGTest1.game.model.Embeddable;
 import com.milanesachan.DRPGTest1.game.model.Inventory;
 import com.milanesachan.DRPGTest1.game.model.UserItem;
@@ -17,7 +18,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
 
 public class FusionHandler implements Handler, Confirmable, Answerable {
     private MessageChannel channel;
@@ -119,10 +120,10 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
             return false;
         } else {
             try {
-                if(areCardNumbersPossible(ansParts)) {
-                    answer(answer);
+                if (areCardNumbersPossible(ansParts)) {
+                    new Thread(() -> answer(answer)).start();
                     return true;
-                }else{
+                } else {
                     channel.sendMessage("Unexpected error. Try again later.").queue();
                     return false;
                 }
@@ -162,6 +163,7 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         }
 
         channel.sendMessage(preComputeFusion().getEmbed().build()).queue();
+
     }
 
     private FusionData preComputeFusion() {
@@ -190,16 +192,45 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         fusionData.greenChance = ((float) countGreenCards / (float) totalCards) * 100;
         fusionData.blueChance = ((float) countBlueCards / (float) totalCards) * 100;
 
+        /*
+        ArrayList<Integer> strValues = new ArrayList<>();
+        for (StatCard card : fuseCardList) {
+            strValues.add(card.getStrength());
+        }
+        channel.sendMessage("Min STR: "+computeStat(strValues, true, StatCardsParameters.statcardFuseStatMin)).queue();
+        channel.sendMessage("Max STR: "+computeStat(strValues, true, StatCardsParameters.statcardFuseStatMax)).queue();
+        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
+        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
+        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
+        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
+        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
+        */
+
         return fusionData;
     }
 
     @Override
     public void confirm() {
-
     }
 
     @Override
     public void cancel() {
         channel.sendMessage("<@" + userID + "> Fusion cancelled.").queue();
+    }
+
+    private int computeStat(ArrayList<Integer> values, boolean deterministic, float deterministicMul) {
+        ArrayList<Integer> valuesCopy = new ArrayList<>(values);
+        valuesCopy.sort(Collections.reverseOrder());
+        float resultingStat = valuesCopy.remove(0);
+        float mul = deterministic ? deterministicMul : 0.0f;
+        float mulMin = StatCardsParameters.statcardFuseStatMin;
+        float mulMax = StatCardsParameters.statcardFuseStatMax;
+
+        for (int val : valuesCopy) {
+            if (!deterministic) mul = mulMin + (float) Math.random() * (mulMax - mulMin);
+            resultingStat += val * mul < 1 ? 1 : val * mul;
+        }
+
+        return (int) resultingStat;
     }
 }
