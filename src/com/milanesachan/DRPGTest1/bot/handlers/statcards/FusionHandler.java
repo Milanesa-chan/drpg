@@ -1,6 +1,7 @@
 package com.milanesachan.DRPGTest1.bot.handlers.statcards;
 
 import com.milanesachan.DRPGTest1.bot.core.AnswerManager;
+import com.milanesachan.DRPGTest1.bot.core.CommandManager;
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
 import com.milanesachan.DRPGTest1.bot.core.PagedEmbedBuilder;
 import com.milanesachan.DRPGTest1.bot.entities.PagedEmbed;
@@ -49,7 +50,7 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
             builder.addField("Stats:", "Strength: "+minStr+" - "+maxStr+
                     "\nAccuracy: "+minAcc+" - "+maxAcc+"\nVitality: "+minVit+" - "+maxVit+
                     "\nMagic: "+minMag+" - "+maxMag, false);
-            
+
             return builder;
         }
     }
@@ -168,6 +169,9 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
 
         channel.sendMessage(preComputeFusion().getEmbed().build()).queue();
 
+        channel.sendMessage("This fusion will destroy the "+fuseCardList.size()+" cards you selected. " +
+                "Do you want to continue? (y/n)").queue();
+        CommandManager.getInstance().addToConfirmationList(userID, this);
     }
 
     private FusionData preComputeFusion() {
@@ -195,20 +199,6 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         fusionData.redChance = ((float) countRedCards / (float) totalCards) * 100;
         fusionData.greenChance = ((float) countGreenCards / (float) totalCards) * 100;
         fusionData.blueChance = ((float) countBlueCards / (float) totalCards) * 100;
-
-        /*
-        ArrayList<Integer> strValues = new ArrayList<>();
-        for (StatCard card : fuseCardList) {
-            strValues.add(card.getStrength());
-        }
-        channel.sendMessage("Min STR: "+computeStat(strValues, true, StatCardsParameters.statcardFuseStatMin)).queue();
-        channel.sendMessage("Max STR: "+computeStat(strValues, true, StatCardsParameters.statcardFuseStatMax)).queue();
-        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
-        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
-        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
-        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
-        channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
-        */
 
         ArrayList<Integer> statValues;
         for(int s=0; s<4; s++){
@@ -244,6 +234,7 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
 
     @Override
     public void confirm() {
+        
     }
 
     @Override
