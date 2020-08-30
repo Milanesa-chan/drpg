@@ -46,6 +46,10 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
             builder.addField("Color Chances:", "Red: " + redChance + "%\n" +
                     "Green: " + greenChance + "%\nBlue: " + blueChance + "%", false);
 
+            builder.addField("Stats:", "Strength: "+minStr+" - "+maxStr+
+                    "\nAccuracy: "+minAcc+" - "+maxAcc+"\nVitality: "+minVit+" - "+maxVit+
+                    "\nMagic: "+minMag+" - "+maxMag, false);
+            
             return builder;
         }
     }
@@ -205,6 +209,35 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
         channel.sendMessage(String.valueOf(computeStat(strValues, false, 0.0f))).queue();
         */
+
+        ArrayList<Integer> statValues;
+        for(int s=0; s<4; s++){
+            statValues = new ArrayList<>();
+            for(StatCard card : fuseCardList)
+                statValues.add(card.getStat(s));
+
+            int minStat = computeStat(statValues, true, StatCardsParameters.statcardFuseStatMin);
+            int maxStat = computeStat(statValues, true, StatCardsParameters.statcardFuseStatMax);
+
+            switch (s){
+                case 0:
+                    fusionData.minStr = minStat;
+                    fusionData.maxStr = maxStat;
+                    break;
+                case 1:
+                    fusionData.minAcc = minStat;
+                    fusionData.maxAcc = maxStat;
+                    break;
+                case 2:
+                    fusionData.minVit = minStat;
+                    fusionData.maxVit = maxStat;
+                    break;
+                case 3:
+                    fusionData.minMag = minStat;
+                    fusionData.maxMag = maxStat;
+                    break;
+            }
+        }
 
         return fusionData;
     }
