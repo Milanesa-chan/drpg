@@ -86,9 +86,9 @@ public class Equipment implements Embeddable{
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
         if(con !=null){
             Statement stmt = con.createStatement();
-            stmt.execute("DELETE FROM `inventory` WHERE `UID`="+userID);
+            stmt.execute("DELETE FROM `equipment` WHERE `UID`="+userID);
             System.out.println(stmt.getUpdateCount()+" rows deleted from equipment '"+userID+"'.");
-            return stmt.getResultSet().rowDeleted();
+            return stmt.getUpdateCount()>0;
         }else return false;
     }
 
