@@ -82,6 +82,16 @@ public class Equipment implements Embeddable{
         }
     }
 
+    public boolean deleteInDatabase() throws SQLException {
+        Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
+        if(con !=null){
+            Statement stmt = con.createStatement();
+            stmt.execute("DELETE FROM `inventory` WHERE `UID`="+userID);
+            System.out.println(stmt.getUpdateCount()+" rows deleted from equipment '"+userID+"'.");
+            return stmt.getResultSet().rowDeleted();
+        }else return false;
+    }
+
     @Override
     public EmbedBuilder getEmbed() {
         JDA jda = DRPGBot.getInstance().getJda();
