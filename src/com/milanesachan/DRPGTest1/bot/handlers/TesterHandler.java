@@ -2,6 +2,7 @@ package com.milanesachan.DRPGTest1.bot.handlers;
 
 import com.milanesachan.DRPGTest1.bot.core.AnswerManager;
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
+import com.milanesachan.DRPGTest1.bot.handlers.statcards.FusionHandler;
 import com.milanesachan.DRPGTest1.bot.image_generator.TestImageGenerator;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -19,8 +20,7 @@ public class TesterHandler implements Handler, Answerable{
 
     @Override
     public void handle() {
-        channel.sendMessage("Send a response below ('>cancel' to abort):").queue();
-        AnswerManager.getInstance().addToWaitingList(event.getMember().getIdLong(), this);
+
     }
 
     private boolean isInt(String s){

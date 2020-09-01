@@ -234,7 +234,22 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
 
     @Override
     public void confirm() {
-        
+        String newCardID = "statcard:";
+        int countR = 0, countG = 0, countB = 0;
+        for(StatCard card : fuseCardList){
+            switch (card.getType()){
+                case 'r':
+                    countR++;
+                    break;
+                case 'g':
+                    countG++;
+                    break;
+                case 'b':
+                    countB++;
+                    break;
+            }
+        }
+        newCardID = newCardID.concat(String.valueOf(colorRoll(countR, countG, countB)));
     }
 
     @Override
@@ -256,5 +271,18 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
         }
 
         return (int) resultingStat;
+    }
+
+    private char colorRoll(int countR, int countG, int countB){
+        int countTotal = countR + countG + countB;
+        int rollNumber = (int) (countTotal * Math.random());
+
+        if(rollNumber >= 0 && rollNumber < countR){
+            return 'r';
+        }else if(rollNumber >= countR && rollNumber < countR+countG){
+            return 'g';
+        }else{
+            return 'b';
+        }
     }
 }
