@@ -43,7 +43,7 @@ public class Inventory extends ArrayList<UserItem> {
         }
     }
 
-    public void loadFromDatabase() throws SQLException {
+    public Inventory loadFromDatabase() throws SQLException {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
         if (con != null) {
             Statement stmt = con.createStatement();
@@ -63,6 +63,7 @@ public class Inventory extends ArrayList<UserItem> {
                 this.add(ui);
             }
         }
+        return this;
     }
 
 
@@ -114,6 +115,25 @@ public class Inventory extends ArrayList<UserItem> {
         }else{
             return super.add(userItem);
         }
+    }
+
+    public boolean removeOne(Item item){
+        UserItem userItem = new UserItem(item, userID, OffsetDateTime.now());
+        if(!contains(userItem)){
+            return false;
+        }else{
+            userItem = get(indexOf(userItem));
+            int finalCount = userItem.removeOne();
+            if(finalCount>0)
+                return true;
+            else
+                return remove(userItem);
+        }
+    }
+
+    public boolean add(Item item){
+        UserItem userItem = new UserItem(item, userID, OffsetDateTime.now());
+        return add(userItem);
     }
 
     public boolean removeUserItem(UserItem userItem) {

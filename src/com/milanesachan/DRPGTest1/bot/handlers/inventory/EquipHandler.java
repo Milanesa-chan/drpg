@@ -5,6 +5,7 @@ import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.commons.exceptions.EquipmentNotFoundException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ItemNotFoundException;
 import com.milanesachan.DRPGTest1.game.model.*;
+import com.milanesachan.DRPGTest1.game.model.items.StatCard;
 import com.milanesachan.DRPGTest1.game.model.items.Weapon;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -32,7 +33,12 @@ public class EquipHandler implements Handler {
             Inventory inv = new Inventory(userID);
             inv.loadFromDatabase();
 
-            Item unequipedItem = equipment.getWeapon();
+            Item unequipedItem = null;
+            if(itemID.startsWith("weapon:")){
+                unequipedItem = equipment.getWeapon();
+            }else if(itemID.startsWith("statcard:")){
+                unequipedItem = equipment.getStatCard();
+            }
             if(unequipedItem != null) {
                 UserItem unequiped = new UserItem(unequipedItem, userID, OffsetDateTime.now());
                 inv.add(unequiped);
@@ -40,10 +46,16 @@ public class EquipHandler implements Handler {
             }
 
             try {
-                Weapon equippedItem = (Weapon) ItemFactory.getInstance().getItemFromID(itemID);
-                UserItem equipped = new UserItem(equippedItem, userID, OffsetDateTime.now());
+                Equipable equippedItem = (Equipable) ItemFactory.getInstance().getItemFromID(itemID);
+                UserItem equipped = new UserItem((Item) equippedItem, userID, OffsetDateTime.now());
+                System.out.println(equipped.getItem().getItemID());
+                System.out.println(inv.contains(equipped));
                 if(inv.removeUserItem(equipped)) {
-                    equipment.setWeapon(equippedItem);
+                    if(((Item) equippedItem).getItemID().startsWith("statcard:")){
+                        equipment.setStatCard((StatCard) equippedItem);
+                    }else if(((Item) equippedItem).getItemID().startsWith("weapon:")) {
+                        equipment.setWeapon((Weapon) equippedItem);
+                    }
                     equipment.saveToDatabase();
                     inv.saveToDatabase();
                     channel.sendMessage("Item equipped!").queue();
@@ -51,10 +63,10 @@ public class EquipHandler implements Handler {
                     channel.sendMessage("**Error:** You do not have the specified item in your inventory.").queue();
                 }
             }catch(ClassCastException ex){
-                channel.sendMessage("ItemID: '"+itemID+"' is not a weapon!").queue();
+                channel.sendMessage("ItemID: '"+itemID+"' is not equipable!").queue();
             }
         } catch (SQLException | ItemNotFoundException throwables) {
-            throwables.printStackTrace();
+            //throwables.printStackTrace();
         } catch (EquipmentNotFoundException e) {
             try{
                 Weapon weapon = (Weapon) ItemFactory.getInstance().getItemFromID(itemID);

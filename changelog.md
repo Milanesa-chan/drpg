@@ -1,4 +1,22 @@
-### v0.3-PRE
+### v0.4-PRE
+
+- **Development**
+	- created the StatCard class that creates itself from its ItemID
+	- added code to ItemFactory.getItemFromID() in case a statcard ItemID is required
+	- added statcards to the equipment
+	- unequip now removes your entire equipment
+	- created the 'Answerable' interface and the 'AnswerManager' for two-part commands
+	- created the FusionHandler for the command '>fuse'
+	- added 'getStat(int)' to StatCard to get a stat determined from a number (0 = str, 1 = acc, 2 = vit, 3 = mag)
+
+- **Major**
+	- added 'stat cards' for the character to equip and have its statistics
+	- added "two-part commands" that will be used for complex interactions through commands
+	- added '>fuse' command to fuse two or more cards and get one, better card
+
+- **Fixed**
+
+### v0.3
 
 - **Development**
 	- set '>deletechar' to also delete the character's inventory
