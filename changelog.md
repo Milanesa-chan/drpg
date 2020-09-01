@@ -15,6 +15,7 @@
 	- added '>fuse' command to fuse two or more cards and get one, better card
 
 - **Fixed**
+	- character no longer keeps its equipment after being deleted
 
 ### v0.3
 
