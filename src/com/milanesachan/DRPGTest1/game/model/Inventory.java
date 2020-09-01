@@ -131,6 +131,11 @@ public class Inventory extends ArrayList<UserItem> {
         }
     }
 
+    public boolean add(Item item){
+        UserItem userItem = new UserItem(item, userID, OffsetDateTime.now());
+        return add(userItem);
+    }
+
     public boolean removeUserItem(UserItem userItem) {
         if(this.contains(userItem)){
             int index = this.indexOf(userItem);
