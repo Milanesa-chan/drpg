@@ -1,15 +1,13 @@
 package com.milanesachan.DRPGTest1.bot.handlers.statcards;
 
-import com.milanesachan.DRPGTest1.bot.core.AnswerManager;
-import com.milanesachan.DRPGTest1.bot.core.CommandManager;
-import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
-import com.milanesachan.DRPGTest1.bot.core.PagedEmbedBuilder;
+import com.milanesachan.DRPGTest1.bot.core.*;
 import com.milanesachan.DRPGTest1.bot.entities.PagedEmbed;
 import com.milanesachan.DRPGTest1.bot.handlers.Answerable;
 import com.milanesachan.DRPGTest1.bot.handlers.Confirmable;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
 import com.milanesachan.DRPGTest1.bot.handlers.HandlerFilter;
 import com.milanesachan.DRPGTest1.commons.exceptions.FusionFailedException;
+import com.milanesachan.DRPGTest1.commons.exceptions.ItemNotFoundException;
 import com.milanesachan.DRPGTest1.commons.parameters.StatCardsParameters;
 import com.milanesachan.DRPGTest1.game.model.Embeddable;
 import com.milanesachan.DRPGTest1.game.model.Inventory;
@@ -18,6 +16,7 @@ import com.milanesachan.DRPGTest1.game.model.items.StatCard;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -250,6 +249,33 @@ public class FusionHandler implements Handler, Confirmable, Answerable {
             }
         }
         newCardID = newCardID.concat(String.valueOf(colorRoll(countR, countG, countB)));
+
+        ArrayList<Integer> statValues;
+        for(int s=0; s<4; s++){
+            statValues = new ArrayList<>();
+            for(StatCard card : fuseCardList){
+                statValues.add(card.getStat(s));
+            }
+
+            newCardID = newCardID.concat(":"+computeStat(statValues, false, 0f));
+        }
+
+        try {
+            StatCard newCard = (StatCard) ItemFactory.getInstance().getItemFromID(newCardID);
+            Inventory userInv = new Inventory(userID).loadFromDatabase();
+            userInv.add(newCard);
+            for(StatCard card : fuseCardList)
+                userInv.removeOne(card);
+            userInv.saveToDatabase();
+
+            channel.sendMessage("**FUSION COMPLETED**\nResulting stat card:").queue();
+            channel.sendMessage(newCard.getEmbed().build()).queue();
+        } catch (ItemNotFoundException e) {
+            channel.sendMessage("Unexpected error. "+e.getMessage()).queue();
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            channel.sendMessage("Couldn't connect to database. Try again later.").queue();
+        }
     }
 
     @Override
