@@ -25,20 +25,18 @@ public class Inventory extends ArrayList<UserItem> {
     }
 
     public void saveToDatabase() throws SQLException {
-        if (!super.isEmpty()) {
-            Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
-            if (con != null) {
-                Statement stmt = con.createStatement();
-                stmt.execute("DELETE FROM `inventory` WHERE `UID`=" + userID);
-                for (UserItem ui : this) {
-                    PreparedStatement pstmt = con.prepareStatement("INSERT INTO `inventory` (UID, ItemID, Quantity, DateObtained) VALUES (?, ?, ?, ?);");
-                    pstmt.setLong(1, userID);
-                    pstmt.setString(2, ui.getItem().getItemID());
-                    pstmt.setInt(3, ui.getQuantity());
-                    Timestamp timestamp = Timestamp.from(Instant.from(ui.getDateObtained()));
-                    pstmt.setTimestamp(4, timestamp);
-                    pstmt.execute();
-                }
+        Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
+        if (con != null) {
+            Statement stmt = con.createStatement();
+            stmt.execute("DELETE FROM `inventory` WHERE `UID`=" + userID);
+            for (UserItem ui : this) {
+                PreparedStatement pstmt = con.prepareStatement("INSERT INTO `inventory` (UID, ItemID, Quantity, DateObtained) VALUES (?, ?, ?, ?);");
+                pstmt.setLong(1, userID);
+                pstmt.setString(2, ui.getItem().getItemID());
+                pstmt.setInt(3, ui.getQuantity());
+                Timestamp timestamp = Timestamp.from(Instant.from(ui.getDateObtained()));
+                pstmt.setTimestamp(4, timestamp);
+                pstmt.execute();
             }
         }
     }
@@ -69,10 +67,10 @@ public class Inventory extends ArrayList<UserItem> {
 
     public boolean deleteInDatabase() throws SQLException {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
-        if(con != null){
+        if (con != null) {
             Statement stmt = con.createStatement();
-            return stmt.execute("DELETE FROM `inventory` WHERE `UID`="+userID);
-        }else return false;
+            return stmt.execute("DELETE FROM `inventory` WHERE `UID`=" + userID);
+        } else return false;
     }
 
     public long getUserID() {
@@ -99,7 +97,7 @@ public class Inventory extends ArrayList<UserItem> {
             String itemName = ui.getItem().getItemName();
             int quantity = ui.getQuantity();
             String itemID = ui.getItem().getItemID();
-            data.add(itemName + " (x" + quantity + ") _ID:"+itemID+"_");
+            data.add(itemName + " (x" + quantity + ") _ID:" + itemID + "_");
         }
         builder.setData(data);
         return builder.fromStringArray();
@@ -108,44 +106,45 @@ public class Inventory extends ArrayList<UserItem> {
 
     @Override
     public boolean add(UserItem userItem) {
-        if(this.contains(userItem)){
+        if (this.contains(userItem)) {
             int indexOfItem = this.indexOf(userItem);
             this.get(indexOfItem).addOne();
             return true;
-        }else{
+        } else {
             return super.add(userItem);
         }
     }
 
-    public boolean removeOne(Item item){
+    public boolean removeOne(Item item) {
         UserItem userItem = new UserItem(item, userID, OffsetDateTime.now());
-        if(!contains(userItem)){
+        if (!contains(userItem)) {
             return false;
-        }else{
+        } else {
             userItem = get(indexOf(userItem));
             int finalCount = userItem.removeOne();
-            if(finalCount>0)
+            if (finalCount > 0) {
                 return true;
-            else
+            } else {
                 return remove(userItem);
+            }
         }
     }
 
-    public boolean add(Item item){
+    public boolean add(Item item) {
         UserItem userItem = new UserItem(item, userID, OffsetDateTime.now());
         return add(userItem);
     }
 
     public boolean removeUserItem(UserItem userItem) {
-        if(this.contains(userItem)){
+        if (this.contains(userItem)) {
             int index = this.indexOf(userItem);
             int finalQ = this.get(index).removeOne();
-            if(finalQ <= 0){
+            if (finalQ <= 0) {
                 return this.remove(userItem);
-            }else{
+            } else {
                 return true;
             }
-        }else return false;
+        } else return false;
     }
 
 

@@ -8,6 +8,7 @@
 	- created the 'Answerable' interface and the 'AnswerManager' for two-part commands
 	- created the FusionHandler for the command '>fuse'
 	- added 'getStat(int)' to StatCard to get a stat determined from a number (0 = str, 1 = acc, 2 = vit, 3 = mag)
+	- rewrote the '>equip' command's handle method because it was shit
 
 - **Major**
 	- added 'stat cards' for the character to equip and have its statistics
@@ -16,6 +17,7 @@
 
 - **Fixed**
 	- character no longer keeps its equipment after being deleted
+	- fixed duplication on inventories with only 1 item which caused equipment duplication
 
 ### v0.3
 

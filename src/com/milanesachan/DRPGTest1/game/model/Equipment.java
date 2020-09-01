@@ -41,7 +41,7 @@ public class Equipment implements Embeddable{
         this.statCard = statCard;
     }
 
-    public void loadFromDatabase() throws SQLException, EquipmentNotFoundException {
+    public Equipment loadFromDatabase() throws SQLException, EquipmentNotFoundException {
         Connection con = DatabaseConnector.getInstance().getDatabaseConnection();
         if(con != null){
             Statement stmt = con.createStatement();
@@ -64,6 +64,7 @@ public class Equipment implements Embeddable{
             }
             con.close();
         }
+        return this;
     }
 
     public void saveToDatabase() throws SQLException {
