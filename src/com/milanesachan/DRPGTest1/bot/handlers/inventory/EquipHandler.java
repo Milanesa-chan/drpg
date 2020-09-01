@@ -24,73 +24,43 @@ public class EquipHandler implements Handler {
         this.itemID = itemID;
     }
 
-    //Deberian los items transferirse con el equipamiento? TODO
     @Override
     public void handle() {
-        Equipment equipment = new Equipment(userID);
         try {
-            equipment.loadFromDatabase();
-            Inventory inv = new Inventory(userID);
-            inv.loadFromDatabase();
+            if (!itemID.startsWith("weapon:") && !itemID.startsWith("statcard:")) {
+                channel.sendMessage("That item is not equippable!").queue();
+            } else {
+                Item equippedItem = ItemFactory.getInstance().getItemFromID(itemID);
+                Inventory userInv = new Inventory(userID).loadFromDatabase();
 
-            Item unequipedItem = null;
-            if(itemID.startsWith("weapon:")){
-                unequipedItem = equipment.getWeapon();
-            }else if(itemID.startsWith("statcard:")){
-                unequipedItem = equipment.getStatCard();
-            }
-            if(unequipedItem != null) {
-                UserItem unequiped = new UserItem(unequipedItem, userID, OffsetDateTime.now());
-                inv.add(unequiped);
-                inv.saveToDatabase();
-            }
-
-            try {
-                Equipable equippedItem = (Equipable) ItemFactory.getInstance().getItemFromID(itemID);
-                UserItem equipped = new UserItem((Item) equippedItem, userID, OffsetDateTime.now());
-                System.out.println(equipped.getItem().getItemID());
-                System.out.println(inv.contains(equipped));
-                if(inv.removeUserItem(equipped)) {
-                    if(((Item) equippedItem).getItemID().startsWith("statcard:")){
-                        equipment.setStatCard((StatCard) equippedItem);
-                    }else if(((Item) equippedItem).getItemID().startsWith("weapon:")) {
-                        equipment.setWeapon((Weapon) equippedItem);
-                    }
-                    equipment.saveToDatabase();
-                    inv.saveToDatabase();
-                    channel.sendMessage("Item equipped!").queue();
+                if(!userInv.contains(new UserItem(equippedItem, userID, OffsetDateTime.now()))){
+                    channel.sendMessage("You don't have the item in your inventory!").queue();
                 }else{
-                    channel.sendMessage("**Error:** You do not have the specified item in your inventory.").queue();
-                }
-            }catch(ClassCastException ex){
-                channel.sendMessage("ItemID: '"+itemID+"' is not equipable!").queue();
-            }
-        } catch (SQLException | ItemNotFoundException throwables) {
-            //throwables.printStackTrace();
-        } catch (EquipmentNotFoundException e) {
-            try{
-                Weapon weapon = (Weapon) ItemFactory.getInstance().getItemFromID(itemID);
+                    Equipment userEquip = new Equipment(userID);
+                    try {
+                        userEquip = new Equipment(userID).loadFromDatabase();
+                        Item unequippedItem = itemID.startsWith("weapon:") ? userEquip.getWeapon() : userEquip.getStatCard();
+                        if(unequippedItem != null)
+                            userInv.add(unequippedItem);
+                    } catch (EquipmentNotFoundException ignored) {}
 
-                UserItem weaponInInventory = new UserItem(weapon, userID, OffsetDateTime.now());
-                Inventory inv = new Inventory(userID);
-                inv.loadFromDatabase();
+                    if(itemID.startsWith("weapon:"))
+                        userEquip.setWeapon((Weapon) equippedItem);
+                    else
+                        userEquip.setStatCard((StatCard) equippedItem);
 
-                if(inv.removeUserItem(weaponInInventory)) {
-                    equipment.setWeapon(weapon);
-                    equipment.saveToDatabase();
+                    userInv.removeOne(equippedItem);
+
+                    userInv.saveToDatabase();
+                    userEquip.saveToDatabase();
+
                     channel.sendMessage("Item equipped!").queue();
-                    inv.saveToDatabase();
-                }else{
-                    channel.sendMessage("**Error:** You do not have the specified item in your inventory.").queue();
                 }
-            } catch (ItemNotFoundException itemNotFoundException) {
-                channel.sendMessage("'"+itemID+"' is not a valid itemID!").queue();
-            }catch(ClassCastException ex){
-                channel.sendMessage("ItemID: '"+itemID+"' is not a weapon!").queue();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                channel.sendMessage("Failed to connect to database. Try again later.").queue();
             }
+        }catch(SQLException e){
+            channel.sendMessage("Error connecting to the database. Try again later.").queue();
+        } catch (ItemNotFoundException e) {
+            channel.sendMessage("Unrecognized itemID: '"+e.getMessage()+"'.").queue();
         }
     }
 }
