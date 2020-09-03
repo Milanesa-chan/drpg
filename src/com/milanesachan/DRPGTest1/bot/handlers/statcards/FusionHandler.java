@@ -5,7 +5,6 @@ import com.milanesachan.DRPGTest1.bot.entities.PagedEmbed;
 import com.milanesachan.DRPGTest1.bot.handlers.Answerable;
 import com.milanesachan.DRPGTest1.bot.handlers.Confirmable;
 import com.milanesachan.DRPGTest1.bot.handlers.Handler;
-import com.milanesachan.DRPGTest1.bot.handlers.HandlerFilter;
 import com.milanesachan.DRPGTest1.commons.exceptions.FusionFailedException;
 import com.milanesachan.DRPGTest1.commons.exceptions.ItemNotFoundException;
 import com.milanesachan.DRPGTest1.commons.parameters.StatCardsParameters;
@@ -16,7 +15,6 @@ import com.milanesachan.DRPGTest1.game.model.items.StatCard;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.*;
 

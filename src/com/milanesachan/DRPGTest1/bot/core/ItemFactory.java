@@ -54,4 +54,8 @@ public class ItemFactory {
             return items.get(itemID);
         }
     }
+
+    public StatCard getStatCard(char color, int str, int acc, int vit, int mag) throws ItemNotFoundException {
+        return new StatCard("statcard:"+color+":"+str+":"+acc+":"+vit+":"+mag);
+    }
 }
