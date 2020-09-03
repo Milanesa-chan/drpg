@@ -94,10 +94,11 @@ public class Inventory extends ArrayList<UserItem> {
 
         ArrayList<String> data = new ArrayList<>();
         for (UserItem ui : this) {
-            String itemName = ui.getItem().getItemName();
+            String itemName = ui.getItem().toString();
             int quantity = ui.getQuantity();
             String itemID = ui.getItem().getItemID();
-            data.add(itemName + " (x" + quantity + ") _ID:" + itemID + "_");
+            //data.add(itemName + " (x" + quantity + ") _ID:" + itemID + "_");
+            data.add(itemName + " (x" + quantity + ")");
         }
         builder.setData(data);
         return builder.fromStringArray();

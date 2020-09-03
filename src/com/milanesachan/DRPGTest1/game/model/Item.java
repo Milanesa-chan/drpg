@@ -54,4 +54,9 @@ public abstract class Item implements Embeddable{
     public void setItemDesc(String itemDesc) {
         this.itemDesc = itemDesc;
     }
+
+    @Override
+    public String toString() {
+        return getItemName();
+    }
 }
