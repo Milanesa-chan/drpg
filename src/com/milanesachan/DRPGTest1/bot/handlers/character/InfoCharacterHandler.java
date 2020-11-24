@@ -33,7 +33,7 @@ public class InfoCharacterHandler implements Handler {
         } catch (SQLException e) {
             channel.sendMessage("**Error:** Failed to connect to database. Try again later.").queue();
         } catch (CharacterNotFoundException e) {
-            channel.sendMessage("**Error:** No character found for you account").queue();
+            channel.sendMessage("**Error:** No character found for your account").queue();
         }
     }
 }
