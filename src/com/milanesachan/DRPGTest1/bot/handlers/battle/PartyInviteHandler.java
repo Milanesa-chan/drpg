@@ -19,7 +19,7 @@ public class PartyInviteHandler implements Handler, Confirmable {
     private long userID;
     private long inviterID;
 
-    public PartyInviteHandler(MessageChannel channel, long guildID, long userID) {
+    public PartyInviteHandler(MessageChannel channel, long guildID, long inviterID ,long userID) {
         this.channel = channel;
         this.guildID = guildID;
         this.userID = userID;
