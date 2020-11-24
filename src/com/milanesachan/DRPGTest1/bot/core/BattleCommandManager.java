@@ -51,8 +51,8 @@ public class BattleCommandManager extends ListenerAdapter {
                 event.getChannel().sendMessage("Problem in command. Correct format is: '>invite <@User>'.").queue();
             }else{
                 long invitedUserID = event.getMessage().getMentionedMembers().get(0).getIdLong();
-
-                PartyInviteHandler h = new PartyInviteHandler(event.getChannel(), event.getGuild().getIdLong(), invitedUserID);
+                long inviterID = event.getMember().getIdLong();
+                PartyInviteHandler h = new PartyInviteHandler(event.getChannel(), event.getGuild().getIdLong(), inviterID ,invitedUserID);
 
                 HandlerFilter filter = new HandlerFilter();
                 filter.setBattleChannelRequired(true);

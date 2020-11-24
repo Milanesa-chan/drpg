@@ -17,11 +17,13 @@ public class PartyInviteHandler implements Handler, Confirmable {
     private MessageChannel channel;
     private long guildID;
     private long userID;
+    private long inviterID;
 
     public PartyInviteHandler(MessageChannel channel, long guildID, long userID) {
         this.channel = channel;
         this.guildID = guildID;
         this.userID = userID;
+        this.inviterID = inviterID;
     }
 
     @Override
@@ -33,6 +35,8 @@ public class PartyInviteHandler implements Handler, Confirmable {
             GuildParty p = bcm.getParty(guildID);
             if(p.isCharInParty(userID)){
                 channel.sendMessage("User is already in party!").queue();
+            else if (p.isCharInParty(inviterID))
+                channel.sendMessage("You can't use this command! You're not in party").queue();
             }else{
                 channel.sendMessage("<@"+userID+"> you were invited to the battle party. Do you accept? (y/n)").queue();
                 CommandManager.getInstance().addToConfirmationList(userID, this);
