@@ -116,7 +116,7 @@ public class CommandManager extends ListenerAdapter {
             new CharacterDeletionHandler(event.getChannel(), event.getMember().getId()).handle();
         } else if (matchCommand(args[0], "infochar")) {
             String userInfo = event.getMember().getId();//self
-            if (!event.getMessage().getMentionedMembers().isEmpty()) {//different player?
+            if (!event.getMessage().getMentionedMembers().isEmpty()) {//different player
                 User mentioned = event.getMessage().getMentionedMembers().get(0).getUser();
                 userInfo = mentioned.getId();
             } 
