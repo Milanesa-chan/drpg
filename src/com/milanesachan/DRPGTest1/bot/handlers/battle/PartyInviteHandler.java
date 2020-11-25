@@ -35,7 +35,7 @@ public class PartyInviteHandler implements Handler, Confirmable {
             GuildParty p = bcm.getParty(guildID);
             if(p.isCharInParty(userID)){
                 channel.sendMessage("User is already in party!").queue();
-            else if (p.isCharInParty(inviterID))
+            else if (!p.isCharInParty(inviterID))
                 channel.sendMessage("You can't use this command! You're not in party").queue();
             }else{
                 channel.sendMessage("<@"+userID+"> you were invited to the battle party. Do you accept? (y/n)").queue();
