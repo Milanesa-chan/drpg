@@ -122,7 +122,12 @@ public class CommandManager extends ListenerAdapter {
         } else if (matchCommand(args[0], "deletechar")) {
             new CharacterDeletionHandler(event.getChannel(), event.getMember().getId()).handle();
         } else if (matchCommand(args[0], "infochar")) {
-            new InfoCharacterHandler(event.getChannel(), event.getMember().getId(), event.getGuild().getIdLong()).handle();
+            String userInfo = event.getMember().getId();//self
+            if (!event.getMessage().getMentionedMembers().isEmpty()) {//different player
+                User mentioned = event.getMessage().getMentionedMembers().get(0).getUser();
+                userInfo = mentioned.getId();
+            } 
+            new InfoCharacterHandler(event.getChannel(), userInfo, event.getGuild().getIdLong()).handle();
         } else if (matchCommand(args[0], "infoguild")) {
             new InfoGuildHandler(event.getChannel(), event.getGuild().getIdLong()).handle();
         } else if (matchCommand(args[0], "infoitem")) {
