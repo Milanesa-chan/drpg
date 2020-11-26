@@ -90,12 +90,16 @@ public class CommandManager extends ListenerAdapter {
                 onMasterCommand(h, event);
             }
         }else if(matchCommand(args[0], "equip")){
-            if(args.length < 2) {
+            if(args.length < 2) { //self
                 ShowEquipmentHandler h = new ShowEquipmentHandler(event.getChannel(), userID);
                 onCharacterRequiredCommand(h, event, userID);
-            }else{
+            }else if (event.getMessage().getMentionedMembers().isEmpty()){ //equip item
                 EquipHandler h = new EquipHandler(event.getChannel(), userID, args[1]);
                 onCharacterRequiredCommand(h, event, userID);
+            } else { //different player
+                User mentioned = event.getMessage().getMentionedMembers().get(0).getUser();
+                ShowEquipmentHandler h = new ShowEquipmentHandler(event.getChannel(), mentioned.getIdLong());
+                onCharacterRequiredCommand(h, event, mentioned.getIdLong());
             }
         }else if(matchCommand(args[0], "unequip")){
             UnequipHandler h = new UnequipHandler(event.getChannel(), userID);
