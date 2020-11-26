@@ -9,6 +9,7 @@
 	- created the FusionHandler for the command '>fuse'
 	- added 'getStat(int)' to StatCard to get a stat determined from a number (0 = str, 1 = acc, 2 = vit, 3 = mag)
 	- rewrote the '>equip' command's handle method because it was shit
+	- created a "draft" of the quests system as a .json in the res directory
 
 - **Major**
 	- added 'stat cards' for the character to equip and have its statistics

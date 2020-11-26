@@ -28,7 +28,8 @@ public class DRPGBot {
 
     private void InitializeJDA(){
         try {
-            jda = new JDABuilder("NzIyNzUwNTIwODU0MzE1MDU4.Xunolg.-0_ZIxG94Jp_ez7SJFV-mzFIQG4").build();
+            //jda = new JDABuilder("NzIyNzUwNTIwODU0MzE1MDU4.Xunolg.-0_ZIxG94Jp_ez7SJFV-mzFIQG4").build();
+            jda = JDABuilder.createDefault("NzIyNzUwNTIwODU0MzE1MDU4.Xunolg.-0_ZIxG94Jp_ez7SJFV-mzFIQG4").build();
             jda.getPresence().setActivity(Activity.of(Activity.ActivityType.DEFAULT, " \">help\" "));
             jda.addEventListener(CommandManager.getInstance());
             jda.addEventListener(PageManager.getInstance());
