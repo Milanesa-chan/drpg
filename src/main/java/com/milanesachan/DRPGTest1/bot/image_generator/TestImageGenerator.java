@@ -1,7 +1,7 @@
 package com.milanesachan.DRPGTest1.bot.image_generator;
 
 import com.milanesachan.DRPGTest1.bot.core.DRPGBot;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+import com.sun.xml.messaging.saaj.util.ByteOutputStream;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
